@@ -39,26 +39,26 @@ void Update()
     raylib::ClearBackground(raylib::BLACK);
     raylib::DrawText((std::string{"FPS: "} + std::to_string(raylib::GetFPS())).c_str(), 10, 10, 20, raylib::DARKGRAY);
     auto translate = raylib::Vector2{150, 200};
-    auto x = 0.f;
-    auto y = 0.f;
-    for (auto i = 0; i < 2; ++i)
+    auto position = raylib::Vector2{0, 0};
+    for (auto i = 0; i < 3; ++i)
     {
         const auto n = i * 2 + 1;
-        const auto prev_x = x;
-        const auto prev_y = y;
+        const auto previous = position;
         const auto radius = 75 * (4 / (n * math::pi_v<float>));
-        x += radius * math::cos(n * t);
-        y += radius * math::sin(n * t);
-        raylib::DrawCircleLinesV({translate.x + prev_x, translate.y + prev_y}, radius, raylib::Color{255, 255, 255, 100});
-        raylib::DrawLineV({translate.x + prev_x, translate.y + prev_y}, {translate.x + x, translate.y + y}, raylib::RAYWHITE);
+        position += {
+            radius * math::cos(n * t),
+            radius * math::sin(n * t)
+        };
+        raylib::DrawCircleLinesV(translate + previous, radius, raylib::Color{255, 255, 255, 100});
+        raylib::DrawLineV(translate + previous, translate + position, raylib::RAYWHITE);
     }
 
-    wave.push_front(y);
-    translate = { translate.x + 200, translate.y + 0 };
-    raylib::DrawLineV({translate.x + x - 200, translate.y + y}, {translate.x + 0, translate.y + wave[0]}, raylib::RAYWHITE);
+    wave.push_front(position.y);
+    translate += { 200, 0 };
+    raylib::DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front()}, raylib::RAYWHITE);
     std::vector<raylib::Vector2> points;
     for (auto i = 0; i < wave.size(); ++i)
-        points.push_back({translate.x + i, translate.y + wave[i]});
+        points.emplace_back(translate.x + i, translate.y + wave.at(i));
 
     raylib::DrawLineStrip(points, raylib::WHITE);
     t += 0.03f;
