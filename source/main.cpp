@@ -13,9 +13,9 @@ void Setup();
 void Update();
 
 auto t = 0.f;
-auto speed = 0.f;
+auto speed = 0.02f;
 auto wave = boost::circular_buffer<float>{1000};
-int N{};
+auto N = 7;
 
 int main()
 {
@@ -52,8 +52,8 @@ void Update()
     ImGui::Begin("Main Content", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
     ImGui::Text("FPS: %d", raylib::GetFPS());
 
-    ImGui::DragInt("N", &N, 0, 100);
-    ImGui::DragFloat("f", &speed, 0, 0.5);
+    ImGui::SliderInt("N", &N, 0, 100);
+    ImGui::SliderFloat("f", &speed, 0, 0.15);
     ImGui::End();
 
     // ImGui::ShowDemoWindow();
