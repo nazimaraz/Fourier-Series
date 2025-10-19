@@ -119,7 +119,10 @@ std::pair<int, float> GetFormula(const int i)
 
         case TRIANGLE_WAVE:
         {
-            break;
+            const auto n = i * 2 + 1;
+            const auto coeff = 8.f / (math::square(n) * math::square(math::pi_v<float>));
+            const auto radius = math::pow(-1, (n - 1) / 2) * constant_radius * (coeff / (8.f / math::square(math::pi_v<float>)));
+            return { n, radius };
         }
 
         case SEMICIRCLE:
