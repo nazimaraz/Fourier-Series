@@ -56,7 +56,7 @@ void Update()
     ImGui::DragFloat("f", &speed, 0, 0.5);
     ImGui::End();
 
-    ImGui::ShowDemoWindow();
+    // ImGui::ShowDemoWindow();
     raylib::rlImGuiEnd();
 
     auto translate = raylib::Vector2{600, 450};
