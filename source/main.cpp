@@ -6,7 +6,7 @@
 #include <raylib.h>
 #include <imgui.h>
 #include <rlImGui.h>
-#include "Function.h"
+#include "function.h"
 #include "math/math.h"
 
 void Setup();
