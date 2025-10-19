@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(Fouerier-Series)
+project(Fourier-Series)
 
 set(CMAKE_CXX_STANDARD 23)
 
