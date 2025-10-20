@@ -57,10 +57,12 @@ void Update()
     if (ImGui::Button("Clear"))
         wave.clear();
 
-    static auto const function_names = std::vector{"Square Wave", "Sawtooth Wave", "Triangle Wave", "Semicircle"};
-    auto temp_current_function = std::to_underlying(current_function);
-    ImGui::Combo("Function", &temp_current_function, function_names.data(), function_names.size());
-    current_function = static_cast<Function>(temp_current_function);
+    {
+        static constexpr auto function_names = std::array{"Square Wave", "Sawtooth Wave", "Triangle Wave", "Semicircle"};
+        auto temp_current_function = std::to_underlying(current_function);
+        ImGui::Combo("Function", &temp_current_function, function_names.data(), function_names.size());
+        current_function = static_cast<Function>(temp_current_function);
+    }
     ImGui::SliderInt("N", &N, 0, 100);
     ImGui::SliderFloat("f", &speed, 0, 0.15);
     ImGui::SliderFloat("Radius", &constant_radius, 0.1f, 200.f);
@@ -87,6 +89,7 @@ void Update()
     translate += { 200, 0 };
     raylib::DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front()}, raylib::RAYWHITE);
     std::vector<raylib::Vector2> points;
+    points.reserve(wave.size());
     for (auto i = 0; i < wave.size(); ++i)
         points.emplace_back(translate.x + i, translate.y + wave.at(i));
 
