@@ -11,6 +11,7 @@
 #include "waves/square.hpp"
 #include "waves/triangle.hpp"
 #include "waves/function.h"
+#include "waves/rectified_sine.hpp"
 
 void GUI::initialize()
 {
@@ -30,7 +31,8 @@ void GUI::initialize()
         Waves::Sawtooth,
         Waves::Square,
         Waves::Triangle,
-        Waves::Semicircle
+        Waves::Semicircle,
+        Waves::RectifiedSine
     >();
 }
 
