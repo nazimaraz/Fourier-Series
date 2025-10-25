@@ -4,16 +4,15 @@
 
 #pragma once
 
-#include <boost/circular_buffer.hpp>
 #include <boost/bimap.hpp>
-#include <raylib.h>
+#include <boost/circular_buffer.hpp>
+#include <raylib/color.h>
 #include <unordered_map>
-#include "waves/function.h"
-#include "waves/wave.hpp"
 
 namespace Waves
 {
     class Wave;
+    enum class Type : std::uint8_t;
 }
 
 namespace UI

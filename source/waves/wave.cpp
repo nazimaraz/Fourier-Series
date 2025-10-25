@@ -7,6 +7,7 @@
 #include "raylib.h"
 #include "vector2.hpp"
 #include "math/math.h"
+#include "gui/settings.hpp"
 
 using namespace Waves;
 

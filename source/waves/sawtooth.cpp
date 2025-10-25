@@ -4,6 +4,8 @@
 
 #include "sawtooth.hpp"
 #include "math/math.h"
+#include "gui/settings.hpp"
+#include "function.h"
 
 using namespace Waves;
 

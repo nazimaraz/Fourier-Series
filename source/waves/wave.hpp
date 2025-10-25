@@ -4,10 +4,8 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
-
-#include "function.h"
-#include "gui/settings.hpp"
 
 namespace UI
 {
@@ -16,6 +14,8 @@ namespace UI
 
 namespace Waves
 {
+    enum class Type : std::uint8_t;
+
     class Wave {
     public:
         Wave(std::string name, Type type);

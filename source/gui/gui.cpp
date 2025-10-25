@@ -5,11 +5,12 @@
 #include <imgui.h>
 #include <rlImGui.h>
 #include "gui.hpp"
-#include "settings.hpp"
+#include "gui/settings.hpp"
 #include "waves/sawtooth.hpp"
 #include "waves/semicircle.hpp"
 #include "waves/square.hpp"
 #include "waves/triangle.hpp"
+#include "waves/function.h"
 
 void GUI::initialize()
 {

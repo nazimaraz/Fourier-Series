@@ -3,6 +3,7 @@
 //
 
 #include "settings.hpp"
+#include "waves/wave.hpp"
 
 using namespace UI;
 

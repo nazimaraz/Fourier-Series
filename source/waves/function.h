@@ -6,7 +6,7 @@
 
 namespace Waves
 {
-    enum class Type
+    enum class Type : std::uint8_t
     {
         Sawtooth,
         Triangle,

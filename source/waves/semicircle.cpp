@@ -5,6 +5,8 @@
 #include <boost/math/special_functions/bessel.hpp>
 #include "semicircle.hpp"
 #include "math/math.h"
+#include "gui/settings.hpp"
+#include "function.h"
 
 using namespace Waves;
 
