@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.25)
 project(Fourier-Series)
 
 set(CMAKE_CXX_STANDARD 23)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+include(AutoCollect)
+include(CompileOptions)
 
 if (EMSCRIPTEN)
     set(PLATFORM "Web" CACHE STRING "" FORCE)

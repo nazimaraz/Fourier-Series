@@ -1,0 +1,124 @@
+//
+// Created by Nazım Can on 25.10.2025.
+//
+
+#include <boost/math/special_functions/bessel.hpp>
+#include "../waves/function.h"
+#include <raylib.h>
+#include <imgui.h>
+#include <rlImGui.h>
+#include "gui.hpp"
+
+#include <print>
+
+#include "settings.hpp"
+#include "math/math.h"
+#include "waves/sawtooth.hpp"
+#include "waves/semicircle.hpp"
+#include "waves/square.hpp"
+#include "waves/triangle.hpp"
+
+void GUI::initialize()
+{
+    constexpr auto screen_width = 1600;
+    constexpr auto screen_height = 900;
+    raylib::InitWindow(screen_width, screen_height, "Fourier Series");
+    raylib::SetTargetFPS(120);
+    raylib::rlImGuiSetup(true);
+    settings_ = std::make_shared<UI::Settings>();
+    settings_->set_background_color(raylib::BLACK);
+    settings_->set_wave_capacity(1000);
+    settings_->add_wave(std::make_shared<Waves::Sawtooth>());
+    settings_->add_wave(std::make_shared<Waves::Square>());
+    settings_->add_wave(std::make_shared<Waves::Triangle>());
+    settings_->add_wave(std::make_shared<Waves::Semicircle>());
+}
+
+void GUI::update()
+{
+    if (raylib::WindowShouldClose())
+    {
+        stop();
+        return;
+    }
+
+    raylib::BeginDrawing();
+    update_impl();
+    raylib::EndDrawing();
+}
+
+void GUI::stop()
+{
+    raylib::CloseWindow();
+    is_stopped_ = true;
+}
+
+bool GUI::is_stopped() const
+{
+    return is_stopped_;
+}
+
+void GUI::update_impl() const
+{
+    ClearBackground(settings_->get_background_color());
+    raylib::rlImGuiBegin();
+    ImGui::SetNextWindowSizeConstraints(
+    { 200.f, static_cast<float>(raylib::GetScreenHeight()) },
+    { static_cast<float>(raylib::GetScreenWidth()), static_cast<float>(raylib::GetScreenHeight()) }
+    );
+    ImGui::SetNextWindowPos({0.f, 0.f});
+    ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+    update_settings();
+    ImGui::End();
+    raylib::rlImGuiEnd();
+    settings_->get_selected_wave()->update();
+    if (!settings_->get_is_paused())
+        settings_->set_time(settings_->get_time() + settings_->get_frequency());
+}
+
+void GUI::update_settings() const
+{
+    settings_->set_fps(raylib::GetFPS());
+    ImGui::Text("FPS: %d", settings_->get_fps());
+    if (ImGui::Button("Clear"))
+        settings_->get_wave().clear();
+
+    ImGui::SameLine();
+    if (settings_->get_is_paused())
+    {
+        if (ImGui::Button("Continue"))
+            settings_->set_is_paused(false);
+    }
+    else
+    {
+        if (ImGui::Button("Pause"))
+            settings_->set_is_paused(true);
+    }
+
+    {
+        const auto& wave_names = settings_->get_wave_names();
+        const auto& target = settings_->get_selected_wave()->get_name();
+        auto selected_wave_index = static_cast<int>(std::ranges::distance(wave_names.begin(), std::ranges::find(wave_names, target)));
+        ImGui::Text("Wave Type:");
+        ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::Combo("##WaveType", &selected_wave_index, wave_names.data(), static_cast<int>(wave_names.size()));
+        ImGui::PopItemWidth();
+        settings_->set_selected_wave(wave_names.at(selected_wave_index));
+    }
+    static constexpr auto number_of_harmonic_min = 0u;
+    static constexpr auto number_of_harmonic_max = 100u;
+    ImGui::Text("Number of Harmonic:");
+    ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+    ImGui::SliderScalar("##NumberOfHarmonic", ImGuiDataType_U32, &settings_->get_number_of_harmonic(), &number_of_harmonic_min, &number_of_harmonic_max);
+    ImGui::PopItemWidth();
+
+    ImGui::Text("Frequency:");
+    ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+    ImGui::SliderFloat("##Frequency", &settings_->get_frequency(), 0, 0.15);
+    ImGui::PopItemWidth();
+
+    ImGui::Text("Radius:");
+    ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+    ImGui::SliderFloat("##Radius", &settings_->get_radius(), 0.1f, 200.f);
+    ImGui::PopItemWidth();
+}
