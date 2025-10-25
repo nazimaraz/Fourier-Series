@@ -105,14 +105,29 @@ const std::shared_ptr<Waves::Wave>& Settings::get_selected_wave() const
     return waves_.at(selected_wave_type_);
 }
 
+void Settings::set_number_of_harmonic(const unsigned int number)
+{
+    number_of_harmonic_ = number;
+}
+
 unsigned int& Settings::get_number_of_harmonic()
 {
     return number_of_harmonic_;
 }
 
+void Settings::set_frequency(const float frequency)
+{
+    frequency_ = frequency;
+}
+
 float& Settings::get_frequency()
 {
     return frequency_;
+}
+
+void Settings::set_radius(const float radius)
+{
+    radius_ = radius;
 }
 
 float& Settings::get_radius()

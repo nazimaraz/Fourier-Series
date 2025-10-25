@@ -28,6 +28,8 @@ namespace UI
         boost::circular_buffer<float>& get_wave();
         void set_is_paused(bool is_paused);
         [[nodiscard]] bool get_is_paused() const;
+        template <typename ...Ts>
+        void add_waves();
         void add_wave(const std::shared_ptr<Waves::Wave>& wave);
         const std::shared_ptr<Waves::Wave>& get_wave(const std::string& name);
         const std::shared_ptr<Waves::Wave>& get_wave(Waves::Type type);
@@ -39,8 +41,11 @@ namespace UI
         void set_selected_wave(const std::string& name);
         [[nodiscard]] Waves::Type get_selected_wave_type() const;
         [[nodiscard]] const std::shared_ptr<Waves::Wave>& get_selected_wave() const;
+        void set_number_of_harmonic(unsigned int number);
         [[nodiscard]] unsigned int& get_number_of_harmonic();
+        void set_frequency(float frequency);
         [[nodiscard]] float& get_frequency();
+        void set_radius(float radius);
         [[nodiscard]] float& get_radius();
         void set_time(float time);
         float get_time() const;
@@ -62,3 +67,5 @@ namespace UI
     };
 
 }
+
+#include "settings.tpp"

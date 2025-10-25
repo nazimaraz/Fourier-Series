@@ -21,7 +21,6 @@ public:
 private:
     void update_impl() const;
     void update_settings() const;
-    std::pair<float, float> GetFormula(float i) const;
 
     bool is_stopped_{};
     std::shared_ptr<UI::Settings> settings_;

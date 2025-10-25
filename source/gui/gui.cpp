@@ -2,17 +2,10 @@
 // Created by Nazım Can on 25.10.2025.
 //
 
-#include <boost/math/special_functions/bessel.hpp>
-#include "../waves/function.h"
-#include <raylib.h>
 #include <imgui.h>
 #include <rlImGui.h>
 #include "gui.hpp"
-
-#include <print>
-
 #include "settings.hpp"
-#include "math/math.h"
 #include "waves/sawtooth.hpp"
 #include "waves/semicircle.hpp"
 #include "waves/square.hpp"
@@ -28,10 +21,16 @@ void GUI::initialize()
     settings_ = std::make_shared<UI::Settings>();
     settings_->set_background_color(raylib::BLACK);
     settings_->set_wave_capacity(1000);
-    settings_->add_wave(std::make_shared<Waves::Sawtooth>());
-    settings_->add_wave(std::make_shared<Waves::Square>());
-    settings_->add_wave(std::make_shared<Waves::Triangle>());
-    settings_->add_wave(std::make_shared<Waves::Semicircle>());
+    settings_->set_number_of_harmonic(10);
+    settings_->set_frequency(0.02f);
+    settings_->set_radius(100.f);
+    settings_->set_selected_wave(Waves::Type::Square);
+    settings_->add_waves<
+        Waves::Sawtooth,
+        Waves::Square,
+        Waves::Triangle,
+        Waves::Semicircle
+    >();
 }
 
 void GUI::update()
