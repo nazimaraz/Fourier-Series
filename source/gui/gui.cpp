@@ -26,6 +26,7 @@ void GUI::initialize()
     settings_->set_number_of_harmonic(10);
     settings_->set_frequency(0.02f);
     settings_->set_radius(100.f);
+    settings_->set_length(5.f);
     settings_->set_selected_wave(Waves::Type::Square);
     settings_->add_waves<
         Waves::Sawtooth,
@@ -75,7 +76,7 @@ void GUI::update_impl() const
     raylib::rlImGuiEnd();
     settings_->get_selected_wave()->update();
     if (!settings_->get_is_paused())
-        settings_->set_time(settings_->get_time() + settings_->get_frequency());
+        settings_->set_time(settings_->get_time() + raylib::GetFrameTime());
 }
 
 void GUI::update_settings() const
@@ -116,11 +117,16 @@ void GUI::update_settings() const
 
     ImGui::Text("Frequency:");
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-    ImGui::SliderFloat("##Frequency", &settings_->get_frequency(), 0, 0.15);
+    ImGui::SliderFloat("##Frequency", &settings_->get_frequency(), 0, 15);
     ImGui::PopItemWidth();
 
     ImGui::Text("Radius:");
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
     ImGui::SliderFloat("##Radius", &settings_->get_radius(), 0.1f, 200.f);
+    ImGui::PopItemWidth();
+
+    ImGui::Text("Length:");
+    ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+    ImGui::SliderFloat("##Length", &settings_->get_length(), 0.1f, 20.f);
     ImGui::PopItemWidth();
 }

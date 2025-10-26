@@ -145,3 +145,13 @@ float Settings::get_time() const
 {
     return time_;
 }
+
+void Settings::set_length(const float length)
+{
+    length_ = length;
+}
+
+float& Settings::get_length()
+{
+    return length_;
+}

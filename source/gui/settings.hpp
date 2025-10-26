@@ -48,6 +48,8 @@ namespace UI
         [[nodiscard]] float& get_radius();
         void set_time(float time);
         float get_time() const;
+        void set_length(float length);
+        float& get_length();
 
     private:
         int fps_{};
@@ -63,6 +65,7 @@ namespace UI
         float frequency_{};
         float radius_{};
         float time_{};
+        float length_{};
     };
 
 }

@@ -24,14 +24,15 @@ void Wave::update() const
     auto position = raylib::Vector2{0, 0};
     for (auto i = 0u; i < settings_->get_number_of_harmonic(); ++i)
     {
-        const auto [n, radius] = get_formula(static_cast<float>(i));
+        const auto [n, formula] = get_formula(static_cast<float>(i));
+        const auto radius = settings_->get_radius() * formula;
         DrawCircleLinesV(translate + position, radius, raylib::Color{255, 255, 255, 100});
         const auto previous_position = position;
         position += {
-            radius * math::cos(n * settings_->get_time()),
-            radius * math::sin(n * settings_->get_time())
+            radius * math::cos(n * math::pi_v<float> * settings_->get_time() / settings_->get_length()),
+            radius * math::sin(n * math::pi_v<float> * settings_->get_time() / settings_->get_length())
         };
-        DrawLineV(translate + previous_position, translate + position, raylib::RAYWHITE);
+        DrawLineV(translate + previous_position, translate + position, raylib::WHITE);
     }
 
     auto& wave = settings_->get_wave();
@@ -39,7 +40,7 @@ void Wave::update() const
         wave.push_front(position.y);
 
     translate += {200, 0};
-    DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front()}, raylib::RAYWHITE);
+    DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front()}, raylib::WHITE);
     std::vector<raylib::Vector2> points;
     points.reserve(wave.size());
     for (auto i = 0; i < wave.size(); ++i)
