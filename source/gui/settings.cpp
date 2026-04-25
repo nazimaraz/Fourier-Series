@@ -146,12 +146,22 @@ float Settings::get_time() const
     return time_;
 }
 
-void Settings::set_length(const float length)
+void Settings::set_x_scale(const float x_scale)
 {
-    length_ = length;
+    x_scale_ = x_scale;
 }
 
-float& Settings::get_length()
+float& Settings::get_x_scale()
 {
-    return length_;
+    return x_scale_;
+}
+
+void Settings::set_y_scale(const float y_scale)
+{
+    y_scale_ = y_scale;
+}
+
+float& Settings::get_y_scale()
+{
+    return y_scale_;
 }

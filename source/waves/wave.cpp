@@ -28,9 +28,10 @@ void Wave::update() const
         const auto radius = settings_->get_radius() * formula;
         DrawCircleLinesV(translate + position, radius, raylib::Color{255, 255, 255, 100});
         const auto previous_position = position;
+        const auto angle = n * 2 * math::pi_v<float> * settings_->get_frequency() * settings_->get_time();
         position += {
-            radius * math::cos(n * math::pi_v<float> * settings_->get_time() / settings_->get_length()),
-            radius * math::sin(n * math::pi_v<float> * settings_->get_time() / settings_->get_length())
+            radius * math::cos(angle),
+            radius * math::sin(angle)
         };
         DrawLineV(translate + previous_position, translate + position, raylib::WHITE);
     }
@@ -39,12 +40,14 @@ void Wave::update() const
     if (!settings_->get_is_paused())
         wave.push_front(position.y);
 
+    const auto x_scale = settings_->get_x_scale();
+    const auto y_scale = settings_->get_y_scale();
     translate += {200, 0};
-    DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front()}, raylib::WHITE);
+    DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front() * y_scale}, raylib::WHITE);
     std::vector<raylib::Vector2> points;
     points.reserve(wave.size());
     for (auto i = 0; i < wave.size(); ++i)
-        points.emplace_back(translate.x + static_cast<float>(i), translate.y + wave.at(i));
+        points.emplace_back(translate.x + static_cast<float>(i) * x_scale, translate.y + wave.at(i) * y_scale);
 
     DrawLineStrip(points, raylib::WHITE);
 }

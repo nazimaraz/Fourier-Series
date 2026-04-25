@@ -24,9 +24,10 @@ void GUI::initialize()
     settings_->set_background_color(raylib::BLACK);
     settings_->set_wave_capacity(1000);
     settings_->set_number_of_harmonic(10);
-    settings_->set_frequency(0.02f);
+    settings_->set_frequency(0.1f);
     settings_->set_radius(100.f);
-    settings_->set_length(5.f);
+    settings_->set_x_scale(1.f);
+    settings_->set_y_scale(1.f);
     settings_->set_selected_wave(Waves::Type::Square);
     settings_->add_waves<
         Waves::Sawtooth,
@@ -117,7 +118,7 @@ void GUI::update_settings() const
 
     ImGui::Text("Frequency:");
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-    ImGui::SliderFloat("##Frequency", &settings_->get_frequency(), 0, 15);
+    ImGui::SliderFloat("##Frequency", &settings_->get_frequency(), 0.f, 2.f);
     ImGui::PopItemWidth();
 
     ImGui::Text("Radius:");
@@ -125,8 +126,13 @@ void GUI::update_settings() const
     ImGui::SliderFloat("##Radius", &settings_->get_radius(), 0.1f, 200.f);
     ImGui::PopItemWidth();
 
-    ImGui::Text("Length:");
+    ImGui::Text("Signal X Scale:");
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-    ImGui::SliderFloat("##Length", &settings_->get_length(), 0.1f, 20.f);
+    ImGui::SliderFloat("##XScale", &settings_->get_x_scale(), 0.1f, 5.f);
+    ImGui::PopItemWidth();
+
+    ImGui::Text("Signal Y Scale:");
+    ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+    ImGui::SliderFloat("##YScale", &settings_->get_y_scale(), 0.1f, 5.f);
     ImGui::PopItemWidth();
 }

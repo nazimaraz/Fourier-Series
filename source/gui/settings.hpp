@@ -48,8 +48,10 @@ namespace UI
         [[nodiscard]] float& get_radius();
         void set_time(float time);
         float get_time() const;
-        void set_length(float length);
-        float& get_length();
+        void set_x_scale(float x_scale);
+        [[nodiscard]] float& get_x_scale();
+        void set_y_scale(float y_scale);
+        [[nodiscard]] float& get_y_scale();
 
     private:
         int fps_{};
@@ -65,7 +67,8 @@ namespace UI
         float frequency_{};
         float radius_{};
         float time_{};
-        float length_{};
+        float x_scale_{};
+        float y_scale_{};
     };
 
 }
