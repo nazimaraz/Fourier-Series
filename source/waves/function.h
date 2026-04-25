@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace Waves
 {
     enum class Type : std::uint8_t

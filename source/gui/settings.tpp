@@ -1,3 +1,5 @@
+#pragma once
+
 namespace UI
 {
     template <typename ...Ts>
