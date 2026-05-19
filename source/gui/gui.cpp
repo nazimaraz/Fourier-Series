@@ -6,12 +6,17 @@
 #include <rlImGui.h>
 #include "gui.hpp"
 #include "gui/settings.hpp"
+#include "renderers/wave_renderer.hpp"
 #include "waves/sawtooth.hpp"
 #include "waves/semicircle.hpp"
 #include "waves/square.hpp"
 #include "waves/triangle.hpp"
 #include "waves/function.h"
 #include "waves/rectified_sine.hpp"
+
+GUI::GUI() = default;
+
+GUI::~GUI() = default;
 
 void GUI::initialize()
 {
@@ -30,6 +35,7 @@ void GUI::initialize()
     settings_->set_y_scale(1.f);
     settings_->set_selected_wave(Waves::Type::Square);
     settings_->add_waves<Waves::Sawtooth, Waves::Square, Waves::Triangle, Waves::Semicircle, Waves::RectifiedSine>();
+    wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(settings_);
 }
 
 void GUI::update()
@@ -67,7 +73,7 @@ void GUI::update_impl() const
     update_settings();
     ImGui::End();
     raylib::rlImGuiEnd();
-    settings_->get_selected_wave()->update();
+    wave_renderer_->draw();
     if (!settings_->get_is_paused())
         settings_->set_time(settings_->get_time() + raylib::GetFrameTime());
 }

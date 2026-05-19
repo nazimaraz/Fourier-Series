@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <string>
+#include "compute_result.hpp"
 
 namespace UI
 {
@@ -20,15 +21,19 @@ namespace Waves
     {
     public:
         Wave(std::string name, Type type);
+        Wave(const Wave&) = delete;
+        Wave(Wave&&) = delete;
+        Wave& operator=(const Wave&) = delete;
+        Wave& operator=(Wave&&) = delete;
         virtual ~Wave();
 
-        void update() const;
+        [[nodiscard]] ComputeResult compute() const;
         [[nodiscard]] virtual std::pair<float, float> get_formula(float i) const = 0;
-        void set_name(const std::string& name);
+        void set_name(std::string name);
         [[nodiscard]] const std::string& get_name() const;
         void set_type(Type type);
         [[nodiscard]] Type get_type() const;
-        void set_settings(const std::shared_ptr<UI::Settings>& settings);
+        void set_settings(std::shared_ptr<UI::Settings> settings);
         [[nodiscard]] const std::shared_ptr<UI::Settings>& get_settings() const;
 
     protected:
