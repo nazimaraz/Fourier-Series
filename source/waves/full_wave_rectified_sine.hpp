@@ -8,10 +8,10 @@
 
 namespace Waves
 {
-    class RectifiedSine final : public Wave
+    class FullWaveRectifiedSine final : public Wave
     {
     public:
-        RectifiedSine();
+        FullWaveRectifiedSine();
         [[nodiscard]] HarmonicTerm get_formula(float i) const override;
         [[nodiscard]] float get_dc() const override;
     };
