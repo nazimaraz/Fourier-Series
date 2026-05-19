@@ -26,7 +26,7 @@ ComputeResult Wave::compute() const
         const auto [n, coefficient, phase] = get_formula(static_cast<float>(i));
         const auto radius = base_radius * coefficient;
         const auto previous_position = position;
-        const auto angle = n * 2.f * math::pi_v<float> * settings_->get_frequency() * settings_->get_time() + phase;
+        const auto angle = n * 2.f * math::pi_v<float> * settings_->get_phase() + phase;
         position += {radius * math::cos(angle), radius * math::sin(angle)};
         result.steps.emplace_back(previous_position, position, math::abs(radius));
     }

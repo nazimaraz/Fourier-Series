@@ -136,14 +136,14 @@ float& Settings::get_radius()
     return radius_;
 }
 
-void Settings::set_time(const float time)
+void Settings::set_phase(const float phase)
 {
-    time_ = time;
+    phase_ = phase;
 }
 
-float Settings::get_time() const
+float Settings::get_phase() const
 {
-    return time_;
+    return phase_;
 }
 
 void Settings::set_x_scale(const float x_scale)
