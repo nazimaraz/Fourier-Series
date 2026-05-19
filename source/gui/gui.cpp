@@ -12,7 +12,8 @@
 #include "waves/square.hpp"
 #include "waves/triangle.hpp"
 #include "waves/function.h"
-#include "waves/rectified_sine.hpp"
+#include "waves/full_wave_rectified_sine.hpp"
+#include "waves/half_wave_rectified_sine.hpp"
 
 GUI::GUI() = default;
 
@@ -34,7 +35,8 @@ void GUI::initialize()
     settings_->set_x_scale(1.f);
     settings_->set_y_scale(1.f);
     settings_->set_selected_wave(Waves::Type::Square);
-    settings_->add_waves<Waves::Sawtooth, Waves::Square, Waves::Triangle, Waves::Semicircle, Waves::RectifiedSine>();
+    settings_->add_waves<Waves::Sawtooth, Waves::Square, Waves::Triangle, Waves::Semicircle, Waves::HalfWaveRectifiedSine,
+        Waves::FullWaveRectifiedSine>();
     wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(settings_);
 }
 

@@ -14,6 +14,7 @@ namespace Waves
         Triangle,
         Semicircle,
         Square,
-        RectifiedSine
+        HalfWaveRectifiedSine,
+        FullWaveRectifiedSine
     };
 } // namespace Waves
