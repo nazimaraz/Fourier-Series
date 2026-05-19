@@ -13,7 +13,7 @@ HalfWaveRectifiedSine::HalfWaveRectifiedSine()
     : Wave{"Half-Wave Rectified Sine", Type::HalfWaveRectifiedSine}
 {}
 
-HarmonicTerm HalfWaveRectifiedSine::get_formula(const float i) const
+HarmonicTerm HalfWaveRectifiedSine::formula(const float i)
 {
     if (i == 0.f)
         return {1.f, 0.5f, 0.f};
@@ -25,7 +25,12 @@ HarmonicTerm HalfWaveRectifiedSine::get_formula(const float i) const
     return {n, coefficient, phase};
 }
 
+HarmonicTerm HalfWaveRectifiedSine::get_formula(const float i) const
+{
+    return formula(i);
+}
+
 float HalfWaveRectifiedSine::get_dc() const
 {
-    return 1.f / math::pi_v<float>;
+    return dc();
 }

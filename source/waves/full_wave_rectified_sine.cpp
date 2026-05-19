@@ -13,7 +13,7 @@ FullWaveRectifiedSine::FullWaveRectifiedSine()
     : Wave{"Full-Wave Rectified Sine", Type::FullWaveRectifiedSine}
 {}
 
-HarmonicTerm FullWaveRectifiedSine::get_formula(const float i) const
+HarmonicTerm FullWaveRectifiedSine::formula(const float i)
 {
     const auto k = i + 1.f;
     const auto n = 2.f * k;
@@ -22,7 +22,12 @@ HarmonicTerm FullWaveRectifiedSine::get_formula(const float i) const
     return {n, coefficient, phase};
 }
 
+HarmonicTerm FullWaveRectifiedSine::get_formula(const float i) const
+{
+    return formula(i);
+}
+
 float FullWaveRectifiedSine::get_dc() const
 {
-    return 2.f / math::pi_v<float>;
+    return dc();
 }

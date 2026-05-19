@@ -14,7 +14,7 @@ Semicircle::Semicircle()
     : Wave{"Semicircle Wave", Type::Semicircle}
 {}
 
-HarmonicTerm Semicircle::get_formula(const float i) const
+HarmonicTerm Semicircle::formula(const float i)
 {
     const auto n = i + 1.f;
     const auto coefficient = math::pow(-1.f, n) * boost::math::cyl_bessel_j(1, n * math::pi_v<float>) / n;
@@ -22,7 +22,12 @@ HarmonicTerm Semicircle::get_formula(const float i) const
     return {n, coefficient, phase};
 }
 
+HarmonicTerm Semicircle::get_formula(const float i) const
+{
+    return formula(i);
+}
+
 float Semicircle::get_dc() const
 {
-    return math::pi_v<float> / 4.f;
+    return dc();
 }
