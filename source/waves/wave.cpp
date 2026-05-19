@@ -19,19 +19,25 @@ ComputeResult Wave::compute() const
 {
     ComputeResult result;
     result.steps.reserve(settings_->get_number_of_harmonic());
-    auto position = raylib::Vector2{0, 0};
+    const auto base_radius = settings_->get_radius();
+    auto position = raylib::Vector2{0.f, base_radius * get_dc()};
     for (auto i = 0u; i < settings_->get_number_of_harmonic(); ++i)
     {
-        const auto [n, formula] = get_formula(static_cast<float>(i));
-        const auto radius = settings_->get_radius() * formula;
+        const auto [n, coefficient, phase] = get_formula(static_cast<float>(i));
+        const auto radius = base_radius * coefficient;
         const auto previous_position = position;
-        const auto angle = n * 2 * math::pi_v<float> * settings_->get_frequency() * settings_->get_time();
+        const auto angle = n * 2.f * math::pi_v<float> * settings_->get_frequency() * settings_->get_time() + phase;
         position += {radius * math::cos(angle), radius * math::sin(angle)};
-        result.steps.emplace_back(previous_position, position, radius);
+        result.steps.emplace_back(previous_position, position, math::abs(radius));
     }
 
     result.tip = position;
     return result;
+}
+
+float Wave::get_dc() const
+{
+    return 0.f;
 }
 
 void Wave::set_name(std::string name)

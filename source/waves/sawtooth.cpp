@@ -13,9 +13,9 @@ Sawtooth::Sawtooth()
     : Wave{"Sawtooth Wave", Type::Sawtooth}
 {}
 
-std::pair<float, float> Sawtooth::get_formula(const float i) const
+HarmonicTerm Sawtooth::get_formula(const float i) const
 {
-    const auto n = i + 1;
-    const auto formula = (1 / math::pi_v<float>) *(1 / n);
-    return {n, formula};
+    const auto n = i + 1.f;
+    const auto coefficient = 2.f / (math::pi_v<float> * n);
+    return {n, coefficient, 0.f};
 }

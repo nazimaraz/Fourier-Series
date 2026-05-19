@@ -12,6 +12,6 @@ namespace Waves
     {
     public:
         Square();
-        [[nodiscard]] std::pair<float, float> get_formula(float i) const override;
+        [[nodiscard]] HarmonicTerm get_formula(float i) const override;
     };
 } // namespace Waves

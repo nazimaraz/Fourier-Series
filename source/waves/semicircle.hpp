@@ -12,6 +12,7 @@ namespace Waves
     {
     public:
         Semicircle();
-        [[nodiscard]] std::pair<float, float> get_formula(float i) const override;
+        [[nodiscard]] HarmonicTerm get_formula(float i) const override;
+        [[nodiscard]] float get_dc() const override;
     };
 } // namespace Waves

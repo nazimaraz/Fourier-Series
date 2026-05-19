@@ -7,6 +7,7 @@
 #include <memory>
 #include <string>
 #include "compute_result.hpp"
+#include "harmonic_term.hpp"
 
 namespace UI
 {
@@ -28,7 +29,8 @@ namespace Waves
         virtual ~Wave();
 
         [[nodiscard]] ComputeResult compute() const;
-        [[nodiscard]] virtual std::pair<float, float> get_formula(float i) const = 0;
+        [[nodiscard]] virtual HarmonicTerm get_formula(float i) const = 0;
+        [[nodiscard]] virtual float get_dc() const;
         void set_name(std::string name);
         [[nodiscard]] const std::string& get_name() const;
         void set_type(Type type);

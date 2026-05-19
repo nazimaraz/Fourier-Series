@@ -14,11 +14,15 @@ Semicircle::Semicircle()
     : Wave{"Semicircle Wave", Type::Semicircle}
 {}
 
-std::pair<float, float> Semicircle::get_formula(float i) const
+HarmonicTerm Semicircle::get_formula(const float i) const
 {
-    const auto n = i * 2 + 1;
-    const auto coeff = math::pi_v<float> * math::pow(-1.f, n) * boost::math::cyl_bessel_j(1, n * math::pi_v<float>) / (4 * n);
-    const auto radius = settings_->get_radius() * (coeff / (math::pi_v<float> / 4));
-    // radius = constant_radius * (4 / (n * math::pi_v<float>));
-    return {n, radius};
+    const auto n = i + 1.f;
+    const auto coefficient = math::pow(-1.f, n) * boost::math::cyl_bessel_j(1, n * math::pi_v<float>) / n;
+    constexpr auto phase = math::pi_v<float> / 2.f;
+    return {n, coefficient, phase};
+}
+
+float Semicircle::get_dc() const
+{
+    return math::pi_v<float> / 4.f;
 }

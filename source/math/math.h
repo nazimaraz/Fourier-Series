@@ -36,4 +36,10 @@ namespace math
     {
         return std::cos(num);
     }
+
+    template <typename T>
+    constexpr T abs(const T num)
+    {
+        return std::abs(num);
+    }
 } // namespace math
