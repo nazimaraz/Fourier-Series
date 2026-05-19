@@ -8,9 +8,10 @@
 
 namespace Waves
 {
-    class Square final : public Wave {
+    class Square final : public Wave
+    {
     public:
         Square();
         [[nodiscard]] std::pair<float, float> get_formula(float i) const override;
     };
-}
+} // namespace Waves

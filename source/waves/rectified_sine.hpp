@@ -8,9 +8,10 @@
 
 namespace Waves
 {
-    class RectifiedSine final : public Wave {
+    class RectifiedSine final : public Wave
+    {
     public:
         RectifiedSine();
         [[nodiscard]] std::pair<float, float> get_formula(float i) const override;
     };
-}
+} // namespace Waves

@@ -16,4 +16,4 @@ namespace Waves
         Square,
         RectifiedSine
     };
-}
+} // namespace Waves

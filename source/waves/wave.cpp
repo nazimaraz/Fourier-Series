@@ -29,10 +29,7 @@ void Wave::update() const
         DrawCircleLinesV(translate + position, radius, raylib::Color{255, 255, 255, 100});
         const auto previous_position = position;
         const auto angle = n * 2 * math::pi_v<float> * settings_->get_frequency() * settings_->get_time();
-        position += {
-            radius * math::cos(angle),
-            radius * math::sin(angle)
-        };
+        position += {radius * math::cos(angle), radius * math::sin(angle)};
         DrawLineV(translate + previous_position, translate + position, raylib::WHITE);
     }
 
@@ -43,7 +40,8 @@ void Wave::update() const
     const auto x_scale = settings_->get_x_scale();
     const auto y_scale = settings_->get_y_scale();
     translate += {200, 0};
-    DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front() * y_scale}, raylib::WHITE);
+    DrawLineV(translate + position - raylib::Vector2{200, 0}, translate + raylib::Vector2{0, wave.front() * y_scale},
+        raylib::WHITE);
     std::vector<raylib::Vector2> points;
     points.reserve(wave.size());
     for (auto i = 0; i < wave.size(); ++i)

@@ -16,6 +16,6 @@ Sawtooth::Sawtooth()
 std::pair<float, float> Sawtooth::get_formula(const float i) const
 {
     const auto n = i + 1;
-    const auto formula = (1 / math::pi_v<float>) * (1 / n);
-    return { n, formula };
+    const auto formula = (1 / math::pi_v<float>) *(1 / n);
+    return {n, formula};
 }

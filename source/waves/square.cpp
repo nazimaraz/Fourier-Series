@@ -17,5 +17,5 @@ std::pair<float, float> Square::get_formula(const float i) const
 {
     const auto n = i * 2 + 1;
     const auto formula = 4 / (math::pi_v<float> * n);
-    return { n, formula };
+    return {n, formula};
 }

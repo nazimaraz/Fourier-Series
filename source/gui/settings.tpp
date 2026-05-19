@@ -2,9 +2,9 @@
 
 namespace UI
 {
-    template <typename ...Ts>
+    template <typename... Ts>
     void Settings::add_waves()
     {
         (add_wave(std::make_shared<Ts>()), ...);
     }
-}
+} // namespace UI

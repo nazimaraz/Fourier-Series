@@ -16,7 +16,8 @@ namespace Waves
 {
     enum class Type : std::uint8_t;
 
-    class Wave {
+    class Wave
+    {
     public:
         Wave(std::string name, Type type);
         virtual ~Wave();
@@ -37,4 +38,4 @@ namespace Waves
         std::string name_;
         Type type_{};
     };
-}
+} // namespace Waves

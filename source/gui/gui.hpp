@@ -11,7 +11,8 @@ namespace UI
     class Settings;
 }
 
-class GUI final {
+class GUI final
+{
 public:
     void initialize();
     void update();

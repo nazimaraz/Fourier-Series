@@ -29,13 +29,7 @@ void GUI::initialize()
     settings_->set_x_scale(1.f);
     settings_->set_y_scale(1.f);
     settings_->set_selected_wave(Waves::Type::Square);
-    settings_->add_waves<
-        Waves::Sawtooth,
-        Waves::Square,
-        Waves::Triangle,
-        Waves::Semicircle,
-        Waves::RectifiedSine
-    >();
+    settings_->add_waves<Waves::Sawtooth, Waves::Square, Waves::Triangle, Waves::Semicircle, Waves::RectifiedSine>();
 }
 
 void GUI::update()
@@ -66,10 +60,8 @@ void GUI::update_impl() const
 {
     ClearBackground(settings_->get_background_color());
     raylib::rlImGuiBegin();
-    ImGui::SetNextWindowSizeConstraints(
-    { 200.f, static_cast<float>(raylib::GetScreenHeight()) },
-    { static_cast<float>(raylib::GetScreenWidth()), static_cast<float>(raylib::GetScreenHeight()) }
-    );
+    ImGui::SetNextWindowSizeConstraints({200.f, static_cast<float>(raylib::GetScreenHeight())},
+        {static_cast<float>(raylib::GetScreenWidth()), static_cast<float>(raylib::GetScreenHeight())});
     ImGui::SetNextWindowPos({0.f, 0.f});
     ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
     update_settings();
@@ -102,7 +94,8 @@ void GUI::update_settings() const
     {
         const auto& wave_names = settings_->get_wave_names();
         const auto& target = settings_->get_selected_wave()->get_name();
-        auto selected_wave_index = static_cast<int>(std::ranges::distance(wave_names.begin(), std::ranges::find(wave_names, target)));
+        auto selected_wave_index =
+            static_cast<int>(std::ranges::distance(wave_names.begin(), std::ranges::find(wave_names, target)));
         ImGui::Text("Wave Type:");
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
         ImGui::Combo("##WaveType", &selected_wave_index, wave_names.data(), static_cast<int>(wave_names.size()));
@@ -113,7 +106,8 @@ void GUI::update_settings() const
     static constexpr auto number_of_harmonic_max = 100u;
     ImGui::Text("Number of Harmonic:");
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-    ImGui::SliderScalar("##NumberOfHarmonic", ImGuiDataType_U32, &settings_->get_number_of_harmonic(), &number_of_harmonic_min, &number_of_harmonic_max);
+    ImGui::SliderScalar("##NumberOfHarmonic", ImGuiDataType_U32, &settings_->get_number_of_harmonic(), &number_of_harmonic_min,
+        &number_of_harmonic_max);
     ImGui::PopItemWidth();
 
     ImGui::Text("Frequency:");

@@ -8,9 +8,10 @@
 
 namespace Waves
 {
-    class Semicircle final : public Wave {
+    class Semicircle final : public Wave
+    {
     public:
         Semicircle();
         [[nodiscard]] std::pair<float, float> get_formula(float i) const override;
     };
-}
+} // namespace Waves

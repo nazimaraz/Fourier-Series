@@ -13,11 +13,12 @@ namespace Waves
 {
     class Wave;
     enum class Type : std::uint8_t;
-}
+} // namespace Waves
 
 namespace UI
 {
-    class Settings : public std::enable_shared_from_this<Settings> {
+    class Settings : public std::enable_shared_from_this<Settings>
+    {
     public:
         void set_fps(int fps);
         [[nodiscard]] int get_fps() const;
@@ -27,7 +28,7 @@ namespace UI
         boost::circular_buffer<float>& get_wave();
         void set_is_paused(bool is_paused);
         [[nodiscard]] bool get_is_paused() const;
-        template <typename ...Ts>
+        template <typename... Ts>
         void add_waves();
         void add_wave(const std::shared_ptr<Waves::Wave>& wave);
         const std::shared_ptr<Waves::Wave>& get_wave(const std::string& name);
@@ -71,6 +72,6 @@ namespace UI
         float y_scale_{};
     };
 
-}
+} // namespace UI
 
 #include "settings.tpp"

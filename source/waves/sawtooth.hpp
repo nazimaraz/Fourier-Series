@@ -8,9 +8,10 @@
 
 namespace Waves
 {
-    class Sawtooth final : public Wave {
+    class Sawtooth final : public Wave
+    {
     public:
         Sawtooth();
         [[nodiscard]] std::pair<float, float> get_formula(float i) const override;
     };
-}
+} // namespace Waves

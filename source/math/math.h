@@ -36,4 +36,4 @@ namespace math
     {
         return std::cos(num);
     }
-}
+} // namespace math
