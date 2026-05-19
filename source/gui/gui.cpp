@@ -110,7 +110,7 @@ void GUI::update_settings() const
         ImGui::PopItemWidth();
         settings_->set_selected_wave(wave_names.at(selected_wave_index));
     }
-    static constexpr auto number_of_harmonic_min = 0u;
+    static constexpr auto number_of_harmonic_min = 1u;
     static constexpr auto number_of_harmonic_max = 100u;
     ImGui::Text("Number of Harmonic:");
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
