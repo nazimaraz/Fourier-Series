@@ -14,31 +14,31 @@ namespace math
     static constexpr auto pi = pi_v<double>;
 
     template <typename T>
-    constexpr T pow(const T number, const T power)
+    [[nodiscard]] constexpr T pow(const T number, const T power)
     {
         return std::pow(number, power);
     }
 
     template <typename T>
-    constexpr T square(const T num)
+    [[nodiscard]] constexpr T square(const T num)
     {
         return pow<T>(num, 2);
     }
 
     template <typename T>
-    constexpr T sin(const T num)
+    [[nodiscard]] constexpr T sin(const T num)
     {
         return std::sin(num);
     }
 
     template <typename T>
-    constexpr T cos(const T num)
+    [[nodiscard]] constexpr T cos(const T num)
     {
         return std::cos(num);
     }
 
     template <typename T>
-    constexpr T abs(const T num)
+    [[nodiscard]] constexpr T abs(const T num)
     {
         return std::abs(num);
     }

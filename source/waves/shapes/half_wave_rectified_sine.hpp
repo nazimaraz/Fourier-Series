@@ -6,15 +6,15 @@
 
 #include <string_view>
 #include "waves/harmonic_term.hpp"
-#include "math/math.h"
+#include "math/math.hpp"
 
 namespace Waves
 {
     struct HalfWaveRectifiedSine
     {
         static constexpr std::string_view name = "Half-Wave Rectified Sine";
-        static HarmonicTerm formula(float i);
-        static constexpr float dc()
+        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static constexpr float dc()
         {
             return 1.f / math::pi_v<float>;
         }

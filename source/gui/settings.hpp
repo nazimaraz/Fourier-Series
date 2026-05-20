@@ -18,7 +18,7 @@ namespace UI
         void set_background_color(raylib::Color color);
         [[nodiscard]] raylib::Color get_background_color() const;
         void set_wave_capacity(boost::circular_buffer<float>::capacity_type capacity);
-        boost::circular_buffer<float>& get_wave();
+        [[nodiscard]] boost::circular_buffer<float>& get_wave();
         void set_is_paused(bool is_paused);
         [[nodiscard]] bool get_is_paused() const;
         void set_selected_wave_index(size_t index);

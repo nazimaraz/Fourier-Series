@@ -3,7 +3,7 @@
 //
 
 #include "half_wave_rectified_sine.hpp"
-#include "math/math.h"
+#include "math/math.hpp"
 
 using namespace Waves;
 

@@ -4,7 +4,7 @@
 
 #include <boost/math/special_functions/bessel.hpp>
 #include "semicircle.hpp"
-#include "math/math.h"
+#include "math/math.hpp"
 
 using namespace Waves;
 

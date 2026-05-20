@@ -12,8 +12,8 @@ namespace Waves
     struct Square
     {
         static constexpr std::string_view name = "Square Wave";
-        static HarmonicTerm formula(float i);
-        static constexpr float dc()
+        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static constexpr float dc()
         {
             return 0.f;
         }

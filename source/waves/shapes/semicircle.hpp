@@ -6,15 +6,15 @@
 
 #include <string_view>
 #include "waves/harmonic_term.hpp"
-#include "math/math.h"
+#include "math/math.hpp"
 
 namespace Waves
 {
     struct Semicircle
     {
         static constexpr std::string_view name = "Semicircle Wave";
-        static HarmonicTerm formula(float i);
-        static constexpr float dc()
+        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static constexpr float dc()
         {
             return math::pi_v<float> / 4.f;
         }

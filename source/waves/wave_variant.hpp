@@ -21,11 +21,11 @@ namespace Waves
     namespace detail
     {
         template <size_t... Is>
-        constexpr auto make_name_table(std::index_sequence<Is...>);
+        [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...>);
         template <size_t... Is>
-        constexpr auto make_cstr_name_table(std::index_sequence<Is...>);
+        [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...>);
         template <typename T>
-        constexpr size_t index_of_impl();
+        [[nodiscard]] constexpr size_t index_of_impl();
     } // namespace detail
 
     [[nodiscard]] WaveVariant make_wave_at(size_t index);

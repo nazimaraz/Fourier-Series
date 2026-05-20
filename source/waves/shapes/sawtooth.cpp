@@ -3,7 +3,7 @@
 //
 
 #include "sawtooth.hpp"
-#include "math/math.h"
+#include "math/math.hpp"
 
 using namespace Waves;
 

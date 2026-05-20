@@ -3,14 +3,14 @@
 //
 
 #include "wave_variant.hpp"
-#include "math/math.h"
+#include "math/math.hpp"
 
 namespace Waves
 {
     namespace detail
     {
         template <size_t... Is>
-        constexpr auto make_factories(std::index_sequence<Is...>)
+        [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...>)
         {
             return std::array<WaveVariant (*)(), sizeof...(Is)>{+[]() -> WaveVariant {
                 return WaveVariant{std::in_place_index<Is>};
@@ -18,7 +18,7 @@ namespace Waves
         }
 
         template <typename W>
-        ComputeResult compute_for(const ComputeParams& params)
+        [[nodiscard]] ComputeResult compute_for(const ComputeParams& params)
         {
             ComputeResult result;
             result.steps.reserve(params.harmonic_count);
