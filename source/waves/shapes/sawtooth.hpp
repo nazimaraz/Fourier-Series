@@ -5,7 +5,7 @@
 #pragma once
 
 #include <string_view>
-#include "harmonic_term.hpp"
+#include "waves/harmonic_term.hpp"
 
 namespace Waves
 {

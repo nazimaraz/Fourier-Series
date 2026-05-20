@@ -5,13 +5,13 @@
 #pragma once
 
 #include <string_view>
-#include "harmonic_term.hpp"
+#include "waves/harmonic_term.hpp"
 
 namespace Waves
 {
-    struct Square
+    struct Triangle
     {
-        static constexpr std::string_view name = "Square Wave";
+        static constexpr std::string_view name = "Triangle Wave";
         static HarmonicTerm formula(float i);
         static constexpr float dc() { return 0.f; }
     };
