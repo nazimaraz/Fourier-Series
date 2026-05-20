@@ -6,12 +6,10 @@
 
 namespace Waves
 {
-
     struct ComputeParams
     {
         float radius{};
         unsigned int harmonic_count{};
         float phase{};
     };
-
 } // namespace Waves

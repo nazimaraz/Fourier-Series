@@ -13,6 +13,9 @@ namespace Waves
     {
         static constexpr std::string_view name = "Sawtooth Wave";
         static HarmonicTerm formula(float i);
-        static constexpr float dc() { return 0.f; }
+        static constexpr float dc()
+        {
+            return 0.f;
+        }
     };
 } // namespace Waves

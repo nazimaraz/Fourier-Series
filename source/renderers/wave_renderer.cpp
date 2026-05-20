@@ -16,12 +16,12 @@ WaveRenderer::WaveRenderer(std::shared_ptr<UI::Settings> settings)
 void WaveRenderer::draw() const
 {
     const auto selected = Waves::make_wave_at(settings_->get_selected_wave_index());
-    const auto result = Waves::compute(selected,
-        {
-            .radius = settings_->get_radius(),
-            .harmonic_count = settings_->get_number_of_harmonic(),
-            .phase = settings_->get_phase(),
-        });
+    const auto params = Waves::ComputeParams{
+        .radius = settings_->get_radius(),
+        .harmonic_count = settings_->get_number_of_harmonic(),
+        .phase = settings_->get_phase(),
+    };
+    const auto result = Waves::compute(selected, params);
     auto& wave = settings_->get_wave();
     if (!settings_->get_is_paused())
         wave.push_front(result.tip.y);

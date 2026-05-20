@@ -14,6 +14,9 @@ namespace Waves
     {
         static constexpr std::string_view name = "Half-Wave Rectified Sine";
         static HarmonicTerm formula(float i);
-        static constexpr float dc() { return 1.f / math::pi_v<float>; }
+        static constexpr float dc()
+        {
+            return 1.f / math::pi_v<float>;
+        }
     };
 } // namespace Waves
