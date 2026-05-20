@@ -7,13 +7,7 @@
 #include "gui.hpp"
 #include "gui/settings.hpp"
 #include "renderers/wave_renderer.hpp"
-#include "waves/sawtooth.hpp"
-#include "waves/semicircle.hpp"
-#include "waves/square.hpp"
-#include "waves/triangle.hpp"
-#include "waves/function.h"
-#include "waves/full_wave_rectified_sine.hpp"
-#include "waves/half_wave_rectified_sine.hpp"
+#include "waves/wave_variant.hpp"
 
 GUI::GUI() = default;
 
@@ -34,9 +28,7 @@ void GUI::initialize()
     settings_->set_radius(100.f);
     settings_->set_x_scale(1.f);
     settings_->set_y_scale(1.f);
-    settings_->set_selected_wave(Waves::Type::Square);
-    settings_->add_waves<Waves::Sawtooth, Waves::Square, Waves::Triangle, Waves::Semicircle, Waves::HalfWaveRectifiedSine,
-        Waves::FullWaveRectifiedSine>();
+    settings_->set_selected_wave_index(Waves::index_of<Waves::Square>);
     wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(settings_);
 }
 
@@ -100,15 +92,12 @@ void GUI::update_settings() const
     }
 
     {
-        const auto& wave_names = settings_->get_wave_names();
-        const auto& target = settings_->get_selected_wave()->get_name();
-        auto selected_wave_index =
-            static_cast<int>(std::ranges::distance(wave_names.begin(), std::ranges::find(wave_names, target)));
+        auto selected_wave_index = static_cast<int>(settings_->get_selected_wave_index());
         ImGui::Text("Wave Type:");
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-        ImGui::Combo("##WaveType", &selected_wave_index, wave_names.data(), static_cast<int>(wave_names.size()));
+        ImGui::Combo("##WaveType", &selected_wave_index, Waves::wave_names_cstr.data(), Waves::wave_names_cstr.size());
         ImGui::PopItemWidth();
-        settings_->set_selected_wave(wave_names.at(selected_wave_index));
+        settings_->set_selected_wave_index(static_cast<size_t>(selected_wave_index));
     }
     static constexpr auto number_of_harmonic_min = 1u;
     static constexpr auto number_of_harmonic_max = 100u;
