@@ -4,6 +4,7 @@
 
 #include "wave_variant.hpp"
 #include "math/math.hpp"
+#include "wave_shape.hpp"
 
 namespace Waves
 {
@@ -17,7 +18,7 @@ namespace Waves
             }...};
         }
 
-        template <typename W>
+        template <WaveShape W>
         [[nodiscard]] ComputeResult compute_for(const ComputeParams& params)
         {
             ComputeResult result;
