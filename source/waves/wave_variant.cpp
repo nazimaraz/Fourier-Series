@@ -18,7 +18,7 @@ namespace Waves
         }
 
         template <typename W>
-        constexpr ComputeResult compute_for(const ComputeParams& params)
+        ComputeResult compute_for(const ComputeParams& params)
         {
             ComputeResult result;
             result.steps.reserve(params.harmonic_count);

@@ -6,6 +6,7 @@
 
 #include <variant>
 #include "compute_params.hpp"
+#include "compute_result.hpp"
 #include "full_wave_rectified_sine.hpp"
 #include "half_wave_rectified_sine.hpp"
 #include "sawtooth.hpp"

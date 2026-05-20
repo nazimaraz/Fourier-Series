@@ -5,19 +5,14 @@
 #pragma once
 
 #include <string_view>
-#include "wave.hpp"
+#include "harmonic_term.hpp"
 
 namespace Waves
 {
-    class Sawtooth final : public Wave
+    struct Sawtooth
     {
-    public:
         static constexpr std::string_view name = "Sawtooth Wave";
         static HarmonicTerm formula(float i);
         static constexpr float dc() { return 0.f; }
-
-        Sawtooth();
-        [[nodiscard]] HarmonicTerm get_formula(float i) const override;
-        [[nodiscard]] float get_dc() const override;
     };
 } // namespace Waves
