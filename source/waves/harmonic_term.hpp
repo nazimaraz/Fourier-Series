@@ -6,12 +6,10 @@
 
 namespace Waves
 {
-
     struct HarmonicTerm
     {
         float n{};
         float coefficient{};
         float phase{};
     };
-
 } // namespace Waves
