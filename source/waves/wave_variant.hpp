@@ -20,18 +20,8 @@
 
 namespace Waves
 {
-    using WaveVariant = std::variant<
-        Sawtooth,
-        Square,
-        Triangle,
-        Semicircle,
-        HalfWaveRectifiedSine,
-        FullWaveRectifiedSine,
-        Parabolic,
-        Cosine,
-        Pulse25,
-        Pulse75,
-        Heart>;
+    using WaveVariant = std::variant<Sawtooth, Square, Triangle, Semicircle, HalfWaveRectifiedSine, FullWaveRectifiedSine,
+        Parabolic, Cosine, Pulse25, Pulse75, Heart>;
 
     namespace detail
     {
