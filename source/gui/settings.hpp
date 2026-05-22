@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <boost/circular_buffer.hpp>
 #include <raylib/color.h>
+#include "vector2.hpp"
 
 namespace UI
 {
@@ -19,6 +20,8 @@ namespace UI
         [[nodiscard]] raylib::Color get_background_color() const;
         void set_wave_capacity(boost::circular_buffer<float>::capacity_type capacity);
         [[nodiscard]] boost::circular_buffer<float>& get_wave();
+        void set_path_capacity(boost::circular_buffer<raylib::Vector2>::capacity_type capacity);
+        [[nodiscard]] boost::circular_buffer<raylib::Vector2>& get_path();
         void set_is_paused(bool is_paused);
         [[nodiscard]] bool get_is_paused() const;
         void set_selected_wave_index(size_t index);
@@ -40,6 +43,7 @@ namespace UI
         int fps_{};
         raylib::Color background_color_{};
         boost::circular_buffer<float> wave_;
+        boost::circular_buffer<raylib::Vector2> path_;
         bool is_paused_{};
         size_t selected_wave_index_{};
         unsigned int number_of_harmonic_{};

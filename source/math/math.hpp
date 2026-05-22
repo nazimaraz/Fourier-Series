@@ -12,6 +12,9 @@ namespace math
     template <typename T>
     static constexpr auto pi_v = std::numbers::pi_v<T>;
     static constexpr auto pi = pi_v<double>;
+    template <typename T>
+    static constexpr auto half_pi_v = pi_v<T> / 2;
+    static constexpr auto half_pi = pi / 2;
 
     template <typename T>
     [[nodiscard]] constexpr T pow(const T number, const T power)

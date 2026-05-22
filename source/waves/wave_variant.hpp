@@ -10,6 +10,7 @@
 #include "shapes/cosine.hpp"
 #include "shapes/full_wave_rectified_sine.hpp"
 #include "shapes/half_wave_rectified_sine.hpp"
+#include "shapes/heart.hpp"
 #include "shapes/parabolic.hpp"
 #include "shapes/pulse.hpp"
 #include "shapes/sawtooth.hpp"
@@ -19,8 +20,18 @@
 
 namespace Waves
 {
-    using WaveVariant = std::variant<Sawtooth, Square, Triangle, Semicircle, HalfWaveRectifiedSine, FullWaveRectifiedSine,
-        Parabolic, Cosine, Pulse25, Pulse75>;
+    using WaveVariant = std::variant<
+        Sawtooth,
+        Square,
+        Triangle,
+        Semicircle,
+        HalfWaveRectifiedSine,
+        FullWaveRectifiedSine,
+        Parabolic,
+        Cosine,
+        Pulse25,
+        Pulse75,
+        Heart>;
 
     namespace detail
     {

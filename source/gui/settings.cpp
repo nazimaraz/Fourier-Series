@@ -36,6 +36,16 @@ boost::circular_buffer<float>& Settings::get_wave()
     return wave_;
 }
 
+void Settings::set_path_capacity(const boost::circular_buffer<raylib::Vector2>::capacity_type capacity)
+{
+    path_.set_capacity(capacity);
+}
+
+boost::circular_buffer<raylib::Vector2>& Settings::get_path()
+{
+    return path_;
+}
+
 void Settings::set_is_paused(const bool is_paused)
 {
     is_paused_ = is_paused;

@@ -26,10 +26,24 @@ void WaveRenderer::draw() const
     };
     const auto result = Waves::compute(selected, params);
     auto& wave = settings_.get_wave();
+    auto& path = settings_.get_path();
     if (!settings_.get_is_paused())
+    {
         wave.push_front(result.tip.y);
+        path.push_front(result.tip);
+    }
 
     auto translate = raylib::Vector2{600, 450};
+    if (path.size() > 1)
+    {
+        points_buffer_.clear();
+        points_buffer_.reserve(path.size());
+        for (const auto& p : path)
+            points_buffer_.emplace_back(translate.x + p.x, translate.y + p.y);
+
+        DrawLineStrip(points_buffer_, raylib::Color{.r = 255, .g = 120, .b = 120, .a = 220});
+    }
+
     for (const auto& step : result.steps)
     {
         DrawCircleLinesV(translate + step.center, step.radius, raylib::Color{.r = 255, .g = 255, .b = 255, .a = 100});
