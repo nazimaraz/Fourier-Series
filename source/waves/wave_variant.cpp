@@ -2,6 +2,8 @@
 // Created by nazim on 5/20/26.
 //
 
+#include <cassert>
+#include <ranges>
 #include "wave_variant.hpp"
 #include "math/math.hpp"
 #include "wave_shape.hpp"
@@ -24,7 +26,7 @@ namespace Waves
             ComputeResult result;
             result.steps.reserve(params.harmonic_count);
             auto position = raylib::Vector2{0.f, params.radius * W::dc()};
-            for (auto i = 0u; i < params.harmonic_count; ++i)
+            for (const auto i : std::views::iota(0u, params.harmonic_count))
             {
                 const auto [n, coefficient, phase] = W::formula(static_cast<float>(i));
                 const auto radius = params.radius * coefficient;
@@ -41,6 +43,7 @@ namespace Waves
 
     WaveVariant make_wave_at(const size_t index)
     {
+        assert(index < wave_count && "wave index out of range");
         static constexpr auto factories = detail::make_factories(std::make_index_sequence<wave_count>{});
         return factories[index]();
     }

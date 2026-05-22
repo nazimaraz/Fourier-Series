@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include <memory>
+#include <vector>
+#include "vector2.hpp"
 
 namespace UI
 {
@@ -16,10 +17,17 @@ namespace Renderers
     class WaveRenderer
     {
     public:
-        explicit WaveRenderer(std::shared_ptr<UI::Settings> settings);
+        explicit WaveRenderer(UI::Settings& settings);
+        WaveRenderer(const WaveRenderer&) = delete;
+        WaveRenderer(WaveRenderer&&) = delete;
+        WaveRenderer& operator=(const WaveRenderer&) = delete;
+        WaveRenderer& operator=(WaveRenderer&&) = delete;
+        ~WaveRenderer();
+
         void draw() const;
 
     private:
-        std::shared_ptr<UI::Settings> settings_;
+        UI::Settings& settings_;
+        mutable std::vector<raylib::Vector2> points_buffer_;
     };
 } // namespace Renderers

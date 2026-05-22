@@ -10,11 +10,11 @@ using namespace Waves;
 HarmonicTerm HalfWaveRectifiedSine::formula(const float i)
 {
     if (i == 0.f)
-        return {1.f, 0.5f, 0.f};
+        return {.n = 1.f, .coefficient = 0.5f, .phase = 0.f};
 
     const auto k = i;
     const auto n = 2.f * k;
     const auto coefficient = -2.f / (math::pi_v<float> * (4.f * k * k - 1.f));
     constexpr auto phase = math::pi_v<float> / 2.f;
-    return {n, coefficient, phase};
+    return {.n = n, .coefficient = coefficient, .phase = phase};
 }

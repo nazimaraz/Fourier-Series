@@ -39,7 +39,7 @@ namespace UI
     private:
         int fps_{};
         raylib::Color background_color_{};
-        boost::circular_buffer<float> wave_{};
+        boost::circular_buffer<float> wave_;
         bool is_paused_{};
         size_t selected_wave_index_{};
         unsigned int number_of_harmonic_{};

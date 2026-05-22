@@ -13,5 +13,5 @@ HarmonicTerm Semicircle::formula(const float i)
     const auto n = i + 1.f;
     const auto coefficient = math::pow(-1.f, n) * boost::math::cyl_bessel_j(1, n * math::pi_v<float>) / n;
     constexpr auto phase = math::pi_v<float> / 2.f;
-    return {n, coefficient, phase};
+    return {.n = n, .coefficient = coefficient, .phase = phase};
 }

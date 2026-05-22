@@ -11,5 +11,5 @@ HarmonicTerm Sawtooth::formula(const float i)
 {
     const auto n = i + 1.f;
     const auto coefficient = 2.f / (math::pi_v<float> * n);
-    return {n, coefficient, 0.f};
+    return {.n = n, .coefficient = coefficient, .phase = 0.f};
 }

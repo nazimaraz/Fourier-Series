@@ -29,7 +29,7 @@ void GUI::initialize()
     settings_->set_x_scale(1.f);
     settings_->set_y_scale(1.f);
     settings_->set_selected_wave_index(Waves::index_of<Waves::Square>);
-    wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(settings_);
+    wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(*settings_);
 }
 
 void GUI::update()
