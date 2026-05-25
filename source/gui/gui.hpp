@@ -15,7 +15,7 @@ namespace Renderers
 {
     class ChartRenderer;
     class WaveRenderer;
-}
+} // namespace Renderers
 
 class GUI final
 {
