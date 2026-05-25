@@ -13,6 +13,7 @@ namespace UI
 
 namespace Renderers
 {
+    class ChartRenderer;
     class WaveRenderer;
 }
 
@@ -37,5 +38,6 @@ private:
 
     bool is_stopped_{};
     std::shared_ptr<UI::Settings> settings_;
+    std::unique_ptr<Renderers::ChartRenderer> chart_renderer_;
     std::unique_ptr<Renderers::WaveRenderer> wave_renderer_;
 };

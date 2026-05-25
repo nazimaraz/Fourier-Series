@@ -111,7 +111,7 @@ variant alternative satisfies the concept:
 
 ```cpp
 static_assert(
-    []<std::size_t... Is>(std::index_sequence<Is...>) {
+    []<size_t... Is>(std::index_sequence<Is...>) {
         return (WaveShape<std::variant_alternative_t<Is, WaveVariant>> && ...);
     }(std::make_index_sequence<wave_count>{}),
     "every WaveVariant alternative must satisfy the WaveShape concept");
@@ -132,7 +132,7 @@ prettier and more maintainable: build a constant table of factory function
 pointers at compile time, one per alternative.
 
 ```cpp
-template <std::size_t... Is>
+template <size_t... Is>
 constexpr auto make_factories(std::index_sequence<Is...>) {
     return std::array<WaveVariant (*)(), sizeof...(Is)>{
         +[]() -> WaveVariant {
