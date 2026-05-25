@@ -81,7 +81,10 @@ void GUI::update_settings() const
     settings_->set_fps(raylib::GetFPS());
     ImGui::Text("FPS: %d", settings_->get_fps());
     if (ImGui::Button("Clear"))
+    {
         settings_->get_wave().clear();
+        settings_->get_path().clear();
+    }
 
     ImGui::SameLine();
     if (settings_->get_is_paused())
