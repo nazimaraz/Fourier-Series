@@ -4,7 +4,9 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <optional>
 #include <ranges>
+#include <imgui.h>
 #include <raylib.h>
 #include "spectrum_renderer.hpp"
 #include "chart_renderer.hpp"
@@ -15,9 +17,11 @@ using namespace Renderers;
 
 namespace
 {
-    constexpr auto bar_color = raylib::Color{.r = 80, .g = 220, .b = 220, .a = 255};
+    constexpr auto enabled_color = raylib::Color{.r = 80, .g = 220, .b = 220, .a = 255};
+    constexpr auto disabled_color = raylib::Color{.r = 60, .g = 80, .b = 80, .a = 200};
     constexpr auto frame_color = raylib::Color{.r = 140, .g = 140, .b = 140, .a = 200};
     constexpr auto label_color = raylib::Color{.r = 200, .g = 200, .b = 200, .a = 255};
+    constexpr auto title_color = raylib::Color{.r = 150, .g = 150, .b = 150, .a = 230};
     constexpr auto panel_height = 150.f;
     constexpr auto panel_bottom_margin = 30.f;
     constexpr auto panel_right_margin = 10.f;
@@ -39,6 +43,7 @@ void SpectrumRenderer::draw() const
         .radius = settings_.get_radius(),
         .harmonic_count = settings_.get_number_of_harmonic(),
         .phase = settings_.get_phase(),
+        .enabled_mask = nullptr,
     };
     const auto result = Waves::compute(selected, params);
     if (result.steps.empty())
@@ -69,10 +74,41 @@ void SpectrumRenderer::draw() const
         const auto h = normalized * bars_height;
         const auto x = panel_left + static_cast<float>(i) * bar_pitch + bar_gap / 2.f;
         const auto y = panel_bottom - h;
-        DrawRectangleV({x, y}, {bar_width, h}, bar_color);
+        const auto color = settings_.is_harmonic_enabled(i) ? enabled_color : disabled_color;
+        DrawRectangleV({x, y}, {bar_width, h}, color);
     }
 
     DrawLineV({panel_left, panel_bottom}, {panel_right, panel_bottom}, frame_color);
     DrawLineV({panel_left, bars_top}, {panel_left, panel_bottom}, frame_color);
     DrawText("spectrum", static_cast<int>(panel_left) + 4, static_cast<int>(panel_top) + 2, title_font, label_color);
+    DrawText("(click: toggle | right-click: solo)", static_cast<int>(panel_left) + 70, static_cast<int>(panel_top) + 3, 10,
+        title_color);
+    if (ImGui::GetIO().WantCaptureMouse)
+        return;
+
+    const auto column_under_mouse = [&]() -> std::optional<size_t> {
+        const auto mouse = raylib::GetMousePosition();
+        if (mouse.x < panel_left || mouse.x >= panel_right)
+            return std::nullopt;
+
+        if (mouse.y < bars_top || mouse.y >= panel_bottom)
+            return std::nullopt;
+
+        const auto col = static_cast<size_t>((mouse.x - panel_left) / bar_pitch);
+        if (col >= num_bars)
+            return std::nullopt;
+
+        return col;
+    };
+
+    if (raylib::IsMouseButtonPressed(raylib::MouseButton::MOUSE_BUTTON_LEFT))
+    {
+        if (const auto col = column_under_mouse())
+            settings_.toggle_harmonic(*col);
+    }
+    else if (raylib::IsMouseButtonPressed(raylib::MouseButton::MOUSE_BUTTON_RIGHT))
+    {
+        if (const auto col = column_under_mouse())
+            settings_.solo_harmonic(*col);
+    }
 }

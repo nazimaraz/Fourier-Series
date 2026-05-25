@@ -87,6 +87,7 @@ void GUI::update_settings() const
     {
         settings_->get_wave().clear();
         settings_->get_path().clear();
+        settings_->reset_harmonic_mask();
     }
 
     ImGui::SameLine();

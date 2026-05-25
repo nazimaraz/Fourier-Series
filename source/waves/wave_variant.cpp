@@ -29,7 +29,9 @@ namespace Waves
             for (const auto i : std::views::iota(0u, params.harmonic_count))
             {
                 const auto [n, coefficient, phase] = W::formula(static_cast<float>(i));
-                const auto radius = params.radius * coefficient;
+                const auto enabled = params.enabled_mask == nullptr || params.enabled_mask[i];
+                const auto effective_coefficient = enabled ? coefficient : 0.f;
+                const auto radius = params.radius * effective_coefficient;
                 const auto previous_position = position;
                 const auto angle = n * 2.f * math::pi_v<float> * params.phase + phase;
                 position += {radius * math::cos(angle), radius * math::sin(angle)};

@@ -32,6 +32,7 @@ void WaveRenderer::draw() const
         .radius = settings_.get_radius(),
         .harmonic_count = settings_.get_number_of_harmonic(),
         .phase = settings_.get_phase(),
+        .enabled_mask = settings_.get_harmonic_mask().data(),
     };
     const auto result = Waves::compute(selected, params);
     auto& wave = settings_.get_wave();

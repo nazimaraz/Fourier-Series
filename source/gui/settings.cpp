@@ -6,6 +6,59 @@
 
 using namespace UI;
 
+Settings::Settings()
+{
+    reset_harmonic_mask();
+}
+
+bool Settings::is_harmonic_enabled(const size_t i) const
+{
+    return i < harmonic_enabled_.size() && harmonic_enabled_[i];
+}
+
+void Settings::toggle_harmonic(const size_t i)
+{
+    if (i < harmonic_enabled_.size())
+        harmonic_enabled_[i] = !harmonic_enabled_[i];
+}
+
+bool Settings::is_only_harmonic_enabled(const size_t i) const
+{
+    if (i >= harmonic_enabled_.size() || !harmonic_enabled_[i])
+        return false;
+
+    for (auto j = size_t{}; j < harmonic_enabled_.size(); ++j)
+    {
+        if (j != i && harmonic_enabled_[j])
+            return false;
+    }
+
+    return true;
+}
+
+void Settings::solo_harmonic(const size_t i)
+{
+    if (is_only_harmonic_enabled(i))
+    {
+        reset_harmonic_mask();
+        return;
+    }
+
+    harmonic_enabled_.fill(false);
+    if (i < harmonic_enabled_.size())
+        harmonic_enabled_[i] = true;
+}
+
+void Settings::reset_harmonic_mask()
+{
+    harmonic_enabled_.fill(true);
+}
+
+const std::array<bool, Settings::max_harmonic_count>& Settings::get_harmonic_mask() const
+{
+    return harmonic_enabled_;
+}
+
 void Settings::set_fps(const int fps)
 {
     fps_ = fps;

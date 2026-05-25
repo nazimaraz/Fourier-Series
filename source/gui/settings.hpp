@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <cstddef>
+#include <array>
 #include <boost/circular_buffer.hpp>
 #include <raylib/color.h>
 #include "vector2.hpp"
@@ -14,6 +14,9 @@ namespace UI
     class Settings
     {
     public:
+        static constexpr size_t max_harmonic_count = 100;
+
+        Settings();
         void set_fps(int fps);
         [[nodiscard]] int get_fps() const;
         void set_background_color(raylib::Color color);
@@ -39,6 +42,13 @@ namespace UI
         void set_y_scale(float y_scale);
         [[nodiscard]] float& get_y_scale();
 
+        [[nodiscard]] bool is_harmonic_enabled(size_t i) const;
+        [[nodiscard]] bool is_only_harmonic_enabled(size_t i) const;
+        void toggle_harmonic(size_t i);
+        void solo_harmonic(size_t i);
+        void reset_harmonic_mask();
+        [[nodiscard]] const std::array<bool, max_harmonic_count>& get_harmonic_mask() const;
+
     private:
         int fps_{};
         raylib::Color background_color_{};
@@ -52,6 +62,7 @@ namespace UI
         float phase_{};
         float x_scale_{};
         float y_scale_{};
+        std::array<bool, max_harmonic_count> harmonic_enabled_{};
     };
 
 } // namespace UI
