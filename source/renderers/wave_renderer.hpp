@@ -29,5 +29,7 @@ namespace Renderers
     private:
         UI::Settings& settings_;
         mutable std::vector<raylib::Vector2> points_buffer_;
+        mutable float last_phase_{};
+        mutable bool initialized_{};
     };
 } // namespace Renderers

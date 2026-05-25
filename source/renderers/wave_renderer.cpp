@@ -39,14 +39,31 @@ void WaveRenderer::draw() const
     if (!settings_.get_is_paused())
     {
         wave.push_front(result.tip.y);
+        if (initialized_)
+        {
+            if (const auto phase_delta = params.phase - last_phase_; phase_delta > 0.f)
+            {
+                const auto substeps = std::clamp(static_cast<int>(phase_delta * 1000.f), 1, 64);
+                for (auto k = 1; k < substeps; ++k)
+                {
+                    auto sub_params = params;
+                    sub_params.phase = last_phase_ + phase_delta * static_cast<float>(k) / static_cast<float>(substeps);
+                    const auto [steps, tip] = Waves::compute(selected, sub_params);
+                    path.push_front(tip);
+                }
+            }
+        }
+
         path.push_front(result.tip);
     }
+
+    last_phase_ = params.phase;
+    initialized_ = true;
 
     auto translate = raylib::Vector2{600, 450};
     const auto math_to_screen = [&translate](const raylib::Vector2 p) {
         return raylib::Vector2{translate.x + p.x, translate.y - p.y};
     };
-
     if (path.size() > 1)
     {
         points_buffer_.clear();

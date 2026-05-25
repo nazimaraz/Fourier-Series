@@ -24,7 +24,7 @@ void GUI::initialize()
     settings_ = std::make_shared<UI::Settings>();
     settings_->set_background_color(raylib::BLACK);
     settings_->set_wave_capacity(1000);
-    settings_->set_path_capacity(2000);
+    settings_->set_path_capacity(4000);
     settings_->set_number_of_harmonic(10);
     settings_->set_frequency(0.1f);
     settings_->set_radius(100.f);
