@@ -14,6 +14,7 @@ namespace UI
 namespace Renderers
 {
     class ChartRenderer;
+    class SpectrumRenderer;
     class WaveRenderer;
 } // namespace Renderers
 
@@ -40,4 +41,5 @@ private:
     std::shared_ptr<UI::Settings> settings_;
     std::unique_ptr<Renderers::ChartRenderer> chart_renderer_;
     std::unique_ptr<Renderers::WaveRenderer> wave_renderer_;
+    std::unique_ptr<Renderers::SpectrumRenderer> spectrum_renderer_;
 };

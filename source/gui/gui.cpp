@@ -7,6 +7,7 @@
 #include "gui.hpp"
 #include "gui/settings.hpp"
 #include "renderers/chart_renderer.hpp"
+#include "renderers/spectrum_renderer.hpp"
 #include "renderers/wave_renderer.hpp"
 #include "waves/wave_variant.hpp"
 
@@ -33,6 +34,7 @@ void GUI::initialize()
     settings_->set_selected_wave_index(Waves::index_of<Waves::Square>);
     chart_renderer_ = std::make_unique<Renderers::ChartRenderer>(*settings_);
     wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(*settings_);
+    spectrum_renderer_ = std::make_unique<Renderers::SpectrumRenderer>(*settings_);
 }
 
 void GUI::update()
@@ -72,6 +74,7 @@ void GUI::update_impl() const
     raylib::rlImGuiEnd();
     chart_renderer_->draw();
     wave_renderer_->draw();
+    spectrum_renderer_->draw();
     if (!settings_->get_is_paused())
         settings_->set_phase(settings_->get_phase() + settings_->get_frequency() * raylib::GetFrameTime());
 }
