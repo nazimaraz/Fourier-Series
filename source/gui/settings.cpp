@@ -13,27 +13,17 @@ Settings::Settings()
 
 bool Settings::is_harmonic_enabled(const size_t i) const
 {
-    return i < harmonic_enabled_.size() && harmonic_enabled_[i];
+    return harmonic_enabled_.at(i);
 }
 
 void Settings::toggle_harmonic(const size_t i)
 {
-    if (i < harmonic_enabled_.size())
-        harmonic_enabled_[i] = !harmonic_enabled_[i];
+    harmonic_enabled_.at(i) = !harmonic_enabled_.at(i);
 }
 
 bool Settings::is_only_harmonic_enabled(const size_t i) const
 {
-    if (i >= harmonic_enabled_.size() || !harmonic_enabled_[i])
-        return false;
-
-    for (auto j = size_t{}; j < harmonic_enabled_.size(); ++j)
-    {
-        if (j != i && harmonic_enabled_[j])
-            return false;
-    }
-
-    return true;
+    return is_harmonic_enabled(i) && std::ranges::count(harmonic_enabled_, true) == 1;
 }
 
 void Settings::solo_harmonic(const size_t i)
@@ -45,8 +35,7 @@ void Settings::solo_harmonic(const size_t i)
     }
 
     harmonic_enabled_.fill(false);
-    if (i < harmonic_enabled_.size())
-        harmonic_enabled_[i] = true;
+    harmonic_enabled_.at(i) = true;
 }
 
 void Settings::reset_harmonic_mask()

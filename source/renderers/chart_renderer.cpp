@@ -4,7 +4,6 @@
 
 #include <array>
 #include <cassert>
-#include <cstddef>
 #include <cstdio>
 #include <raylib.h>
 #include "chart_renderer.hpp"

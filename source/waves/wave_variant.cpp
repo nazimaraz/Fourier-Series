@@ -2,7 +2,6 @@
 // Created by nazim on 5/20/26.
 //
 
-#include <cassert>
 #include <ranges>
 #include "wave_variant.hpp"
 #include "math/math.hpp"
@@ -45,9 +44,8 @@ namespace Waves
 
     WaveVariant make_wave_at(const size_t index)
     {
-        assert(index < wave_count && "wave index out of range");
         static constexpr auto factories = detail::make_factories(std::make_index_sequence<wave_count>{});
-        return factories[index]();
+        return factories.at(index)();
     }
 
     ComputeResult compute(const WaveVariant& wave, const ComputeParams& params)
