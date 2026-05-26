@@ -7,20 +7,14 @@
 #include <cstdio>
 #include <raylib.h>
 #include "chart_renderer.hpp"
+#include "config.hpp"
 #include "gui/settings.hpp"
 
 using namespace Renderers;
+using namespace Config::Chart;
 
 namespace
 {
-    constexpr auto axis_color = raylib::Color{.r = 140, .g = 140, .b = 140, .a = 200};
-    constexpr auto grid_color = raylib::Color{.r = 55, .g = 55, .b = 55, .a = 130};
-    constexpr auto label_color = raylib::Color{.r = 190, .g = 190, .b = 190, .a = 255};
-    constexpr auto grid_step_px = 80.f;
-    constexpr auto tick_len = 4.f;
-    constexpr auto label_font = 11;
-    constexpr auto chart_left = 200.f;
-
     void format_label(std::array<char, 16>& buf, const char* fmt, const float value)
     {
         const auto written = std::snprintf(buf.data(), buf.size(), fmt, value);

@@ -9,26 +9,12 @@
 #include <imgui.h>
 #include <raylib.h>
 #include "spectrum_renderer.hpp"
-#include "chart_renderer.hpp"
+#include "config.hpp"
 #include "gui/settings.hpp"
 #include "waves/wave_variant.hpp"
 
 using namespace Renderers;
-
-namespace
-{
-    constexpr auto enabled_color = raylib::Color{.r = 80, .g = 220, .b = 220, .a = 255};
-    constexpr auto disabled_color = raylib::Color{.r = 60, .g = 80, .b = 80, .a = 200};
-    constexpr auto frame_color = raylib::Color{.r = 140, .g = 140, .b = 140, .a = 200};
-    constexpr auto label_color = raylib::Color{.r = 200, .g = 200, .b = 200, .a = 255};
-    constexpr auto title_color = raylib::Color{.r = 150, .g = 150, .b = 150, .a = 230};
-    constexpr auto panel_height = 150.f;
-    constexpr auto panel_bottom_margin = 30.f;
-    constexpr auto panel_right_margin = 10.f;
-    constexpr auto title_strip = 18.f;
-    constexpr auto bar_gap = 2.f;
-    constexpr auto title_font = 12;
-} // namespace
+using namespace Config::Spectrum;
 
 SpectrumRenderer::SpectrumRenderer(UI::Settings& settings)
     : settings_{settings}
@@ -51,7 +37,7 @@ void SpectrumRenderer::draw() const
 
     const auto screen_w = static_cast<float>(raylib::GetScreenWidth());
     const auto screen_h = static_cast<float>(raylib::GetScreenHeight());
-    constexpr auto panel_left = ChartRenderer::origin_x;
+    constexpr auto panel_left = Config::Chart::origin_x;
     const auto panel_right = screen_w - panel_right_margin;
     const auto panel_bottom = screen_h - panel_bottom_margin;
     const auto panel_top = panel_bottom - panel_height;
@@ -81,8 +67,8 @@ void SpectrumRenderer::draw() const
     DrawLineV({panel_left, panel_bottom}, {panel_right, panel_bottom}, frame_color);
     DrawLineV({panel_left, bars_top}, {panel_left, panel_bottom}, frame_color);
     DrawText("spectrum", static_cast<int>(panel_left) + 4, static_cast<int>(panel_top) + 2, title_font, label_color);
-    DrawText("(click: toggle | right-click: solo)", static_cast<int>(panel_left) + 70, static_cast<int>(panel_top) + 3, 10,
-        title_color);
+    DrawText("(click: toggle | right-click: solo)", static_cast<int>(panel_left) + 70, static_cast<int>(panel_top) + 3,
+        hint_font, title_color);
     if (ImGui::GetIO().WantCaptureMouse)
         return;
 

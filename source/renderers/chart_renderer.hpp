@@ -23,9 +23,6 @@ namespace Renderers
 
         void draw() const;
 
-        static constexpr float origin_x = 800.f;
-        static constexpr float origin_y = 450.f;
-
     private:
         UI::Settings& settings_;
     };
