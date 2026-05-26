@@ -10,7 +10,7 @@ namespace UI
 {
     class Settings;
     class DrawingInput;
-}
+} // namespace UI
 
 namespace Renderers
 {

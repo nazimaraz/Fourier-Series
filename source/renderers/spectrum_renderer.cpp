@@ -67,8 +67,8 @@ void SpectrumRenderer::draw() const
     DrawLineV({panel_left, panel_bottom}, {panel_right, panel_bottom}, frame_color);
     DrawLineV({panel_left, bars_top}, {panel_left, panel_bottom}, frame_color);
     DrawText("spectrum", static_cast<int>(panel_left) + 4, static_cast<int>(panel_top) + 2, title_font, label_color);
-    DrawText("(click: toggle | right-click: solo)", static_cast<int>(panel_left) + 70, static_cast<int>(panel_top) + 3,
-        hint_font, title_color);
+    DrawText("(click: toggle | right-click: solo)", static_cast<int>(panel_left) + 70, static_cast<int>(panel_top) + 3, hint_font,
+        title_color);
     if (ImGui::GetIO().WantCaptureMouse)
         return;
 

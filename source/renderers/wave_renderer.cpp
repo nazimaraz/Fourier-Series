@@ -37,8 +37,8 @@ void WaveRenderer::draw() const
         {
             if (const auto phase_delta = params.phase - last_phase_; phase_delta > 0.f)
             {
-                const auto substeps = std::clamp(
-                    static_cast<int>(phase_delta * Config::Wave::substeps_per_cycle), 1, Config::Wave::substeps_max);
+                const auto substeps =
+                    std::clamp(static_cast<int>(phase_delta * Config::Wave::substeps_per_cycle), 1, Config::Wave::substeps_max);
                 for (auto k = 1; k < substeps; ++k)
                 {
                     auto sub_params = params;
