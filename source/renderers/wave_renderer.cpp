@@ -20,7 +20,7 @@ WaveRenderer::~WaveRenderer() = default;
 
 void WaveRenderer::draw() const
 {
-    const auto selected = Waves::make_wave_at(settings_.get_selected_wave_index());
+    const auto& selected = settings_.get_selected_wave();
     const auto params = Waves::ComputeParams{
         .radius = settings_.get_radius(),
         .harmonic_count = settings_.get_number_of_harmonic(),
@@ -54,7 +54,6 @@ void WaveRenderer::draw() const
 
     last_phase_ = params.phase;
     initialized_ = true;
-
     auto translate = raylib::Vector2{Config::Wave::epicycle_origin_x, Config::Wave::epicycle_origin_y};
     const auto math_to_screen = [&translate](const raylib::Vector2 p) {
         return raylib::Vector2{translate.x + p.x, translate.y - p.y};
@@ -67,6 +66,17 @@ void WaveRenderer::draw() const
             points_buffer_.push_back(math_to_screen(p));
 
         DrawLineStrip(points_buffer_, Config::Wave::path_color);
+    }
+
+    if (const auto& drawing = settings_.get_drawing_points(); drawing.size() > 1)
+    {
+        points_buffer_.clear();
+        points_buffer_.reserve(drawing.size());
+        for (const auto& p : drawing)
+            points_buffer_.push_back(math_to_screen(p));
+
+        constexpr auto draw_color = raylib::Color{.r = 200, .g = 200, .b = 200, .a = 180};
+        DrawLineStrip(points_buffer_, draw_color);
     }
 
     for (const auto& step : result.steps)

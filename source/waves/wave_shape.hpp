@@ -11,9 +11,9 @@
 namespace Waves
 {
     template <typename W>
-    concept WaveShape = requires(float i) {
+    concept WaveShape = requires(const W& w, float i) {
         { W::name } -> std::convertible_to<std::string_view>;
-        { W::dc() } -> std::same_as<float>;
-        { W::formula(i) } -> std::same_as<HarmonicTerm>;
+        { w.dc() } -> std::same_as<float>;
+        { w.formula(i) } -> std::same_as<HarmonicTerm>;
     };
 } // namespace Waves

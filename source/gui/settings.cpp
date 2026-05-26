@@ -2,6 +2,9 @@
 // Created by Nazım Can on 25.10.2025.
 //
 
+#include <algorithm>
+#include <cmath>
+#include <utility>
 #include "settings.hpp"
 
 using namespace UI;
@@ -100,12 +103,69 @@ bool Settings::get_is_paused() const
 
 void Settings::set_selected_wave_index(const size_t index)
 {
-    selected_wave_index_ = index;
+    if (selected_wave_.index() == index)
+        return;
+
+    selected_wave_ = Waves::make_wave_at(index);
+    drawing_points_.clear();
+    is_drawing_ = false;
 }
 
 size_t Settings::get_selected_wave_index() const
 {
-    return selected_wave_index_;
+    return selected_wave_.index();
+}
+
+const Waves::WaveVariant& Settings::get_selected_wave() const
+{
+    return selected_wave_;
+}
+
+Waves::WaveVariant& Settings::get_selected_wave()
+{
+    return selected_wave_;
+}
+
+void Settings::start_drawing()
+{
+    drawing_points_.clear();
+    is_drawing_ = true;
+}
+
+void Settings::stop_drawing()
+{
+    is_drawing_ = false;
+}
+
+void Settings::add_drawing_point(const raylib::Vector2 p)
+{
+    if (!drawing_points_.empty())
+    {
+        if (const auto& last = drawing_points_.back(); std::hypot(p.x - last.x, p.y - last.y) < 1.f)
+            return;
+    }
+
+    drawing_points_.push_back(p);
+}
+
+void Settings::set_drawing_points(std::vector<raylib::Vector2> points)
+{
+    drawing_points_ = std::move(points);
+}
+
+void Settings::set_selected_wave(Waves::WaveVariant wave)
+{
+    selected_wave_ = std::move(wave);
+}
+
+bool Settings::is_drawing() const
+{
+    return is_drawing_;
+}
+
+const std::vector<raylib::Vector2>& Settings::get_drawing_points() const
+{
+    return drawing_points_;
 }
 
 void Settings::set_number_of_harmonic(const unsigned int number)

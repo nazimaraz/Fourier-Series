@@ -20,14 +20,14 @@ namespace Waves
         }
 
         template <WaveShape W>
-        [[nodiscard]] ComputeResult compute_for(const ComputeParams& params)
+        [[nodiscard]] ComputeResult compute_for(const W& wave, const ComputeParams& params)
         {
             ComputeResult result;
             result.steps.reserve(params.harmonic_count);
-            auto position = raylib::Vector2{0.f, params.radius * W::dc()};
+            auto position = raylib::Vector2{0.f, params.radius * wave.dc()};
             for (const auto i : std::views::iota(0u, params.harmonic_count))
             {
-                const auto [n, coefficient, phase] = W::formula(static_cast<float>(i));
+                const auto [n, coefficient, phase] = wave.formula(static_cast<float>(i));
                 const auto enabled = params.enabled_mask == nullptr || params.enabled_mask[i];
                 const auto effective_coefficient = enabled ? coefficient : 0.f;
                 const auto radius = params.radius * effective_coefficient;
@@ -51,8 +51,8 @@ namespace Waves
     ComputeResult compute(const WaveVariant& wave, const ComputeParams& params)
     {
         return std::visit(
-            [&]<typename W>(const W&) {
-                return detail::compute_for<W>(params);
+            [&](const auto& w) {
+                return detail::compute_for(w, params);
             },
             wave
         );

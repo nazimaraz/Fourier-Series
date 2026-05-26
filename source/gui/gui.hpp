@@ -9,6 +9,7 @@
 namespace UI
 {
     class Settings;
+    class DrawingInput;
 }
 
 namespace Renderers
@@ -42,4 +43,5 @@ private:
     std::unique_ptr<Renderers::ChartRenderer> chart_renderer_;
     std::unique_ptr<Renderers::WaveRenderer> wave_renderer_;
     std::unique_ptr<Renderers::SpectrumRenderer> spectrum_renderer_;
+    std::unique_ptr<UI::DrawingInput> drawing_input_;
 };

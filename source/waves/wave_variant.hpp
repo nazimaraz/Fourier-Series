@@ -17,11 +17,12 @@
 #include "shapes/semicircle.hpp"
 #include "shapes/square.hpp"
 #include "shapes/triangle.hpp"
+#include "shapes/user_path.hpp"
 
 namespace Waves
 {
     using WaveVariant = std::variant<Sawtooth, Square, Triangle, Semicircle, HalfWaveRectifiedSine, FullWaveRectifiedSine,
-        Parabolic, Cosine, Pulse25, Pulse75, Heart>;
+        Parabolic, Cosine, Pulse25, Pulse75, Heart, UserPath>;
 
     namespace detail
     {

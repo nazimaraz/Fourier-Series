@@ -5,9 +5,11 @@
 #pragma once
 
 #include <array>
+#include <vector>
 #include <boost/circular_buffer.hpp>
 #include <raylib/color.h>
 #include "vector2.hpp"
+#include "waves/wave_variant.hpp"
 
 namespace UI
 {
@@ -29,6 +31,15 @@ namespace UI
         [[nodiscard]] bool get_is_paused() const;
         void set_selected_wave_index(size_t index);
         [[nodiscard]] size_t get_selected_wave_index() const;
+        [[nodiscard]] const Waves::WaveVariant& get_selected_wave() const;
+        [[nodiscard]] Waves::WaveVariant& get_selected_wave();
+        void start_drawing();
+        void stop_drawing();
+        void add_drawing_point(raylib::Vector2 p);
+        void set_drawing_points(std::vector<raylib::Vector2> points);
+        void set_selected_wave(Waves::WaveVariant wave);
+        [[nodiscard]] bool is_drawing() const;
+        [[nodiscard]] const std::vector<raylib::Vector2>& get_drawing_points() const;
         void set_number_of_harmonic(unsigned int number);
         [[nodiscard]] unsigned int& get_number_of_harmonic();
         void set_frequency(float frequency);
@@ -41,7 +52,6 @@ namespace UI
         [[nodiscard]] float& get_x_scale();
         void set_y_scale(float y_scale);
         [[nodiscard]] float& get_y_scale();
-
         [[nodiscard]] bool is_harmonic_enabled(size_t i) const;
         [[nodiscard]] bool is_only_harmonic_enabled(size_t i) const;
         void toggle_harmonic(size_t i);
@@ -55,7 +65,9 @@ namespace UI
         boost::circular_buffer<float> wave_;
         boost::circular_buffer<raylib::Vector2> path_;
         bool is_paused_{};
-        size_t selected_wave_index_{};
+        Waves::WaveVariant selected_wave_;
+        std::vector<raylib::Vector2> drawing_points_;
+        bool is_drawing_{};
         unsigned int number_of_harmonic_{};
         float frequency_{};
         float radius_{};

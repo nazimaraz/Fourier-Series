@@ -24,7 +24,7 @@ SpectrumRenderer::~SpectrumRenderer() = default;
 
 void SpectrumRenderer::draw() const
 {
-    const auto selected = Waves::make_wave_at(settings_.get_selected_wave_index());
+    const auto& selected = settings_.get_selected_wave();
     const auto params = Waves::ComputeParams{
         .radius = settings_.get_radius(),
         .harmonic_count = settings_.get_number_of_harmonic(),

@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include <rlImGui.h>
 #include "gui.hpp"
+#include "gui/drawing_input.hpp"
 #include "gui/settings.hpp"
 #include "renderers/chart_renderer.hpp"
 #include "renderers/spectrum_renderer.hpp"
@@ -35,6 +36,7 @@ void GUI::initialize()
     chart_renderer_ = std::make_unique<Renderers::ChartRenderer>(*settings_);
     wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(*settings_);
     spectrum_renderer_ = std::make_unique<Renderers::SpectrumRenderer>(*settings_);
+    drawing_input_ = std::make_unique<UI::DrawingInput>(*settings_);
 }
 
 void GUI::update()
@@ -72,6 +74,7 @@ void GUI::update_impl() const
     update_settings();
     ImGui::End();
     raylib::rlImGuiEnd();
+    drawing_input_->handle();
     chart_renderer_->draw();
     wave_renderer_->draw();
     spectrum_renderer_->draw();
@@ -105,9 +108,10 @@ void GUI::update_settings() const
         auto selected_wave_index = static_cast<int>(settings_->get_selected_wave_index());
         ImGui::Text("Wave Type:");
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-        ImGui::Combo("##WaveType", &selected_wave_index, Waves::wave_names_cstr.data(), Waves::wave_names_cstr.size());
+        if (ImGui::Combo("##WaveType", &selected_wave_index, Waves::wave_names_cstr.data(), Waves::wave_names_cstr.size()))
+            settings_->set_selected_wave_index(static_cast<size_t>(selected_wave_index));
+
         ImGui::PopItemWidth();
-        settings_->set_selected_wave_index(static_cast<size_t>(selected_wave_index));
     }
     static constexpr auto number_of_harmonic_min = 1u;
     static constexpr auto number_of_harmonic_max = 100u;
