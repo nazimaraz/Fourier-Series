@@ -6,7 +6,7 @@
 
 int main()
 {
-    GUI gui{};
+    auto gui = GUI{};
     gui.initialize();
     while (!gui.is_stopped())
         gui.update();
