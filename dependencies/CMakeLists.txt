@@ -1,5 +1,6 @@
 add_subdirectory(imgui)
 add_subdirectory(rlImGui)
 add_subdirectory(raylib-modern)
+add_subdirectory(TeXRender)
 find_package(Boost REQUIRED)
 set_target_properties(Boost::boost PROPERTIES IMPORTED_GLOBAL TRUE)

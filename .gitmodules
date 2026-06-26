@@ -7,3 +7,6 @@
 [submodule "dependencies/rlImGui/rlImGui"]
 	path = dependencies/rlImGui/rlImGui
 	url = git@github.com:nazimaraz/rlImGui-modern.git
+[submodule "dependencies/TeXRender"]
+	path = dependencies/TeXRender
+	url = git@github.com:nazimaraz/TeXRender.git
