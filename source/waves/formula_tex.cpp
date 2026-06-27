@@ -87,12 +87,12 @@ namespace
     {
         const auto equals_pos = formula.find('=');
         if (equals_pos == std::string::npos)
-            return rewrite_time_tokens(std::move(formula), R"(2\pi f t)");
+            return rewrite_time_tokens(std::move(formula), R"(2\pi ft)");
 
         auto lhs = formula.substr(0, equals_pos);
         auto rhs = formula.substr(equals_pos + 1);
         lhs = rewrite_time_tokens(std::move(lhs), R"(2\pi f t)");
-        rhs = rewrite_time_tokens(std::move(rhs), R"((2\pi )" + format_number(frequency) + ")t");
+        rhs = rewrite_time_tokens(std::move(rhs), R"(2\pi )" + format_number(frequency) + "t");
         return lhs + "=" + rhs;
     }
 } // namespace
