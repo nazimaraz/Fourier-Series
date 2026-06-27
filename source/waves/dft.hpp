@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <cstddef>
 #include <raylib.h>
 #include <vector>
 #include "harmonic_term.hpp"

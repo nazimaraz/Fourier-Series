@@ -18,8 +18,8 @@ namespace
         if (points.size() < 2)
             return {};
 
-        std::vector<float> arc(points.size() + 1, 0.f);
-        for (size_t i = 0; i < points.size(); ++i)
+        auto arc = std::vector(points.size() + 1, 0.f);
+        for (auto i = std::size_t{0}; i < points.size(); ++i)
         {
             const auto& a = points[i];
             const auto& b = points[(i + 1) % points.size()];

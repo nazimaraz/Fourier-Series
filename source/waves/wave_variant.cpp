@@ -13,7 +13,7 @@ namespace Waves
     namespace detail
     {
         template <size_t... Is>
-        [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...>)
+        [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/)
         {
             return std::array<WaveVariant (*)(), sizeof...(Is)>{+[]() -> WaveVariant {
                 return WaveVariant{std::in_place_index<Is>};

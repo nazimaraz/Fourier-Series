@@ -11,8 +11,8 @@ namespace Waves
 
     struct EpicycleStep
     {
-        Vector2 center;
-        Vector2 tip;
+        Vector2 center{};
+        Vector2 tip{};
         float radius{};
     };
 

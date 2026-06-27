@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <cstddef>
 #include <cstdint>
 #include <memory>
 #include <optional>
@@ -55,8 +54,8 @@ namespace Renderers
 
         void rebuild_static(size_t wave_index) const;
         void rebuild_dynamic(const DynamicSignature& signature) const;
-        void rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, float text_size,
-            std::uint32_t color) const;
+        void rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, float latex_text_size,
+            std::uint32_t argb_color) const;
 
         UI::Settings& settings_;
         std::optional<TeXRender::LatexDocument> document_;

@@ -30,7 +30,7 @@ ChartRenderer::~ChartRenderer() = default;
 
 void ChartRenderer::draw() const
 {
-    const auto origin = Vector2{origin_x, origin_y};
+    constexpr auto origin = Vector2{.x = origin_x, .y = origin_y};
     const auto screen_w = static_cast<float>(GetScreenWidth());
     const auto screen_h = static_cast<float>(GetScreenHeight());
     const auto x_scale = settings_.get_x_scale();
@@ -40,19 +40,19 @@ void ChartRenderer::draw() const
     for (auto i = 1; i <= grid_lines_right; ++i)
     {
         const auto x = origin.x + static_cast<float>(i) * grid_step_px;
-        DrawLineV({x, 0.f}, {x, screen_h}, grid_color);
+        DrawLineV({.x = x, .y = 0.f}, {.x = x, .y = screen_h}, grid_color);
         const auto samples_ago = (x - origin.x) / x_scale;
         format_label(buf, "%.0f", samples_ago);
         DrawText(buf.data(), static_cast<int>(x) + 3, static_cast<int>(origin.y) + 6, label_font, label_color);
         DrawLineV({x, origin.y - tick_len}, {x, origin.y + tick_len}, axis_color);
     }
 
-    const auto grid_lines_left = static_cast<int>((origin.x - chart_left) / grid_step_px);
+    constexpr auto grid_lines_left = static_cast<int>((origin.x - chart_left) / grid_step_px);
     for (auto i = 1; i <= grid_lines_left; ++i)
     {
         const auto x = origin.x - static_cast<float>(i) * grid_step_px;
-        DrawLineV({x, 0.f}, {x, screen_h}, grid_color);
-        DrawLineV({x, origin.y - tick_len}, {x, origin.y + tick_len}, axis_color);
+        DrawLineV({.x = x, .y = 0.f}, {.x = x, .y = screen_h}, grid_color);
+        DrawLineV({.x = x, .y = origin.y - tick_len}, {.x = x, .y = origin.y + tick_len}, axis_color);
     }
 
     const auto grid_lines_down = static_cast<int>((screen_h - origin.y) / grid_step_px);
@@ -66,7 +66,7 @@ void ChartRenderer::draw() const
         DrawLineV({origin.x - tick_len, y}, {origin.x + tick_len, y}, axis_color);
     }
 
-    const auto grid_lines_up = static_cast<int>(origin.y / grid_step_px);
+    constexpr auto grid_lines_up = static_cast<int>(origin.y / grid_step_px);
     for (auto i = 1; i <= grid_lines_up; ++i)
     {
         const auto y = origin.y - static_cast<float>(i) * grid_step_px;

@@ -3,7 +3,6 @@
 //
 
 #include <algorithm>
-#include <cstddef>
 #include <optional>
 #include <ranges>
 #include <imgui.h>
