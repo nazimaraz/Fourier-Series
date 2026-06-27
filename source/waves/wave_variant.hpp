@@ -27,9 +27,9 @@ namespace Waves
     namespace detail
     {
         template <size_t... Is>
-        [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...>);
+        [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...> index_sequence);
         template <size_t... Is>
-        [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...>);
+        [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...> index_sequence);
         template <typename T>
         [[nodiscard]] constexpr size_t index_of_impl();
     } // namespace detail

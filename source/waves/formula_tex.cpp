@@ -4,7 +4,8 @@
 
 #include <array>
 #include <cmath>
-#include <cstdio>
+#include <iomanip>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include "formula_tex.hpp"
@@ -55,9 +56,9 @@ namespace
 {
     [[nodiscard]] std::string format_number(const float value)
     {
-        auto buffer = std::array<char, 32>{};
-        const auto written = std::snprintf(buffer.data(), buffer.size(), "%.3g", value);
-        return written > 0 ? std::string{buffer.data(), static_cast<size_t>(written)} : std::string{};
+        auto stream = std::ostringstream{};
+        stream << std::setprecision(3) << value;
+        return stream.str();
     }
 
     // Replace every occurrence of `needle` in `haystack` with `replacement`.

@@ -66,7 +66,7 @@ void WaveRenderer::draw() const
         for (const auto& p : path)
             points_buffer_.push_back(math_to_screen(p));
 
-        DrawLineStrip(points_buffer_.data(), points_buffer_.size(), Config::Wave::path_color);
+        DrawLineStrip(points_buffer_.data(), static_cast<int>(points_buffer_.size()), Config::Wave::path_color);
     }
 
     if (const auto& drawing = settings_.get_drawing_points(); drawing.size() > 1)
@@ -77,7 +77,7 @@ void WaveRenderer::draw() const
             points_buffer_.push_back(math_to_screen(p));
 
         constexpr auto draw_color = Color{.r = 200, .g = 200, .b = 200, .a = 180};
-        DrawLineStrip(points_buffer_.data(), points_buffer_.size(), draw_color);
+        DrawLineStrip(points_buffer_.data(), static_cast<int>(points_buffer_.size()), draw_color);
     }
 
     for (const auto& step : result.steps)
@@ -98,5 +98,5 @@ void WaveRenderer::draw() const
     for (const auto i : std::views::iota(size_t{0}, wave.size()))
         points_buffer_.push_back(math_to_screen({static_cast<float>(i) * x_scale, wave.at(i) * y_scale}));
 
-    DrawLineStrip(points_buffer_.data(), points_buffer_.size(), Config::Wave::wave_color);
+    DrawLineStrip(points_buffer_.data(), static_cast<int>(points_buffer_.size()), Config::Wave::wave_color);
 }

@@ -7,13 +7,13 @@ namespace Waves
     namespace detail
     {
         template <size_t... Is>
-        [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...>)
+        [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...> /*index_sequence*/)
         {
             return std::array<std::string_view, wave_count>{std::variant_alternative_t<Is, WaveVariant>::name...};
         }
 
         template <size_t... Is>
-        [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...>)
+        [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...> /*index_sequence*/)
         {
             return std::array<const char*, wave_count>{std::variant_alternative_t<Is, WaveVariant>::name.data()...};
         }

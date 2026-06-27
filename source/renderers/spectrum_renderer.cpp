@@ -19,8 +19,6 @@ SpectrumRenderer::SpectrumRenderer(UI::Settings& settings)
     : settings_{settings}
 {}
 
-SpectrumRenderer::~SpectrumRenderer() = default;
-
 void SpectrumRenderer::draw() const
 {
     const auto& selected = settings_.get_selected_wave();

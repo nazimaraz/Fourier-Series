@@ -22,8 +22,6 @@ DrawingInput::DrawingInput(Settings& settings)
     : settings_{settings}
 {}
 
-DrawingInput::~DrawingInput() = default;
-
 void DrawingInput::handle() const
 {
     if (!std::holds_alternative<Waves::UserPath>(settings_.get_selected_wave()))
