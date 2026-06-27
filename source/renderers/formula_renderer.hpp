@@ -9,10 +9,11 @@
 #include <memory>
 #include <optional>
 #include <texrender/latex_document.hpp>
+#include <texrender/render_handle.hpp>
 
 namespace TeXRender
 {
-    class HeadlessSurface;
+    class RaylibSurface;
 }
 
 namespace UI
@@ -22,13 +23,8 @@ namespace UI
 
 namespace Renderers
 {
-    // Renders the selected wave's Fourier-series formula onto the window as LaTeX via TeXRender's
-    // headless surface, uploading each rasterized RGBA buffer to a raylib texture. Two formulas are
-    // shown: the static closed-form series (top) and a dynamic one (below) that is the same original
-    // formula with the live values plugged in — the infinite sum bound becomes the harmonic count,
-    // the time variable becomes omega*t, and the series is scaled by the radius. The dynamic texture
-    // rebuilds live as the harmonic count, frequency, or radius change. Textures are rebuilt only on
-    // change, so steady-state frames cost two DrawTextureV calls.
+    // Renders the selected wave's Fourier-series formula directly through TeXRender's raylib surface.
+    // Two formulas are shown: the static closed-form series and a dynamic one with live values plugged in.
     class FormulaRenderer
     {
     public:
@@ -37,7 +33,7 @@ namespace Renderers
         FormulaRenderer(FormulaRenderer&&) = delete;
         FormulaRenderer& operator=(const FormulaRenderer&) = delete;
         FormulaRenderer& operator=(FormulaRenderer&&) = delete;
-        ~FormulaRenderer();
+        ~FormulaRenderer() = default;
 
         void draw() const;
         void set_panel_right(float x) const;
@@ -59,19 +55,16 @@ namespace Renderers
 
         void rebuild_static(size_t wave_index) const;
         void rebuild_dynamic(const DynamicSignature& signature) const;
-        void build_texture(Texture2D& texture, bool& valid, const std::string& latex, float text_size,
+        void rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, float text_size,
             std::uint32_t color) const;
-        static void free_texture(const Texture2D& texture, bool& valid);
 
         UI::Settings& settings_;
-        TeXRender::HeadlessSurface* surface_{};
+        TeXRender::RaylibSurface* surface_{};
         std::optional<TeXRender::LatexDocument> document_;
         mutable float panel_right_{};
-        mutable Texture2D static_texture_{};
-        mutable bool static_valid_{};
+        mutable std::optional<TeXRender::RenderHandle> static_formula_;
         mutable size_t last_wave_index_{static_cast<size_t>(-1)};
-        mutable Texture2D dynamic_texture_{};
-        mutable bool dynamic_valid_{};
+        mutable std::optional<TeXRender::RenderHandle> dynamic_formula_;
         mutable DynamicSignature last_dynamic_{};
     };
 } // namespace Renderers
