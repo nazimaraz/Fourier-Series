@@ -2,11 +2,9 @@
 // Created by nazim on 6/27/26.
 //
 
-#include <cstdint>
 #include <memory>
 #include <optional>
 #include <string>
-#include <texrender/draw_surface.hpp>
 #include <texrender/headless_surface.hpp>
 #include <texrender/render_handle.hpp>
 #include <raylib.h>
@@ -44,8 +42,8 @@ void FormulaRenderer::free_texture(const raylib::Texture2D& texture, bool& valid
     valid = false;
 }
 
-void FormulaRenderer::build_texture(raylib::Texture2D& texture, bool& valid, const std::string& latex, const float text_size,
-    const std::uint32_t color) const
+void FormulaRenderer::build_texture(raylib::Texture2D& texture, bool& valid, const std::string& latex, const float latex_text_size,
+    const std::uint32_t argb_color) const
 {
     if (latex.empty() || surface_ == nullptr)
     {
@@ -53,7 +51,7 @@ void FormulaRenderer::build_texture(raylib::Texture2D& texture, bool& valid, con
         return;
     }
 
-    const auto handle = document_->render(latex, text_size, color);
+    const auto handle = document_->render(latex, latex_text_size, argb_color);
     const auto w = handle.width();
     const auto h = handle.height();
     if (w <= 0 || h <= 0)
