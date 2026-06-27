@@ -19,5 +19,6 @@ namespace Waves
     // harmonic count, the time variable becomes omega*t (omega defined afterwards), and the whole
     // series is scaled by `radius` when it differs from 1. The original formula structure is kept
     // intact — only the dynamic values are plugged in.
-    [[nodiscard]] std::string dynamic_formula_tex(std::size_t wave_index, unsigned int harmonic_count, float radius, float frequency);
+    [[nodiscard]] std::string dynamic_formula_tex(std::size_t wave_index, unsigned int harmonic_count, float radius,
+        float frequency);
 } // namespace Waves

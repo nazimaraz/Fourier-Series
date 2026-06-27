@@ -72,17 +72,28 @@ namespace
             haystack.replace(pos, needle.size(), replacement);
     }
 
-    // Express the time variable `t` via omega = 2*pi*f by rewriting each trig argument. The original
-    // formulas only use `t` as the standalone variable inside `\sin(...)` / `\cos(...)`, so the bare
-    // token is replaced in place. `\ldots` / `\cdots` are protected first since they contain a `t`.
-    [[nodiscard]] std::string rewrite_time_variable(std::string formula)
+    [[nodiscard]] std::string rewrite_time_tokens(std::string formula, const std::string_view replacement)
     {
         replace_all(formula, R"(\ldots)", "\x01");
         replace_all(formula, R"(\cdots)", "\x02");
-        replace_all(formula, "t", R"(\omega t)");
+        replace_all(formula, "t", replacement);
         replace_all(formula, "\x01", R"(\ldots)");
         replace_all(formula, "\x02", R"(\cdots)");
         return formula;
+    }
+
+    // Show the transformed input symbolically on the left and plug the numeric frequency into the series.
+    [[nodiscard]] std::string rewrite_time_variable(std::string formula, const float frequency)
+    {
+        const auto equals_pos = formula.find('=');
+        if (equals_pos == std::string::npos)
+            return rewrite_time_tokens(std::move(formula), R"(2\pi f t)");
+
+        auto lhs = formula.substr(0, equals_pos);
+        auto rhs = formula.substr(equals_pos + 1);
+        lhs = rewrite_time_tokens(std::move(lhs), R"(2\pi f t)");
+        rhs = rewrite_time_tokens(std::move(rhs), R"((2\pi )" + format_number(frequency) + ")t");
+        return lhs + "=" + rhs;
     }
 } // namespace
 
@@ -94,23 +105,12 @@ std::string Waves::dynamic_formula_tex(const std::size_t wave_index, const unsig
         return {};
 
     replace_all(formula, R"(\infty)", std::to_string(harmonic_count));
-    formula = rewrite_time_variable(formula);
-    const auto omega = [&] -> std::string {
-        if (std::fabs(frequency) < 1e-6f)
-            return "0";
-
-        if (std::fabs(frequency - 1.f) > 1e-3f)
-            return format_number(frequency) + R"(\pi)";
-
-        return R"(2\pi)";
-    }();
-
+    formula = rewrite_time_variable(formula, frequency);
     if (std::fabs(radius - 1.f) > 1e-3f)
     {
         const auto rhs = std::string_view{formula}.substr(formula.find('=') + 1);
         formula.replace(formula.find('=') + 1, rhs.size(), std::string{format_number(radius)} + R"(\cdot)" + std::string{rhs});
     }
 
-    formula += R"( \quad (\omega = )" + omega + ")";
     return formula;
 }
