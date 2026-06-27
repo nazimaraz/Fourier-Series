@@ -7,7 +7,6 @@
 #include <cstddef>
 #include <string>
 #include <string_view>
-#include "wave_variant.hpp"
 
 namespace Waves
 {
@@ -15,10 +14,10 @@ namespace Waves
     // `wave_index` follows the same ordering as `WaveVariant` / `wave_names`.
     [[nodiscard]] std::string_view formula_tex(size_t wave_index);
 
-    // Builds a LaTeX string for the *instantiated* Fourier series the renderer is actually
-    // drawing: amplitudes scaled by `radius`, the time argument expressed via omega = 2*pi*f,
-    // `harmonic_count` terms, and terms disabled by `enabled_mask` (may be null = all on)
-    // dropped. Only the first few contributing terms are expanded, the rest collapsed to \cdots.
-    [[nodiscard]] std::string dynamic_formula_tex(const WaveVariant& wave, unsigned int harmonic_count, float radius,
-        float frequency, const bool* enabled_mask);
+    // Builds the *dynamic* LaTeX string by taking the original closed-form series of the wave at
+    // `wave_index` and substituting the live values into it: the infinite sum bound becomes the
+    // harmonic count, the time variable becomes omega*t (omega defined afterwards), and the whole
+    // series is scaled by `radius` when it differs from 1. The original formula structure is kept
+    // intact — only the dynamic values are plugged in.
+    [[nodiscard]] std::string dynamic_formula_tex(size_t wave_index, unsigned int harmonic_count, float radius, float frequency);
 } // namespace Waves

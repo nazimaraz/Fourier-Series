@@ -3,7 +3,6 @@
 //
 
 #include <cstdint>
-#include <cstring>
 #include <memory>
 #include <optional>
 #include <string>
@@ -93,9 +92,8 @@ void FormulaRenderer::rebuild_static(const size_t wave_index) const
 
 void FormulaRenderer::rebuild_dynamic(const DynamicSignature& signature) const
 {
-    const auto& mask = settings_.get_harmonic_mask();
-    const auto latex = Waves::dynamic_formula_tex(settings_.get_selected_wave(), signature.harmonic_count, signature.radius,
-        signature.frequency, mask.data());
+    const auto latex = Waves::dynamic_formula_tex(signature.wave_index, signature.harmonic_count, signature.radius,
+        signature.frequency);
     build_texture(dynamic_texture_, dynamic_valid_, latex, dynamic_text_size, dynamic_color);
 }
 
@@ -110,23 +108,13 @@ void FormulaRenderer::draw() const
         last_wave_index_ = wave_index;
     }
 
-    const auto& mask = settings_.get_harmonic_mask();
-    // FNV-1a over the prefix of the mask that can actually be referenced by the harmonic count.
-    auto mask_hash = std::uint64_t{0xcbf29ce484222325ull};
-    for (auto i = size_t{}; i < settings_.get_number_of_harmonic(); ++i)
-    {
-        mask_hash ^= mask[i] ? std::uint64_t{1} : std::uint64_t{0};
-        mask_hash *= 0x100000001b3ull;
-    }
-
     const auto signature = DynamicSignature{
         .wave_index = wave_index,
         .harmonic_count = settings_.get_number_of_harmonic(),
         .radius = settings_.get_radius(),
         .frequency = settings_.get_frequency(),
-        .mask_hash = mask_hash,
     };
-    if (std::memcmp(&signature, &last_dynamic_, sizeof(DynamicSignature)) != 0)
+    if (signature != last_dynamic_)
     {
         rebuild_dynamic(signature);
         last_dynamic_ = signature;

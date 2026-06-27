@@ -25,10 +25,11 @@ namespace Renderers
 {
     // Renders the selected wave's Fourier-series formula onto the window as LaTeX via TeXRender's
     // headless surface, uploading each rasterized RGBA buffer to a raylib texture. Two formulas are
-    // shown: the static closed-form series (top) and a dynamic one (below) that expands the actual
-    // terms the renderer is drawing, rebuilt live as the harmonic count, frequency, radius, or
-    // harmonic mask change. Textures are rebuilt only on change, so steady-state frames cost two
-    // DrawTextureV calls.
+    // shown: the static closed-form series (top) and a dynamic one (below) that is the same original
+    // formula with the live values plugged in — the infinite sum bound becomes the harmonic count,
+    // the time variable becomes omega*t, and the series is scaled by the radius. The dynamic texture
+    // rebuilds live as the harmonic count, frequency, or radius change. Textures are rebuilt only on
+    // change, so steady-state frames cost two DrawTextureV calls.
     class FormulaRenderer
     {
     public:
@@ -48,7 +49,12 @@ namespace Renderers
             unsigned int harmonic_count{};
             float radius{};
             float frequency{};
-            std::uint64_t mask_hash{};
+
+            [[nodiscard]] friend bool operator==(const DynamicSignature& lhs, const DynamicSignature& rhs)
+            {
+                return lhs.wave_index == rhs.wave_index && lhs.harmonic_count == rhs.harmonic_count
+                    && lhs.radius == rhs.radius && lhs.frequency == rhs.frequency;
+            }
         };
 
         void rebuild_static(size_t wave_index) const;
