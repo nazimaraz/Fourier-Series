@@ -53,9 +53,13 @@ namespace Config
     namespace Formula
     {
         inline constexpr auto text_size = 26.f;
+        inline constexpr auto dynamic_text_size = 22.f;
         inline constexpr auto margin_top = 14.f;
         inline constexpr auto margin_right = 16.f;
+        // Vertical gap between the static (top) and dynamic (below) formulas.
+        inline constexpr auto vertical_gap = 6.f;
         // ARGB (TeXRender expects 0xAARRGGBB); light gray matching the chart/spectrum label color.
         inline constexpr auto color = std::uint32_t{0xffbebebe};
+        inline constexpr auto dynamic_color = std::uint32_t{0xff9ad1ff};
     } // namespace Formula
 } // namespace Config
