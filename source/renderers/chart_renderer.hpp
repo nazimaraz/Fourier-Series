@@ -15,12 +15,6 @@ namespace Renderers
     {
     public:
         explicit ChartRenderer(UI::Settings& settings);
-        ChartRenderer(const ChartRenderer&) = delete;
-        ChartRenderer(ChartRenderer&&) = delete;
-        ChartRenderer& operator=(const ChartRenderer&) = delete;
-        ChartRenderer& operator=(ChartRenderer&&) = delete;
-        ~ChartRenderer();
-
         void draw() const;
 
     private:

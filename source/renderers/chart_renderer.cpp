@@ -2,10 +2,10 @@
 // Created by nazim on 5/23/26.
 //
 
-#include <array>
-#include <cassert>
-#include <cstdio>
+#include <iomanip>
 #include <raylib.h>
+#include <sstream>
+#include <string>
 #include "chart_renderer.hpp"
 #include "config.hpp"
 #include "gui/settings.hpp"
@@ -15,18 +15,20 @@ using namespace Config::Chart;
 
 namespace
 {
-    void format_label(std::array<char, 16>& buf, const char* fmt, const float value)
+    [[nodiscard]] std::string format_label(const float value, const bool show_sign = false)
     {
-        const auto written = std::snprintf(buf.data(), buf.size(), fmt, value);
-        assert(written >= 0 && static_cast<size_t>(written) < buf.size() && "label formatting failed or was truncated");
+        auto stream = std::ostringstream{};
+        if (show_sign)
+            stream << std::showpos;
+
+        stream << std::fixed << std::setprecision(0) << value;
+        return stream.str();
     }
 } // namespace
 
 ChartRenderer::ChartRenderer(UI::Settings& settings)
     : settings_{settings}
 {}
-
-ChartRenderer::~ChartRenderer() = default;
 
 void ChartRenderer::draw() const
 {
@@ -35,15 +37,14 @@ void ChartRenderer::draw() const
     const auto screen_h = static_cast<float>(GetScreenHeight());
     const auto x_scale = settings_.get_x_scale();
     const auto y_scale = settings_.get_y_scale();
-    auto buf = std::array<char, 16>{};
     const auto grid_lines_right = static_cast<int>((screen_w - origin.x) / grid_step_px);
     for (auto i = 1; i <= grid_lines_right; ++i)
     {
         const auto x = origin.x + static_cast<float>(i) * grid_step_px;
         DrawLineV({.x = x, .y = 0.f}, {.x = x, .y = screen_h}, grid_color);
         const auto samples_ago = (x - origin.x) / x_scale;
-        format_label(buf, "%.0f", samples_ago);
-        DrawText(buf.data(), static_cast<int>(x) + 3, static_cast<int>(origin.y) + 6, label_font, label_color);
+        const auto label = format_label(samples_ago);
+        DrawText(label.c_str(), static_cast<int>(x) + 3, static_cast<int>(origin.y) + 6, label_font, label_color);
         DrawLineV({x, origin.y - tick_len}, {x, origin.y + tick_len}, axis_color);
     }
 
@@ -61,8 +62,8 @@ void ChartRenderer::draw() const
         const auto y = origin.y + static_cast<float>(i) * grid_step_px;
         DrawLineV({chart_left, y}, {screen_w, y}, grid_color);
         const auto amp = -(y - origin.y) / y_scale;
-        format_label(buf, "%+.0f", amp);
-        DrawText(buf.data(), static_cast<int>(origin.x) + 6, static_cast<int>(y) - label_font - 2, label_font, label_color);
+        const auto label = format_label(amp, true);
+        DrawText(label.c_str(), static_cast<int>(origin.x) + 6, static_cast<int>(y) - label_font - 2, label_font, label_color);
         DrawLineV({origin.x - tick_len, y}, {origin.x + tick_len, y}, axis_color);
     }
 
@@ -72,8 +73,8 @@ void ChartRenderer::draw() const
         const auto y = origin.y - static_cast<float>(i) * grid_step_px;
         DrawLineV({chart_left, y}, {screen_w, y}, grid_color);
         const auto amp = -(y - origin.y) / y_scale;
-        format_label(buf, "%+.0f", amp);
-        DrawText(buf.data(), static_cast<int>(origin.x) + 6, static_cast<int>(y) + 2, label_font, label_color);
+        const auto label = format_label(amp, true);
+        DrawText(label.c_str(), static_cast<int>(origin.x) + 6, static_cast<int>(y) + 2, label_font, label_color);
         DrawLineV({origin.x - tick_len, y}, {origin.x + tick_len, y}, axis_color);
     }
 

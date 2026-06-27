@@ -26,8 +26,8 @@ FormulaRenderer::FormulaRenderer(UI::Settings& settings)
     document_.emplace(std::string{TEXRENDER_RES_DIR}, std::move(surface));
 }
 
-void FormulaRenderer::rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, const float latex_text_size,
-    const std::uint32_t argb_color) const
+void FormulaRenderer::rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex,
+    const float latex_text_size, const std::uint32_t argb_color) const
 {
     if (latex.empty())
     {

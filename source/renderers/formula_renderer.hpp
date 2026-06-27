@@ -22,18 +22,10 @@ namespace UI
 
 namespace Renderers
 {
-    // Renders the selected wave's Fourier-series formula directly through TeXRender's raylib surface.
-    // Two formulas are shown: the static closed-form series and a dynamic one with live values plugged in.
     class FormulaRenderer
     {
     public:
         explicit FormulaRenderer(UI::Settings& settings);
-        FormulaRenderer(const FormulaRenderer&) = delete;
-        FormulaRenderer(FormulaRenderer&&) = delete;
-        FormulaRenderer& operator=(const FormulaRenderer&) = delete;
-        FormulaRenderer& operator=(FormulaRenderer&&) = delete;
-        ~FormulaRenderer() = default;
-
         void draw() const;
         void set_panel_right(float x) const;
 
