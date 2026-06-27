@@ -12,6 +12,6 @@ namespace Waves
     struct ComputeResult
     {
         std::vector<EpicycleStep> steps;
-        raylib::Vector2 tip;
+        Vector2 tip;
     };
 } // namespace Waves

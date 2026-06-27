@@ -32,15 +32,15 @@ void DrawingInput::handle() const
     if (ImGui::GetIO().WantCaptureMouse)
         return;
 
-    const auto mouse = raylib::GetMousePosition();
-    const auto math_p = raylib::Vector2{mouse.x - Config::Wave::epicycle_origin_x, Config::Wave::epicycle_origin_y - mouse.y};
-    if (raylib::IsMouseButtonPressed(raylib::MouseButton::MOUSE_BUTTON_LEFT))
+    const auto mouse = GetMousePosition();
+    const auto math_p = Vector2{mouse.x - Config::Wave::epicycle_origin_x, Config::Wave::epicycle_origin_y - mouse.y};
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         settings_.start_drawing();
 
-    if (settings_.is_drawing() && raylib::IsMouseButtonDown(raylib::MouseButton::MOUSE_BUTTON_LEFT))
+    if (settings_.is_drawing() && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         settings_.add_drawing_point(math_p);
 
-    if (settings_.is_drawing() && raylib::IsMouseButtonReleased(raylib::MouseButton::MOUSE_BUTTON_LEFT))
+    if (settings_.is_drawing() && IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
         commit();
 }
 

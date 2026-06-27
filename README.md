@@ -254,7 +254,7 @@ heart curve `x(t) = 16 sin³ t`, `y(t) = 13 cos t − 5 cos 2t − 2 cos 3t − 
 encoded as `HarmonicTerm`s with `n ∈ {±1, ±2, ±3, ±4}`.
 
 The only rendering addition was an 11-line block in `WaveRenderer::draw()`
-that pushes the cumulative tip into a `circular_buffer<raylib::Vector2>`
+that pushes the cumulative tip into a `circular_buffer<Vector2>`
 and draws it as a line strip. Everything else — the variant alternative,
 the concept check, the factory table, the combo-box label — extended itself.
 

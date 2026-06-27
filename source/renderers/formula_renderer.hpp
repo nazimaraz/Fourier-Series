@@ -9,7 +9,6 @@
 #include <memory>
 #include <optional>
 #include <texrender/latex_document.hpp>
-#include "vector2.hpp"
 
 namespace TeXRender
 {
@@ -60,18 +59,18 @@ namespace Renderers
 
         void rebuild_static(size_t wave_index) const;
         void rebuild_dynamic(const DynamicSignature& signature) const;
-        void build_texture(raylib::Texture2D& texture, bool& valid, const std::string& latex, float text_size,
+        void build_texture(Texture2D& texture, bool& valid, const std::string& latex, float text_size,
             std::uint32_t color) const;
-        static void free_texture(const raylib::Texture2D& texture, bool& valid);
+        static void free_texture(const Texture2D& texture, bool& valid);
 
         UI::Settings& settings_;
         TeXRender::HeadlessSurface* surface_{};
         std::optional<TeXRender::LatexDocument> document_;
         mutable float panel_right_{};
-        mutable raylib::Texture2D static_texture_{};
+        mutable Texture2D static_texture_{};
         mutable bool static_valid_{};
         mutable size_t last_wave_index_{static_cast<size_t>(-1)};
-        mutable raylib::Texture2D dynamic_texture_{};
+        mutable Texture2D dynamic_texture_{};
         mutable bool dynamic_valid_{};
         mutable DynamicSignature last_dynamic_{};
     };

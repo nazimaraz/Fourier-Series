@@ -4,8 +4,8 @@
 
 #pragma once
 
+#include <raylib.h>
 #include <vector>
-#include "vector2.hpp"
 
 namespace UI
 {
@@ -28,7 +28,7 @@ namespace Renderers
 
     private:
         UI::Settings& settings_;
-        mutable std::vector<raylib::Vector2> points_buffer_;
+        mutable std::vector<Vector2> points_buffer_;
         mutable float last_phase_{};
         mutable bool initialized_{};
     };

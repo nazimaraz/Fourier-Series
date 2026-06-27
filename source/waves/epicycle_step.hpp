@@ -4,15 +4,15 @@
 
 #pragma once
 
-#include <vector2.hpp>
+#include <raylib.h>
 
 namespace Waves
 {
 
     struct EpicycleStep
     {
-        raylib::Vector2 center;
-        raylib::Vector2 tip;
+        Vector2 center;
+        Vector2 tip;
         float radius{};
     };
 

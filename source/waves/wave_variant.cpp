@@ -6,6 +6,7 @@
 #include "wave_variant.hpp"
 #include "math/math.hpp"
 #include "wave_shape.hpp"
+#include <raymath.h>
 
 namespace Waves
 {
@@ -24,7 +25,7 @@ namespace Waves
         {
             ComputeResult result;
             result.steps.reserve(params.harmonic_count);
-            auto position = raylib::Vector2{0.f, params.radius * wave.dc()};
+            auto position = Vector2{0.f, params.radius * wave.dc()};
             for (const auto i : std::views::iota(0u, params.harmonic_count))
             {
                 const auto [n, coefficient, phase] = wave.formula(static_cast<float>(i));
@@ -33,7 +34,7 @@ namespace Waves
                 const auto radius = params.radius * effective_coefficient;
                 const auto previous_position = position;
                 const auto angle = n * 2.f * math::pi_v<float> * params.phase + phase;
-                position += {radius * math::cos(angle), radius * math::sin(angle)};
+                position = Vector2Add(position, {radius * math::cos(angle), radius * math::sin(angle)});
                 result.steps.emplace_back(previous_position, position, math::abs(radius));
             }
 

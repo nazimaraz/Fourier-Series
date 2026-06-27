@@ -21,11 +21,11 @@ void GUI::initialize()
 {
     constexpr auto screen_width = 1600;
     constexpr auto screen_height = 900;
-    raylib::InitWindow(screen_width, screen_height, "Fourier Series");
-    raylib::SetTargetFPS(120);
-    raylib::rlImGuiSetup(true);
+    InitWindow(screen_width, screen_height, "Fourier Series");
+    SetTargetFPS(120);
+    rlImGuiSetup(true);
     settings_ = std::make_shared<UI::Settings>();
-    settings_->set_background_color(raylib::BLACK);
+    settings_->set_background_color(BLACK);
     settings_->set_wave_capacity(1000);
     settings_->set_path_capacity(4000);
     settings_->set_number_of_harmonic(10);
@@ -43,20 +43,20 @@ void GUI::initialize()
 
 void GUI::update()
 {
-    if (raylib::WindowShouldClose())
+    if (WindowShouldClose())
     {
         stop();
         return;
     }
 
-    raylib::BeginDrawing();
+    BeginDrawing();
     update_impl();
-    raylib::EndDrawing();
+    EndDrawing();
 }
 
 void GUI::stop()
 {
-    raylib::CloseWindow();
+    CloseWindow();
     is_stopped_ = true;
 }
 
@@ -68,15 +68,15 @@ bool GUI::is_stopped() const
 void GUI::update_impl() const
 {
     ClearBackground(settings_->get_background_color());
-    raylib::rlImGuiBegin();
-    ImGui::SetNextWindowSizeConstraints({200.f, static_cast<float>(raylib::GetScreenHeight())},
-        {static_cast<float>(raylib::GetScreenWidth()), static_cast<float>(raylib::GetScreenHeight())});
+    rlImGuiBegin();
+    ImGui::SetNextWindowSizeConstraints({200.f, static_cast<float>(GetScreenHeight())},
+        {static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())});
     ImGui::SetNextWindowPos({0.f, 0.f});
     ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
     update_settings();
     const auto panel_right = ImGui::GetWindowWidth();
     ImGui::End();
-    raylib::rlImGuiEnd();
+    rlImGuiEnd();
     drawing_input_->handle();
     chart_renderer_->draw();
     wave_renderer_->draw();
@@ -84,12 +84,12 @@ void GUI::update_impl() const
     formula_renderer_->set_panel_right(panel_right);
     formula_renderer_->draw();
     if (!settings_->get_is_paused())
-        settings_->set_phase(settings_->get_phase() + settings_->get_frequency() * raylib::GetFrameTime());
+        settings_->set_phase(settings_->get_phase() + settings_->get_frequency() * GetFrameTime());
 }
 
 void GUI::update_settings() const
 {
-    settings_->set_fps(raylib::GetFPS());
+    settings_->set_fps(GetFPS());
     ImGui::Text("FPS: %d", settings_->get_fps());
     if (ImGui::Button("Clear"))
     {

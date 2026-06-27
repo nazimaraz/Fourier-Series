@@ -13,7 +13,7 @@ using namespace Waves;
 
 namespace
 {
-    std::vector<raylib::Vector2> resample_uniform(const std::vector<raylib::Vector2>& points, const size_t num_samples)
+    std::vector<Vector2> resample_uniform(const std::vector<Vector2>& points, const size_t num_samples)
     {
         if (points.size() < 2)
             return {};
@@ -30,7 +30,7 @@ namespace
         if (total == 0.f)
             return {};
 
-        auto out = std::vector<raylib::Vector2>{};
+        auto out = std::vector<Vector2>{};
         out.reserve(num_samples);
         for (auto k = size_t{}; k < num_samples; ++k)
         {
@@ -50,7 +50,7 @@ namespace
     }
 } // namespace
 
-DftResult Waves::compute_dft(const std::vector<raylib::Vector2>& points, const size_t max_harmonics)
+DftResult Waves::compute_dft(const std::vector<Vector2>& points, const size_t max_harmonics)
 {
     if (points.size() < 3)
         return {.harmonics = {}, .dc_value = 0.f};

@@ -61,12 +61,12 @@ int Settings::get_fps() const
     return fps_;
 }
 
-void Settings::set_background_color(const raylib::Color color)
+void Settings::set_background_color(const Color color)
 {
     background_color_ = color;
 }
 
-raylib::Color Settings::get_background_color() const
+Color Settings::get_background_color() const
 {
     return background_color_;
 }
@@ -81,12 +81,12 @@ boost::circular_buffer<float>& Settings::get_wave()
     return wave_;
 }
 
-void Settings::set_path_capacity(const boost::circular_buffer<raylib::Vector2>::capacity_type capacity)
+void Settings::set_path_capacity(const boost::circular_buffer<Vector2>::capacity_type capacity)
 {
     path_.set_capacity(capacity);
 }
 
-boost::circular_buffer<raylib::Vector2>& Settings::get_path()
+boost::circular_buffer<Vector2>& Settings::get_path()
 {
     return path_;
 }
@@ -137,7 +137,7 @@ void Settings::stop_drawing()
     is_drawing_ = false;
 }
 
-void Settings::add_drawing_point(const raylib::Vector2 p)
+void Settings::add_drawing_point(const Vector2 p)
 {
     if (!drawing_points_.empty())
     {
@@ -148,7 +148,7 @@ void Settings::add_drawing_point(const raylib::Vector2 p)
     drawing_points_.push_back(p);
 }
 
-void Settings::set_drawing_points(std::vector<raylib::Vector2> points)
+void Settings::set_drawing_points(std::vector<Vector2> points)
 {
     drawing_points_ = std::move(points);
 }
@@ -163,7 +163,7 @@ bool Settings::is_drawing() const
     return is_drawing_;
 }
 
-const std::vector<raylib::Vector2>& Settings::get_drawing_points() const
+const std::vector<Vector2>& Settings::get_drawing_points() const
 {
     return drawing_points_;
 }

@@ -30,9 +30,9 @@ ChartRenderer::~ChartRenderer() = default;
 
 void ChartRenderer::draw() const
 {
-    const auto origin = raylib::Vector2{origin_x, origin_y};
-    const auto screen_w = static_cast<float>(raylib::GetScreenWidth());
-    const auto screen_h = static_cast<float>(raylib::GetScreenHeight());
+    const auto origin = Vector2{origin_x, origin_y};
+    const auto screen_w = static_cast<float>(GetScreenWidth());
+    const auto screen_h = static_cast<float>(GetScreenHeight());
     const auto x_scale = settings_.get_x_scale();
     const auto y_scale = settings_.get_y_scale();
     auto buf = std::array<char, 16>{};

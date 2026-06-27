@@ -35,8 +35,8 @@ void SpectrumRenderer::draw() const
     if (result.steps.empty())
         return;
 
-    const auto screen_w = static_cast<float>(raylib::GetScreenWidth());
-    const auto screen_h = static_cast<float>(raylib::GetScreenHeight());
+    const auto screen_w = static_cast<float>(GetScreenWidth());
+    const auto screen_h = static_cast<float>(GetScreenHeight());
     constexpr auto panel_left = Config::Chart::origin_x;
     const auto panel_right = screen_w - panel_right_margin;
     const auto panel_bottom = screen_h - panel_bottom_margin;
@@ -73,7 +73,7 @@ void SpectrumRenderer::draw() const
         return;
 
     const auto column_under_mouse = [&]() -> std::optional<size_t> {
-        const auto mouse = raylib::GetMousePosition();
+        const auto mouse = GetMousePosition();
         if (mouse.x < panel_left || mouse.x >= panel_right)
             return std::nullopt;
 
@@ -87,12 +87,12 @@ void SpectrumRenderer::draw() const
         return col;
     };
 
-    if (raylib::IsMouseButtonPressed(raylib::MouseButton::MOUSE_BUTTON_LEFT))
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
         if (const auto col = column_under_mouse())
             settings_.toggle_harmonic(*col);
     }
-    else if (raylib::IsMouseButtonPressed(raylib::MouseButton::MOUSE_BUTTON_RIGHT))
+    else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
     {
         if (const auto col = column_under_mouse())
             settings_.solo_harmonic(*col);

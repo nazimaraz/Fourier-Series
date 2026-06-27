@@ -34,15 +34,15 @@ FormulaRenderer::~FormulaRenderer()
     free_texture(dynamic_texture_, dynamic_valid_);
 }
 
-void FormulaRenderer::free_texture(const raylib::Texture2D& texture, bool& valid)
+void FormulaRenderer::free_texture(const Texture2D& texture, bool& valid)
 {
     if (valid)
-        raylib::UnloadTexture(texture);
+        UnloadTexture(texture);
 
     valid = false;
 }
 
-void FormulaRenderer::build_texture(raylib::Texture2D& texture, bool& valid, const std::string& latex, const float latex_text_size,
+void FormulaRenderer::build_texture(Texture2D& texture, bool& valid, const std::string& latex, const float latex_text_size,
     const std::uint32_t argb_color) const
 {
     if (latex.empty() || surface_ == nullptr)
@@ -67,19 +67,19 @@ void FormulaRenderer::build_texture(raylib::Texture2D& texture, bool& valid, con
     if (!valid || texture.width != w || texture.height != h)
     {
         free_texture(texture, valid);
-        const auto image = raylib::Image{
+        const auto image = Image{
             .data = const_cast<void*>(static_cast<const void*>(surface_->pixels().data())),
             .width = w,
             .height = h,
             .mipmaps = 1,
-            .format = raylib::PixelFormat::PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
+            .format = PixelFormat::PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
         };
-        texture = raylib::LoadTextureFromImage(image);
+        texture = LoadTextureFromImage(image);
         valid = texture.id != 0;
     }
     else
     {
-        raylib::UpdateTexture(texture, surface_->pixels().data());
+        UpdateTexture(texture, surface_->pixels().data());
     }
 }
 
@@ -124,16 +124,16 @@ void FormulaRenderer::draw() const
 
     if (static_valid_)
     {
-        const auto position = raylib::Vector2{left_x, margin_top};
-        raylib::DrawTextureV(static_texture_, position, raylib::WHITE);
+        const auto position = Vector2{left_x, margin_top};
+        DrawTextureV(static_texture_, position, WHITE);
     }
 
     if (dynamic_valid_)
     {
         const auto static_h = static_valid_ ? static_cast<float>(static_texture_.height) : 0.f;
         const auto y = margin_top + static_h + vertical_gap;
-        const auto position = raylib::Vector2{left_x, y};
-        raylib::DrawTextureV(dynamic_texture_, position, raylib::WHITE);
+        const auto position = Vector2{left_x, y};
+        DrawTextureV(dynamic_texture_, position, WHITE);
     }
 }
 
