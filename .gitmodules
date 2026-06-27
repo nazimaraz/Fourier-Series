@@ -1,12 +1,12 @@
-[submodule "dependencies/raylib-modern"]
+[submodule "dependencies/raylib"]
 	path = dependencies/raylib
-	url = https://github.com/raysan5/raylib
+	url = git@github.com:raysan5/raylib.git
 [submodule "dependencies/imgui/imgui"]
 	path = dependencies/imgui/imgui
-	url = https://github.com/ocornut/imgui.git
+	url = git@github.com:ocornut/imgui.git
 [submodule "dependencies/rlImGui/rlImGui"]
 	path = dependencies/rlImGui/rlImGui
-	url = https://github.com/raylib-extras/rlImGui
+	url = git@github.com:raylib-extras/rlImGui.git
 [submodule "dependencies/TeXRender"]
 	path = dependencies/TeXRender
 	url = git@github.com:nazimaraz/TeXRender.git
