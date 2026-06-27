@@ -5,6 +5,7 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
 #include <vector>
 #include <boost/circular_buffer.hpp>
 #include <raylib.h>
@@ -15,7 +16,7 @@ namespace UI
     class Settings
     {
     public:
-        static constexpr size_t max_harmonic_count = 100;
+        static constexpr std::size_t max_harmonic_count = 100;
 
         Settings();
         void set_fps(int fps);
@@ -28,8 +29,8 @@ namespace UI
         [[nodiscard]] boost::circular_buffer<Vector2>& get_path();
         void set_is_paused(bool is_paused);
         [[nodiscard]] bool get_is_paused() const;
-        void set_selected_wave_index(size_t index);
-        [[nodiscard]] size_t get_selected_wave_index() const;
+        void set_selected_wave_index(std::size_t index);
+        [[nodiscard]] std::size_t get_selected_wave_index() const;
         [[nodiscard]] const Waves::WaveVariant& get_selected_wave() const;
         [[nodiscard]] Waves::WaveVariant& get_selected_wave();
         void start_drawing();
@@ -51,10 +52,10 @@ namespace UI
         [[nodiscard]] float& get_x_scale();
         void set_y_scale(float y_scale);
         [[nodiscard]] float& get_y_scale();
-        [[nodiscard]] bool is_harmonic_enabled(size_t i) const;
-        [[nodiscard]] bool is_only_harmonic_enabled(size_t i) const;
-        void toggle_harmonic(size_t i);
-        void solo_harmonic(size_t i);
+        [[nodiscard]] bool is_harmonic_enabled(std::size_t i) const;
+        [[nodiscard]] bool is_only_harmonic_enabled(std::size_t i) const;
+        void toggle_harmonic(std::size_t i);
+        void solo_harmonic(std::size_t i);
         void reset_harmonic_mask();
         [[nodiscard]] const std::array<bool, max_harmonic_count>& get_harmonic_mask() const;
 

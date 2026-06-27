@@ -5,6 +5,7 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
 
 namespace Waves
 {
@@ -16,7 +17,7 @@ namespace Waves
         static constexpr auto name_storage = [] {
             constexpr std::string_view prefix = "Pulse (";
             auto result = std::array<char, 16>{};
-            auto i = size_t{};
+            auto i = std::size_t{};
             for (const auto c : prefix)
                 result.at(i++) = c;
 

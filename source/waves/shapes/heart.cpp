@@ -3,6 +3,7 @@
 //
 
 #include <array>
+#include <cstddef>
 #include "heart.hpp"
 #include "waves/harmonic_term.hpp"
 #include "math/math.hpp"
@@ -21,7 +22,7 @@ HarmonicTerm Heart::formula(const float i)
         HarmonicTerm{.n = +4.f, .coefficient = 0.04f, .phase = -math::half_pi_v<float>},
         HarmonicTerm{.n = -4.f, .coefficient = 0.04f, .phase = -math::half_pi_v<float>},
     };
-    const auto idx = static_cast<size_t>(i);
+    const auto idx = static_cast<std::size_t>(i);
     if (idx >= terms.size())
         return {.n = 0.f, .coefficient = 0.f, .phase = 0.f};
 

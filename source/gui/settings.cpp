@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
 #include <utility>
 #include "settings.hpp"
 
@@ -14,22 +15,22 @@ Settings::Settings()
     reset_harmonic_mask();
 }
 
-bool Settings::is_harmonic_enabled(const size_t i) const
+bool Settings::is_harmonic_enabled(const std::size_t i) const
 {
     return harmonic_enabled_.at(i);
 }
 
-void Settings::toggle_harmonic(const size_t i)
+void Settings::toggle_harmonic(const std::size_t i)
 {
     harmonic_enabled_.at(i) = !harmonic_enabled_.at(i);
 }
 
-bool Settings::is_only_harmonic_enabled(const size_t i) const
+bool Settings::is_only_harmonic_enabled(const std::size_t i) const
 {
     return is_harmonic_enabled(i) && std::ranges::count(harmonic_enabled_, true) == 1;
 }
 
-void Settings::solo_harmonic(const size_t i)
+void Settings::solo_harmonic(const std::size_t i)
 {
     if (is_only_harmonic_enabled(i))
     {
@@ -101,7 +102,7 @@ bool Settings::get_is_paused() const
     return is_paused_;
 }
 
-void Settings::set_selected_wave_index(const size_t index)
+void Settings::set_selected_wave_index(const std::size_t index)
 {
     if (selected_wave_.index() == index)
         return;
@@ -111,7 +112,7 @@ void Settings::set_selected_wave_index(const size_t index)
     is_drawing_ = false;
 }
 
-size_t Settings::get_selected_wave_index() const
+std::size_t Settings::get_selected_wave_index() const
 {
     return selected_wave_.index();
 }

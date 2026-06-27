@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <memory>
 #include <optional>
@@ -32,7 +33,7 @@ namespace Renderers
     private:
         struct DynamicSignature
         {
-            size_t wave_index{static_cast<size_t>(-1)};
+            std::size_t wave_index{static_cast<std::size_t>(-1)};
             unsigned int harmonic_count{};
             float radius{};
             float frequency{};
@@ -44,7 +45,7 @@ namespace Renderers
             }
         };
 
-        void rebuild_static(size_t wave_index) const;
+        void rebuild_static(std::size_t wave_index) const;
         void rebuild_dynamic(const DynamicSignature& signature) const;
         void rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, float latex_text_size,
             std::uint32_t argb_color) const;
@@ -53,7 +54,7 @@ namespace Renderers
         std::optional<TeXRender::LatexDocument> document_;
         mutable float panel_right_{};
         mutable std::optional<TeXRender::RenderHandle> static_formula_;
-        mutable size_t last_wave_index_{static_cast<size_t>(-1)};
+        mutable std::size_t last_wave_index_{static_cast<std::size_t>(-1)};
         mutable std::optional<TeXRender::RenderHandle> dynamic_formula_;
         mutable DynamicSignature last_dynamic_{};
     };

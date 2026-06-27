@@ -2,6 +2,7 @@
 // Created by nazim on 6/27/26.
 //
 
+#include <cstddef>
 #include <memory>
 #include <optional>
 #include <string>
@@ -45,7 +46,7 @@ void FormulaRenderer::rebuild_handle(std::optional<TeXRender::RenderHandle>& han
     handle.emplace(std::move(rendered));
 }
 
-void FormulaRenderer::rebuild_static(const size_t wave_index) const
+void FormulaRenderer::rebuild_static(const std::size_t wave_index) const
 {
     const auto latex = Waves::formula_tex(wave_index);
     rebuild_handle(static_formula_, std::string{latex}, text_size, color);
@@ -64,7 +65,7 @@ void FormulaRenderer::draw() const
     if (wave_index != last_wave_index_)
     {
         rebuild_static(wave_index);
-        last_dynamic_.wave_index = static_cast<size_t>(-1);
+        last_dynamic_.wave_index = static_cast<std::size_t>(-1);
         last_wave_index_ = wave_index;
     }
 

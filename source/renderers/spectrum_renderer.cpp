@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <cstddef>
 #include <optional>
 #include <ranges>
 #include <imgui.h>
@@ -51,7 +52,7 @@ void SpectrumRenderer::draw() const
     const auto num_bars = result.steps.size();
     const auto bar_pitch = panel_width / static_cast<float>(num_bars);
     const auto bar_width = std::max(1.f, bar_pitch - bar_gap);
-    for (const auto i : std::views::iota(size_t{0}, num_bars))
+    for (const auto i : std::views::iota(std::size_t{0}, num_bars))
     {
         const auto normalized = result.steps[i].radius / max_mag;
         const auto h = normalized * bars_height;
@@ -69,7 +70,7 @@ void SpectrumRenderer::draw() const
     if (ImGui::GetIO().WantCaptureMouse)
         return;
 
-    const auto column_under_mouse = [&]() -> std::optional<size_t> {
+    const auto column_under_mouse = [&]() -> std::optional<std::size_t> {
         const auto mouse = GetMousePosition();
         if (mouse.x < panel_left || mouse.x >= panel_right)
             return std::nullopt;
@@ -77,7 +78,7 @@ void SpectrumRenderer::draw() const
         if (mouse.y < bars_top || mouse.y >= panel_bottom)
             return std::nullopt;
 
-        const auto col = static_cast<size_t>((mouse.x - panel_left) / bar_pitch);
+        const auto col = static_cast<std::size_t>((mouse.x - panel_left) / bar_pitch);
         if (col >= num_bars)
             return std::nullopt;
 

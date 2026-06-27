@@ -2,6 +2,7 @@
 // Created by Nazım Can on 25.10.2025.
 //
 
+#include <cstddef>
 #include <imgui.h>
 #include <rlImGui.h>
 #include "gui.hpp"
@@ -114,7 +115,7 @@ void GUI::update_settings() const
         ImGui::Text("Wave Type:");
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
         if (ImGui::Combo("##WaveType", &selected_wave_index, Waves::wave_names_cstr.data(), Waves::wave_names_cstr.size()))
-            settings_->set_selected_wave_index(static_cast<size_t>(selected_wave_index));
+            settings_->set_selected_wave_index(static_cast<std::size_t>(selected_wave_index));
 
         ImGui::PopItemWidth();
     }

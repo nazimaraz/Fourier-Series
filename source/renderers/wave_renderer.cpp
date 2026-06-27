@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <cstddef>
 #include <ranges>
 #include <raylib.h>
 #include "wave_renderer.hpp"
@@ -95,7 +96,7 @@ void WaveRenderer::draw() const
     DrawLineV(epicycle_tip_on_screen, wave_start_on_screen, Config::Wave::wave_color);
     points_buffer_.clear();
     points_buffer_.reserve(wave.size());
-    for (const auto i : std::views::iota(size_t{0}, wave.size()))
+    for (const auto i : std::views::iota(std::size_t{0}, wave.size()))
         points_buffer_.push_back(math_to_screen({static_cast<float>(i) * x_scale, wave.at(i) * y_scale}));
 
     DrawLineStrip(points_buffer_.data(), static_cast<int>(points_buffer_.size()), Config::Wave::wave_color);

@@ -2,6 +2,7 @@
 // Created by nazim on 5/20/26.
 //
 
+#include <cstddef>
 #include <ranges>
 #include "wave_variant.hpp"
 #include "math/math.hpp"
@@ -12,7 +13,7 @@ namespace Waves
 {
     namespace detail
     {
-        template <size_t... Is>
+        template <std::size_t... Is>
         [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/)
         {
             return std::array<WaveVariant (*)(), sizeof...(Is)>{+[]() -> WaveVariant {
@@ -43,7 +44,7 @@ namespace Waves
         }
     } // namespace detail
 
-    WaveVariant make_wave_at(const size_t index)
+    WaveVariant make_wave_at(const std::size_t index)
     {
         static constexpr auto factories = detail::make_factories(std::make_index_sequence<wave_count>{});
         return factories.at(index)();

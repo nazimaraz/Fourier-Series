@@ -4,6 +4,7 @@
 
 #include <array>
 #include <cmath>
+#include <cstddef>
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -44,7 +45,7 @@ namespace
     };
 } // namespace
 
-std::string_view Waves::formula_tex(const size_t wave_index)
+std::string_view Waves::formula_tex(const std::size_t wave_index)
 {
     if (wave_index >= wave_count)
         return {};
@@ -85,7 +86,7 @@ namespace
     }
 } // namespace
 
-std::string Waves::dynamic_formula_tex(const size_t wave_index, const unsigned int harmonic_count, const float radius,
+std::string Waves::dynamic_formula_tex(const std::size_t wave_index, const unsigned int harmonic_count, const float radius,
     const float frequency)
 {
     auto formula = std::string{formula_tex(wave_index)};

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <complex>
+#include <cstddef>
 #include <numbers>
 #include <utility>
 #include "dft.hpp"
@@ -13,7 +14,7 @@ using namespace Waves;
 
 namespace
 {
-    std::vector<Vector2> resample_uniform(const std::vector<Vector2>& points, const size_t num_samples)
+    std::vector<Vector2> resample_uniform(const std::vector<Vector2>& points, const std::size_t num_samples)
     {
         if (points.size() < 2)
             return {};
@@ -32,10 +33,10 @@ namespace
 
         auto out = std::vector<Vector2>{};
         out.reserve(num_samples);
-        for (auto k = size_t{}; k < num_samples; ++k)
+        for (auto k = std::size_t{}; k < num_samples; ++k)
         {
             const auto target = total * static_cast<float>(k) / static_cast<float>(num_samples);
-            auto j = size_t{};
+            auto j = std::size_t{};
             while (j + 1 < arc.size() && arc[j + 1] < target)
                 ++j;
 
@@ -50,12 +51,12 @@ namespace
     }
 } // namespace
 
-DftResult Waves::compute_dft(const std::vector<Vector2>& points, const size_t max_harmonics)
+DftResult Waves::compute_dft(const std::vector<Vector2>& points, const std::size_t max_harmonics)
 {
     if (points.size() < 3)
         return {.harmonics = {}, .dc_value = 0.f};
 
-    constexpr auto target_samples = size_t{512};
+    constexpr auto target_samples = std::size_t{512};
     const auto resampled = resample_uniform(points, target_samples);
     if (resampled.empty())
         return {.harmonics = {}, .dc_value = 0.f};
@@ -78,14 +79,14 @@ DftResult Waves::compute_dft(const std::vector<Vector2>& points, const size_t ma
     const auto sample_count = z.size();
     const auto half = static_cast<int>(std::min(max_harmonics, sample_count / 2));
     auto coefficients = std::vector<std::pair<int, std::complex<float>>>{};
-    coefficients.reserve(static_cast<size_t>(2 * half));
+    coefficients.reserve(static_cast<std::size_t>(2 * half));
     for (auto n = -half; n <= half; ++n)
     {
         if (n == 0)
             continue;
 
         auto c = std::complex{0.f, 0.f};
-        for (auto k = size_t{}; k < sample_count; ++k)
+        for (auto k = std::size_t{}; k < sample_count; ++k)
         {
             const auto angle =
                 -2.f * std::numbers::pi_v<float> * static_cast<float>(n) * static_cast<float>(k) / static_cast<float>(sample_count);

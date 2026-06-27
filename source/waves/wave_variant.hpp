@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cstddef>
 #include <variant>
 #include "compute_params.hpp"
 #include "compute_result.hpp"
@@ -26,15 +27,15 @@ namespace Waves
 
     namespace detail
     {
-        template <size_t... Is>
+        template <std::size_t... Is>
         [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...> index_sequence);
-        template <size_t... Is>
+        template <std::size_t... Is>
         [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...> index_sequence);
         template <typename T>
-        [[nodiscard]] constexpr size_t index_of_impl();
+        [[nodiscard]] constexpr std::size_t index_of_impl();
     } // namespace detail
 
-    [[nodiscard]] WaveVariant make_wave_at(size_t index);
+    [[nodiscard]] WaveVariant make_wave_at(std::size_t index);
     [[nodiscard]] ComputeResult compute(const WaveVariant& wave, const ComputeParams& params);
 
     template <typename T>

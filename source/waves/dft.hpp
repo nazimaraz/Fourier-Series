@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cstddef>
 #include <raylib.h>
 #include <vector>
 #include "harmonic_term.hpp"
@@ -16,5 +17,5 @@ namespace Waves
         float dc_value;
     };
 
-    [[nodiscard]] DftResult compute_dft(const std::vector<Vector2>& points, size_t max_harmonics);
+    [[nodiscard]] DftResult compute_dft(const std::vector<Vector2>& points, std::size_t max_harmonics);
 } // namespace Waves
