@@ -64,16 +64,16 @@ void FormulaRenderer::build_texture(raylib::Texture2D& texture, bool& valid, con
     surface_->resize(w, h);
     surface_->clear(0x00000000);
     handle.draw(0, 0);
-
     if (!valid || texture.width != w || texture.height != h)
     {
         free_texture(texture, valid);
-        auto image = raylib::Image{};
-        image.data = const_cast<void*>(static_cast<const void*>(surface_->pixels().data()));
-        image.width = w;
-        image.height = h;
-        image.mipmaps = 1;
-        image.format = raylib::PixelFormat::PIXELFORMAT_UNCOMPRESSED_R8G8B8A8;
+        const auto image = raylib::Image{
+            .data = const_cast<void*>(static_cast<const void*>(surface_->pixels().data())),
+            .width = w,
+            .height = h,
+            .mipmaps = 1,
+            .format = raylib::PixelFormat::PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
+        };
         texture = raylib::LoadTextureFromImage(image);
         valid = texture.id != 0;
     }
