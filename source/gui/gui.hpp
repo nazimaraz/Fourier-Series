@@ -17,6 +17,7 @@ namespace Renderers
     class ChartRenderer;
     class SpectrumRenderer;
     class WaveRenderer;
+    class FormulaRenderer;
 } // namespace Renderers
 
 class GUI final
@@ -43,5 +44,6 @@ private:
     std::unique_ptr<Renderers::ChartRenderer> chart_renderer_;
     std::unique_ptr<Renderers::WaveRenderer> wave_renderer_;
     std::unique_ptr<Renderers::SpectrumRenderer> spectrum_renderer_;
+    std::unique_ptr<Renderers::FormulaRenderer> formula_renderer_;
     std::unique_ptr<UI::DrawingInput> drawing_input_;
 };

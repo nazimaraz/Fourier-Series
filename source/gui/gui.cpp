@@ -8,6 +8,7 @@
 #include "gui/drawing_input.hpp"
 #include "gui/settings.hpp"
 #include "renderers/chart_renderer.hpp"
+#include "renderers/formula_renderer.hpp"
 #include "renderers/spectrum_renderer.hpp"
 #include "renderers/wave_renderer.hpp"
 #include "waves/wave_variant.hpp"
@@ -36,6 +37,7 @@ void GUI::initialize()
     chart_renderer_ = std::make_unique<Renderers::ChartRenderer>(*settings_);
     wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(*settings_);
     spectrum_renderer_ = std::make_unique<Renderers::SpectrumRenderer>(*settings_);
+    formula_renderer_ = std::make_unique<Renderers::FormulaRenderer>(*settings_);
     drawing_input_ = std::make_unique<UI::DrawingInput>(*settings_);
 }
 
@@ -78,6 +80,7 @@ void GUI::update_impl() const
     chart_renderer_->draw();
     wave_renderer_->draw();
     spectrum_renderer_->draw();
+    formula_renderer_->draw();
     if (!settings_->get_is_paused())
         settings_->set_phase(settings_->get_phase() + settings_->get_frequency() * raylib::GetFrameTime());
 }

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <raylib/color.h>
 
 namespace Config
@@ -48,4 +49,13 @@ namespace Config
         inline constexpr auto title_font = 12;
         inline constexpr auto hint_font = 10;
     } // namespace Spectrum
+
+    namespace Formula
+    {
+        inline constexpr auto text_size = 26.f;
+        inline constexpr auto margin_top = 14.f;
+        inline constexpr auto margin_right = 16.f;
+        // ARGB (TeXRender expects 0xAARRGGBB); light gray matching the chart/spectrum label color.
+        inline constexpr auto color = std::uint32_t{0xffbebebe};
+    } // namespace Formula
 } // namespace Config
