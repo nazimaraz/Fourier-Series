@@ -92,8 +92,8 @@ void FormulaRenderer::rebuild_static(const size_t wave_index) const
 
 void FormulaRenderer::rebuild_dynamic(const DynamicSignature& signature) const
 {
-    const auto latex = Waves::dynamic_formula_tex(signature.wave_index, signature.harmonic_count, signature.radius,
-        signature.frequency);
+    const auto latex =
+        Waves::dynamic_formula_tex(signature.wave_index, signature.harmonic_count, signature.radius, signature.frequency);
     build_texture(dynamic_texture_, dynamic_valid_, latex, dynamic_text_size, dynamic_color);
 }
 
@@ -120,12 +120,12 @@ void FormulaRenderer::draw() const
         last_dynamic_ = signature;
     }
 
-    const auto screen_w = static_cast<float>(raylib::GetScreenWidth());
-    const auto right_x = screen_w - margin_right;
+    // Place the formulas at the top-left, just to the right of the ImGui "Settings" window.
+    const auto left_x = panel_right_ + panel_gap;
 
     if (static_valid_)
     {
-        const auto position = raylib::Vector2{right_x - static_cast<float>(static_texture_.width), margin_top};
+        const auto position = raylib::Vector2{left_x, margin_top};
         raylib::DrawTextureV(static_texture_, position, raylib::WHITE);
     }
 
@@ -133,7 +133,7 @@ void FormulaRenderer::draw() const
     {
         const auto static_h = static_valid_ ? static_cast<float>(static_texture_.height) : 0.f;
         const auto y = margin_top + static_h + vertical_gap;
-        const auto position = raylib::Vector2{right_x - static_cast<float>(dynamic_texture_.width), y};
+        const auto position = raylib::Vector2{left_x, y};
         raylib::DrawTextureV(dynamic_texture_, position, raylib::WHITE);
     }
 }

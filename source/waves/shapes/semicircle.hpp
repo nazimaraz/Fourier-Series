@@ -14,6 +14,7 @@ namespace Waves
     {
         static constexpr std::string_view name = "Semicircle Wave";
         [[nodiscard]] static HarmonicTerm formula(float i);
+
         [[nodiscard]] static constexpr float dc()
         {
             return math::pi_v<float> / 4.f;

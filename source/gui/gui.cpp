@@ -74,12 +74,14 @@ void GUI::update_impl() const
     ImGui::SetNextWindowPos({0.f, 0.f});
     ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
     update_settings();
+    const auto panel_right = ImGui::GetWindowWidth();
     ImGui::End();
     raylib::rlImGuiEnd();
     drawing_input_->handle();
     chart_renderer_->draw();
     wave_renderer_->draw();
     spectrum_renderer_->draw();
+    formula_renderer_->set_panel_right(panel_right);
     formula_renderer_->draw();
     if (!settings_->get_is_paused())
         settings_->set_phase(settings_->get_phase() + settings_->get_frequency() * raylib::GetFrameTime());

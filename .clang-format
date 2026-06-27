@@ -23,7 +23,7 @@ BraceWrapping:
   BeforeLambdaBody: false
   BeforeWhile: false
   SplitEmptyFunction: false
-  SplitEmptyRecord: true
+  SplitEmptyRecord: false
   SplitEmptyNamespace: true
 BreakBeforeBraces: Custom
 AllowShortFunctionsOnASingleLine: None
@@ -50,11 +50,15 @@ IncludeCategories:
 IncludeIsMainRegex: '([-_](test|unittest))?$'
 SortIncludes: false
 IndentCaseLabels: true
+IndentPPDirectives: AfterHash
 IndentWidth: 4
+IndentWrappedFunctionNames: true
+PPIndentWidth: 3
 InsertNewlineAtEOF: true
 MacroBlockBegin: ''
 MacroBlockEnd: ''
 MaxEmptyLinesToKeep: 2
+SeparateDefinitionBlocks: Always
 NamespaceIndentation: All
 QualifierAlignment: Custom
 QualifierOrder: [static, constexpr, const, type]

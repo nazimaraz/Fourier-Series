@@ -64,6 +64,7 @@ namespace
     {
         if (needle.empty())
             return;
+
         for (auto pos = haystack.find(needle); pos != std::string::npos; pos = haystack.find(needle, pos + replacement.size()))
             haystack.replace(pos, needle.size(), replacement);
     }
@@ -89,28 +90,19 @@ std::string Waves::dynamic_formula_tex(const size_t wave_index, const unsigned i
     if (formula.empty())
         return {};
 
-    // 1) The infinite sum bound becomes the live harmonic count.
     replace_all(formula, R"(\infty)", std::to_string(harmonic_count));
-
-    // 2) Frequency: rewrite the time variable so the series is evaluated at omega*t, then define omega.
     formula = rewrite_time_variable(formula);
+    const auto omega = [&] -> std::string {
+        if (std::fabs(frequency) < 1e-6f)
+            return "0";
 
-    // Build omega = 2*pi*f, dropping the leading factor when degenerate.
-    auto omega = std::string{};
-    const auto f_is_one = std::fabs(frequency - 1.f) < 1e-3f;
-    const auto f_is_zero = std::fabs(frequency) < 1e-6f;
-    if (f_is_zero)
-        omega = "0";
-    else
-    {
-        if (!f_is_one)
-            omega += format_number(frequency);
-        omega += R"(2\pi)";
-    }
+        if (std::fabs(frequency - 1.f) > 1e-3f)
+            return format_number(frequency) + R"(\pi)";
 
-    // 3) Radius: scale the whole series by r when it is not 1.0.
-    const auto r_is_one = std::fabs(radius - 1.f) < 1e-3f;
-    if (!r_is_one)
+        return R"(2\pi)";
+    }();
+
+    if (std::fabs(radius - 1.f) > 1e-3f)
     {
         const auto rhs = std::string_view{formula}.substr(formula.find('=') + 1);
         formula.replace(formula.find('=') + 1, rhs.size(), std::string{format_number(radius)} + R"(\cdot)" + std::string{rhs});

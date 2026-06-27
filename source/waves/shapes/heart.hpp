@@ -12,6 +12,7 @@ namespace Waves
     struct Heart
     {
         [[nodiscard]] static HarmonicTerm formula(float i);
+
         [[nodiscard]] static constexpr float dc()
         {
             return 0.f;

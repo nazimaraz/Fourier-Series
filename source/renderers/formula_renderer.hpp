@@ -42,6 +42,13 @@ namespace Renderers
 
         void draw() const;
 
+        // Records the right edge (screen-space x) of the ImGui settings window, so the formulas can
+        // be placed just to its right. Called from the GUI while the settings window is current.
+        void set_panel_right(float x) const
+        {
+            panel_right_ = x;
+        }
+
     private:
         struct DynamicSignature
         {
@@ -52,8 +59,8 @@ namespace Renderers
 
             [[nodiscard]] friend bool operator==(const DynamicSignature& lhs, const DynamicSignature& rhs)
             {
-                return lhs.wave_index == rhs.wave_index && lhs.harmonic_count == rhs.harmonic_count
-                    && lhs.radius == rhs.radius && lhs.frequency == rhs.frequency;
+                return lhs.wave_index == rhs.wave_index && lhs.harmonic_count == rhs.harmonic_count && lhs.radius == rhs.radius &&
+                       lhs.frequency == rhs.frequency;
             }
         };
 
@@ -66,6 +73,7 @@ namespace Renderers
         UI::Settings& settings_;
         TeXRender::HeadlessSurface* surface_{};
         std::optional<TeXRender::LatexDocument> document_;
+        mutable float panel_right_{};
         mutable raylib::Texture2D static_texture_{};
         mutable bool static_valid_{};
         mutable size_t last_wave_index_{static_cast<size_t>(-1)};
