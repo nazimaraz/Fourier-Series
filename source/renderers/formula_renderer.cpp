@@ -23,7 +23,6 @@ FormulaRenderer::FormulaRenderer(UI::Settings& settings)
     : settings_{settings}
 {
     auto surface = std::make_unique<TeXRender::RaylibSurface>();
-    surface_ = surface.get();
     document_.emplace(std::string{TEXRENDER_RES_DIR}, std::move(surface));
 }
 
@@ -65,7 +64,6 @@ void FormulaRenderer::draw() const
     if (wave_index != last_wave_index_)
     {
         rebuild_static(wave_index);
-        // Wave type change invalidates the dynamic expansion too.
         last_dynamic_.wave_index = static_cast<size_t>(-1);
         last_wave_index_ = wave_index;
     }
@@ -82,9 +80,7 @@ void FormulaRenderer::draw() const
         last_dynamic_ = signature;
     }
 
-    // Place the formulas at the top-left, just to the right of the ImGui "Settings" window.
     const auto left_x = panel_right_ + panel_gap;
-
     if (static_formula_)
         static_formula_->draw(static_cast<int>(left_x), static_cast<int>(margin_top));
 

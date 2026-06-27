@@ -59,7 +59,6 @@ namespace Renderers
             std::uint32_t color) const;
 
         UI::Settings& settings_;
-        TeXRender::RaylibSurface* surface_{};
         std::optional<TeXRender::LatexDocument> document_;
         mutable float panel_right_{};
         mutable std::optional<TeXRender::RenderHandle> static_formula_;
