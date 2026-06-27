@@ -41,13 +41,7 @@ namespace Renderers
         ~FormulaRenderer();
 
         void draw() const;
-
-        // Records the right edge (screen-space x) of the ImGui settings window, so the formulas can
-        // be placed just to its right. Called from the GUI while the settings window is current.
-        void set_panel_right(float x) const
-        {
-            panel_right_ = x;
-        }
+        void set_panel_right(float x) const;
 
     private:
         struct DynamicSignature
@@ -68,7 +62,7 @@ namespace Renderers
         void rebuild_dynamic(const DynamicSignature& signature) const;
         void build_texture(raylib::Texture2D& texture, bool& valid, const std::string& latex, float text_size,
             std::uint32_t color) const;
-        void free_texture(raylib::Texture2D& texture, bool& valid) const;
+        static void free_texture(const raylib::Texture2D& texture, bool& valid);
 
         UI::Settings& settings_;
         TeXRender::HeadlessSurface* surface_{};

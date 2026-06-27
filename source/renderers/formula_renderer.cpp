@@ -36,10 +36,11 @@ FormulaRenderer::~FormulaRenderer()
     free_texture(dynamic_texture_, dynamic_valid_);
 }
 
-void FormulaRenderer::free_texture(raylib::Texture2D& texture, bool& valid) const
+void FormulaRenderer::free_texture(const raylib::Texture2D& texture, bool& valid)
 {
     if (valid)
         raylib::UnloadTexture(texture);
+
     valid = false;
 }
 
@@ -136,4 +137,9 @@ void FormulaRenderer::draw() const
         const auto position = raylib::Vector2{left_x, y};
         raylib::DrawTextureV(dynamic_texture_, position, raylib::WHITE);
     }
+}
+
+void FormulaRenderer::set_panel_right(const float x) const
+{
+    panel_right_ = x;
 }

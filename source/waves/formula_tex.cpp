@@ -47,6 +47,7 @@ std::string_view Waves::formula_tex(const size_t wave_index)
 {
     if (wave_index >= wave_count)
         return {};
+
     return formulas.at(wave_index);
 }
 
@@ -55,8 +56,8 @@ namespace
     [[nodiscard]] std::string format_number(const float value)
     {
         auto buffer = std::array<char, 32>{};
-        std::snprintf(buffer.data(), buffer.size(), "%.3g", value);
-        return buffer.data();
+        const auto written = std::snprintf(buffer.data(), buffer.size(), "%.3g", value);
+        return written > 0 ? std::string{buffer.data(), static_cast<size_t>(written)} : std::string{};
     }
 
     // Replace every occurrence of `needle` in `haystack` with `replacement`.
