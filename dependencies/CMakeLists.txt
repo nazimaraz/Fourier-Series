@@ -1,6 +1,7 @@
 add_subdirectory(imgui)
 add_subdirectory(rlImGui)
 add_subdirectory(raylib)
+set(TEXRENDER_BACKEND "raylib" CACHE STRING "Rendering backend to build (headless, svg, raylib, sdl2)")
 add_subdirectory(TeXRender)
 find_package(Boost REQUIRED)
 set_target_properties(Boost::boost PROPERTIES IMPORTED_GLOBAL TRUE)
