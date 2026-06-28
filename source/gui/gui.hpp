@@ -5,10 +5,10 @@
 #pragma once
 
 #include <memory>
+#include "gui/settings.hpp"
 
 namespace UI
 {
-    class Settings;
     class DrawingInput;
 } // namespace UI
 
@@ -36,11 +36,11 @@ public:
     [[nodiscard]] auto is_stopped() const -> bool;
 
 private:
-    auto update_impl() const -> void;
-    auto update_settings() const -> void;
+    auto update_impl() -> void;
+    auto update_settings() -> void;
 
     bool is_stopped_{};
-    std::shared_ptr<UI::Settings> settings_;
+    UI::Settings settings_;
     std::unique_ptr<Renderers::ChartRenderer> chart_renderer_;
     std::unique_ptr<Renderers::WaveRenderer> wave_renderer_;
     std::unique_ptr<Renderers::SpectrumRenderer> spectrum_renderer_;

@@ -24,10 +24,10 @@ auto SpectrumRenderer::draw() const -> void
 {
     const auto& selected = settings_.get_selected_wave();
     const auto params = Waves::ComputeParams{
-        .radius = settings_.get_radius(),
-        .harmonic_count = settings_.get_number_of_harmonic(),
+        .radius = settings_.radius(),
+        .harmonic_count = settings_.number_of_harmonic(),
         .phase = settings_.get_phase(),
-        .enabled_mask = nullptr,
+        .enabled_mask = {},
     };
     const auto result = Waves::compute(selected, params);
     if (result.steps.empty())

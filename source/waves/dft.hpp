@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <raylib.h>
+#include <span>
 #include <vector>
 #include "harmonic_term.hpp"
 
@@ -17,5 +18,6 @@ namespace Waves
         float dc_value;
     };
 
-    [[nodiscard]] auto compute_dft(const std::vector<Vector2>& points, std::size_t max_harmonics) -> DftResult;
+    [[nodiscard]] auto resample_uniform(std::span<const Vector2> points, std::size_t num_samples) -> std::vector<Vector2>;
+    [[nodiscard]] auto compute_dft(std::span<const Vector2> points, std::size_t max_harmonics) -> DftResult;
 } // namespace Waves

@@ -71,9 +71,9 @@ auto FormulaRenderer::draw(const float panel_right) -> void
 
     const auto signature = DynamicSignature{
         .wave_index = wave_index,
-        .harmonic_count = settings_.get_number_of_harmonic(),
-        .radius = settings_.get_radius(),
-        .frequency = settings_.get_frequency(),
+        .harmonic_count = settings_.number_of_harmonic(),
+        .radius = settings_.radius(),
+        .frequency = settings_.frequency(),
     };
     if (signature != last_dynamic_)
     {

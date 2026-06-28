@@ -35,8 +35,8 @@ auto ChartRenderer::draw() const -> void
     constexpr auto origin = Vector2{.x = origin_x, .y = origin_y};
     const auto screen_w = static_cast<float>(GetScreenWidth());
     const auto screen_h = static_cast<float>(GetScreenHeight());
-    const auto x_scale = settings_.get_x_scale();
-    const auto y_scale = settings_.get_y_scale();
+    const auto x_scale = settings_.x_scale();
+    const auto y_scale = settings_.y_scale();
     const auto grid_lines_right = static_cast<int>((screen_w - origin.x) / grid_step_px);
     for (auto i = 1; i <= grid_lines_right; ++i)
     {

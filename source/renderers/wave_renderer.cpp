@@ -24,14 +24,14 @@ auto WaveRenderer::draw() const -> void
 {
     const auto& selected = settings_.get_selected_wave();
     const auto params = Waves::ComputeParams{
-        .radius = settings_.get_radius(),
-        .harmonic_count = settings_.get_number_of_harmonic(),
+        .radius = settings_.radius(),
+        .harmonic_count = settings_.number_of_harmonic(),
         .phase = settings_.get_phase(),
-        .enabled_mask = settings_.get_harmonic_mask().data(),
+        .enabled_mask = settings_.get_harmonic_mask(),
     };
     const auto result = Waves::compute(selected, params);
-    auto& wave = settings_.get_wave();
-    auto& path = settings_.get_path();
+    auto& wave = settings_.wave();
+    auto& path = settings_.path();
     if (!settings_.get_is_paused())
     {
         wave.push_front(result.tip.y);
@@ -87,8 +87,8 @@ auto WaveRenderer::draw() const -> void
         DrawLineV(math_to_screen(step.center), math_to_screen(step.tip), Config::Wave::epicycle_color);
     }
 
-    const auto x_scale = settings_.get_x_scale();
-    const auto y_scale = settings_.get_y_scale();
+    const auto x_scale = settings_.x_scale();
+    const auto y_scale = settings_.y_scale();
     translate = Vector2{Config::Chart::origin_x, Config::Chart::origin_y};
     constexpr auto epicycle_offset = Config::Chart::origin_x - Config::Wave::epicycle_origin_x;
     const auto epicycle_tip_on_screen = Vector2Subtract(math_to_screen(result.tip), {epicycle_offset, 0.f});

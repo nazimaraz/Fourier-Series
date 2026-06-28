@@ -77,7 +77,7 @@ auto Settings::set_wave_capacity(const boost::circular_buffer<float>::capacity_t
     wave_.set_capacity(capacity);
 }
 
-auto Settings::get_wave() -> boost::circular_buffer<float>&
+auto Settings::wave() -> boost::circular_buffer<float>&
 {
     return wave_;
 }
@@ -87,7 +87,7 @@ auto Settings::set_path_capacity(const boost::circular_buffer<Vector2>::capacity
     path_.set_capacity(capacity);
 }
 
-auto Settings::get_path() -> boost::circular_buffer<Vector2>&
+auto Settings::path() -> boost::circular_buffer<Vector2>&
 {
     return path_;
 }
@@ -174,7 +174,12 @@ auto Settings::set_number_of_harmonic(const unsigned int number) -> void
     number_of_harmonic_ = number;
 }
 
-auto Settings::get_number_of_harmonic() -> unsigned int&
+auto Settings::number_of_harmonic() const -> unsigned int
+{
+    return number_of_harmonic_;
+}
+
+auto Settings::mutable_number_of_harmonic() -> unsigned int&
 {
     return number_of_harmonic_;
 }
@@ -184,7 +189,12 @@ auto Settings::set_frequency(const float frequency) -> void
     frequency_ = frequency;
 }
 
-auto Settings::get_frequency() -> float&
+auto Settings::frequency() const -> float
+{
+    return frequency_;
+}
+
+auto Settings::mutable_frequency() -> float&
 {
     return frequency_;
 }
@@ -194,7 +204,12 @@ auto Settings::set_radius(const float radius) -> void
     radius_ = radius;
 }
 
-auto Settings::get_radius() -> float&
+auto Settings::radius() const -> float
+{
+    return radius_;
+}
+
+auto Settings::mutable_radius() -> float&
 {
     return radius_;
 }
@@ -214,7 +229,12 @@ auto Settings::set_x_scale(const float x_scale) -> void
     x_scale_ = x_scale;
 }
 
-auto Settings::get_x_scale() -> float&
+auto Settings::x_scale() const -> float
+{
+    return x_scale_;
+}
+
+auto Settings::mutable_x_scale() -> float&
 {
     return x_scale_;
 }
@@ -224,7 +244,12 @@ auto Settings::set_y_scale(const float y_scale) -> void
     y_scale_ = y_scale;
 }
 
-auto Settings::get_y_scale() -> float&
+auto Settings::y_scale() const -> float
+{
+    return y_scale_;
+}
+
+auto Settings::mutable_y_scale() -> float&
 {
     return y_scale_;
 }

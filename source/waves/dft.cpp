@@ -6,52 +6,54 @@
 #include <cmath>
 #include <complex>
 #include <cstddef>
+#include <iterator>
 #include <numbers>
+#include <span>
 #include <utility>
 #include "dft.hpp"
 
 using namespace Waves;
 
-namespace
+auto Waves::resample_uniform(const std::span<const Vector2> points, const std::size_t num_samples) -> std::vector<Vector2>
 {
-    auto resample_uniform(const std::vector<Vector2>& points, const std::size_t num_samples) -> std::vector<Vector2>
+    if (points.size() < 2)
+        return {};
+
+    auto arc = std::vector(points.size() + 1, 0.f);
+    for (auto i = std::size_t{0}; i < points.size(); ++i)
     {
-        if (points.size() < 2)
-            return {};
-
-        auto arc = std::vector(points.size() + 1, 0.f);
-        for (auto i = std::size_t{0}; i < points.size(); ++i)
-        {
-            const auto& a = points[i];
-            const auto& b = points[(i + 1) % points.size()];
-            arc[i + 1] = arc[i] + std::hypot(b.x - a.x, b.y - a.y);
-        }
-
-        const auto total = arc.back();
-        if (total == 0.f)
-            return {};
-
-        auto out = std::vector<Vector2>{};
-        out.reserve(num_samples);
-        for (auto k = std::size_t{}; k < num_samples; ++k)
-        {
-            const auto target = total * static_cast<float>(k) / static_cast<float>(num_samples);
-            auto j = std::size_t{};
-            while (j + 1 < arc.size() && arc[j + 1] < target)
-                ++j;
-
-            const auto seg = arc[j + 1] - arc[j];
-            const auto t = seg == 0.f ? 0.f : (target - arc[j]) / seg;
-            const auto& a = points[j];
-            const auto& b = points[(j + 1) % points.size()];
-            out.emplace_back(a.x + t * (b.x - a.x), a.y + t * (b.y - a.y));
-        }
-
-        return out;
+        const auto& a = points[i];
+        const auto& b = points[(i + 1) % points.size()];
+        arc[i + 1] = arc[i] + std::hypot(b.x - a.x, b.y - a.y);
     }
-} // namespace
 
-auto Waves::compute_dft(const std::vector<Vector2>& points, const std::size_t max_harmonics) -> DftResult
+    const auto total = arc.back();
+    if (total == 0.f)
+        return {};
+
+    auto out = std::vector<Vector2>{};
+    out.reserve(num_samples);
+    for (auto k = std::size_t{}; k < num_samples; ++k)
+    {
+        const auto target = total * static_cast<float>(k) / static_cast<float>(num_samples);
+        const auto upper = std::ranges::lower_bound(arc, target);
+        const auto j = std::clamp<std::size_t>(
+            upper == arc.begin() ? std::size_t{} : static_cast<std::size_t>(std::distance(arc.begin(), upper) - 1),
+            std::size_t{},
+            points.size() - 1u
+        );
+
+        const auto seg = arc[j + 1] - arc[j];
+        const auto t = seg == 0.f ? 0.f : (target - arc[j]) / seg;
+        const auto& a = points[j];
+        const auto& b = points[(j + 1) % points.size()];
+        out.emplace_back(a.x + t * (b.x - a.x), a.y + t * (b.y - a.y));
+    }
+
+    return out;
+}
+
+auto Waves::compute_dft(const std::span<const Vector2> points, const std::size_t max_harmonics) -> DftResult
 {
     if (points.size() < 3)
         return {.harmonics = {}, .dc_value = 0.f};

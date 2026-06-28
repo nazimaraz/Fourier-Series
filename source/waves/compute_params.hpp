@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <span>
+
 namespace Waves
 {
     struct ComputeParams
@@ -11,6 +13,6 @@ namespace Waves
         float radius{};
         unsigned int harmonic_count{};
         float phase{};
-        const bool* enabled_mask{};
+        std::span<const bool> enabled_mask{};
     };
 } // namespace Waves
