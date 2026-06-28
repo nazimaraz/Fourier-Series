@@ -81,7 +81,7 @@ auto Waves::compute_dft(const std::span<const Vector2> points, const std::size_t
     const auto sample_count = z.size();
     const auto half = static_cast<int>(std::min(max_harmonics, sample_count / 2));
     auto coefficients = std::vector<std::pair<int, std::complex<float>>>{};
-    coefficients.reserve(static_cast<std::size_t>(2 * half));
+    coefficients.reserve(2 * static_cast<std::size_t>(half));
     for (auto n = -half; n <= half; ++n)
     {
         if (n == 0)
