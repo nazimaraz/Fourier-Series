@@ -11,7 +11,7 @@
 
 namespace Waves
 {
-    namespace detail
+    namespace
     {
         template <std::size_t... Is>
         [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/) -> auto
@@ -42,11 +42,11 @@ namespace Waves
             result.tip = position;
             return result;
         }
-    } // namespace detail
+    } // namespace
 
     auto make_wave_at(const std::size_t index) -> WaveVariant
     {
-        static constexpr auto factories = detail::make_factories(std::make_index_sequence<wave_count>{});
+        static constexpr auto factories = make_factories(std::make_index_sequence<wave_count>{});
         return factories.at(index)();
     }
 
@@ -54,7 +54,7 @@ namespace Waves
     {
         return std::visit(
             [&](const auto& w) -> ComputeResult {
-                return detail::compute_for(w, params);
+                return compute_for(w, params);
             },
             wave
         );
