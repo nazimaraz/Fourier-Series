@@ -1,4 +1,5 @@
 .idea
 build
 build-web
+build-web-debug
 cmake-build-debug

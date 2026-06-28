@@ -39,9 +39,9 @@ namespace
         // Pulse 75%
         R"(f(t)=0.75+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.75\pi n)}{n}\cos(nt))",
         // Heart (tabulated parametric harmonics)
-        R"(\bigl(x(t),y(t)\bigr)=\sum_{n}(a_{n}\cos nt+b_{n}\sin nt))",
+        R"(\bigl{(}x(t),y(t)\bigr{)}=\sum_{n}(a_{n}\cos nt+b_{n}\sin nt))",
         // User drawing (DFT-derived)
-        R"(f(t)=\sum_{n}\bigl(a_{n}\cos nt+b_{n}\sin nt\bigr))",
+        R"(f(t)=\sum_{n}\bigl{(}a_{n}\cos nt+b_{n}\sin nt\bigr{)})",
     };
 } // namespace
 

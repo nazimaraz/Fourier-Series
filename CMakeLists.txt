@@ -13,11 +13,16 @@ if (EMSCRIPTEN)
     set(OPENGL_VERSION "ES 2.0" CACHE STRING "" FORCE)
     set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
-    # Emscripten-specific linker flags
-    add_compile_options(-fexceptions)
-    add_link_options(-fexceptions -sDISABLE_EXCEPTION_CATCHING=0)
+    # Emscripten-specific linker/debug flags
+    add_compile_options(-fexceptions "$<$<CONFIG:Debug>:-gsource-map>")
+    add_link_options(
+            -fexceptions
+            -sDISABLE_EXCEPTION_CATCHING=0
+            "$<$<CONFIG:Debug>:-gsource-map>"
+            "$<$<CONFIG:Debug>:-sASSERTIONS=2>"
+    )
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 -s WASM=1 -s ASYNCIFY=1")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1 --shell-file ${CMAKE_SOURCE_DIR}/shell.html")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ALLOW_MEMORY_GROWTH=1 --shell-file ${CMAKE_SOURCE_DIR}/shell.html")
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
 
     # Raylib specific options for Web
