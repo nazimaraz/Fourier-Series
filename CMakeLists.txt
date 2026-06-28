@@ -11,6 +11,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(CompileOptions)
+include(CTest)
 
 if (EMSCRIPTEN)
     set(PLATFORM "Web" CACHE STRING "" FORCE)
@@ -40,3 +41,6 @@ endif ()
 
 add_subdirectory(dependencies)
 add_subdirectory(source)
+if (BUILD_TESTING AND NOT EMSCRIPTEN)
+    add_subdirectory(tests)
+endif ()
