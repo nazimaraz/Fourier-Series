@@ -27,8 +27,7 @@ namespace Renderers
     {
     public:
         explicit FormulaRenderer(UI::Settings& settings);
-        void draw() const;
-        void set_panel_right(float x) const;
+        void draw(float panel_right);
 
     private:
         struct DynamicSignature
@@ -45,17 +44,16 @@ namespace Renderers
             }
         };
 
-        void rebuild_static(std::size_t wave_index) const;
-        void rebuild_dynamic(const DynamicSignature& signature) const;
+        void rebuild_static(std::size_t wave_index);
+        void rebuild_dynamic(const DynamicSignature& signature);
         void rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, float latex_text_size,
             std::uint32_t argb_color) const;
 
         UI::Settings& settings_;
         std::optional<TeXRender::LatexDocument> document_;
-        mutable float panel_right_{};
-        mutable std::optional<TeXRender::RenderHandle> static_formula_;
-        mutable std::size_t last_wave_index_{static_cast<std::size_t>(-1)};
-        mutable std::optional<TeXRender::RenderHandle> dynamic_formula_;
-        mutable DynamicSignature last_dynamic_{};
+        std::optional<TeXRender::RenderHandle> static_formula_;
+        std::size_t last_wave_index_{static_cast<std::size_t>(-1)};
+        std::optional<TeXRender::RenderHandle> dynamic_formula_;
+        DynamicSignature last_dynamic_{};
     };
 } // namespace Renderers

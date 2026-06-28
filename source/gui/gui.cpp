@@ -81,8 +81,7 @@ void GUI::update_impl() const
     chart_renderer_->draw();
     wave_renderer_->draw();
     spectrum_renderer_->draw();
-    formula_renderer_->set_panel_right(panel_right);
-    formula_renderer_->draw();
+    formula_renderer_->draw(panel_right);
     if (!settings_->get_is_paused())
         settings_->set_phase(settings_->get_phase() + settings_->get_frequency() * GetFrameTime());
 }
