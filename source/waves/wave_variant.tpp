@@ -16,7 +16,7 @@ namespace Waves
         template <std::size_t... Is>
         [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...> /*index_sequence*/) -> auto
         {
-            return std::array<const char*, wave_count>{std::variant_alternative_t<Is, WaveVariant>::name.data()...};
+            return std::array<const char*, wave_count>{std::variant_alternative_t<Is, WaveVariant>::name...};
         }
 
         template <typename T>

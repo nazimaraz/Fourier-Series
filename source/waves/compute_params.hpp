@@ -13,6 +13,6 @@ namespace Waves
         float radius{};
         unsigned int harmonic_count{};
         float phase{};
-        std::span<const bool> enabled_mask{};
+        std::span<const bool> enabled_mask;
     };
 } // namespace Waves

@@ -11,7 +11,7 @@ namespace Waves
 {
     struct Triangle
     {
-        static constexpr std::string_view name = "Triangle Wave";
+        static constexpr auto name = "Triangle Wave";
         static constexpr std::string_view latex =
             R"(f(t)=\dfrac{8}{\pi^{2}}\sum_{n=1,3,5,\ldots}^{\infty}\dfrac{(-1)^{(n-1)/2}}{n^{2}}\sin(nt))";
         [[nodiscard]] static auto formula(float i) -> HarmonicTerm;

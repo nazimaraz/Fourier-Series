@@ -11,7 +11,7 @@ namespace Waves
 {
     struct Heart
     {
-        static constexpr std::string_view name = "Heart";
+        static constexpr auto name = "Heart";
         static constexpr std::string_view latex = R"(\bigl{(}x(t),y(t)\bigr{)}=\sum_{n}(a_{n}\cos nt+b_{n}\sin nt))";
         [[nodiscard]] static auto formula(float i) -> HarmonicTerm;
 

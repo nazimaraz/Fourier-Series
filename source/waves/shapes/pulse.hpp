@@ -34,9 +34,10 @@ namespace Waves
 
             result.at(i++) = '%';
             result.at(i++) = ')';
+            result.at(i++) = '\0';
             return result;
         }();
-        static constexpr auto name = std::string_view{name_storage.data()};
+        static constexpr auto name = name_storage.data();
         static constexpr auto latex = [] -> std::string_view {
             if constexpr (DutyPercent == 25)
                 return R"(f(t)=0.25+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.25\pi n)}{n}\cos(nt))";
