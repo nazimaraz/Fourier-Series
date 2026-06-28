@@ -11,7 +11,7 @@ Checks: >
   -fuchsia-*,
   -hicpp-*,
   -google-*,
-  -*-use-trailing-return-type,
+  modernize-use-trailing-return-type,
   -*-braces-around-statements,
   -*-avoid-do-while,
   -*-pro-type-reinterpret-cast,

@@ -28,6 +28,7 @@ BraceWrapping:
 BreakBeforeBraces: Custom
 AllowShortFunctionsOnASingleLine: None
 AllowShortLambdasOnASingleLine: Empty
+BreakAfterReturnType: None
 BreakConstructorInitializers: BeforeComma
 BreakConstructorInitializersBeforeComma: true
 BreakInheritanceList: BeforeComma
