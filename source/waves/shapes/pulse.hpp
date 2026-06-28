@@ -36,18 +36,14 @@ namespace Waves
             result.at(i++) = ')';
             return result;
         }();
-        static constexpr std::string_view name{name_storage.data()};
-        static constexpr std::string_view latex = [] {
+        static constexpr auto name = std::string_view{name_storage.data()};
+        static constexpr auto latex = [] -> std::string_view {
             if constexpr (DutyPercent == 25)
-                return std::string_view{
-                    R"(f(t)=0.25+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.25\pi n)}{n}\cos(nt))"
-                };
+                return R"(f(t)=0.25+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.25\pi n)}{n}\cos(nt))";
             else if constexpr (DutyPercent == 75)
-                return std::string_view{
-                    R"(f(t)=0.75+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.75\pi n)}{n}\cos(nt))"
-                };
+                return R"(f(t)=0.75+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.75\pi n)}{n}\cos(nt))";
             else
-                return std::string_view{};
+                return {};
         }();
 
         [[nodiscard]] static HarmonicTerm formula(const float i)
