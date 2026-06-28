@@ -11,13 +11,13 @@ namespace Waves
 {
     struct Heart
     {
+        static constexpr std::string_view name = "Heart";
+        static constexpr std::string_view latex = R"(\bigl{(}x(t),y(t)\bigr{)}=\sum_{n}(a_{n}\cos nt+b_{n}\sin nt))";
         [[nodiscard]] static HarmonicTerm formula(float i);
 
         [[nodiscard]] static constexpr float dc()
         {
             return 0.f;
         }
-
-        static constexpr std::string_view name = "Heart";
     };
 } // namespace Waves

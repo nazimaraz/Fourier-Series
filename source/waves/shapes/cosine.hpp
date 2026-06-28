@@ -12,6 +12,7 @@ namespace Waves
     struct Cosine
     {
         static constexpr std::string_view name = "Cosine";
+        static constexpr std::string_view latex = R"(f(t)=\cos(t))";
         [[nodiscard]] static HarmonicTerm formula(float i);
 
         [[nodiscard]] static constexpr float dc()

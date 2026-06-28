@@ -6,6 +6,7 @@
 
 #include <array>
 #include <cstddef>
+#include <string_view>
 
 namespace Waves
 {
@@ -36,6 +37,18 @@ namespace Waves
             return result;
         }();
         static constexpr std::string_view name{name_storage.data()};
+        static constexpr std::string_view latex = [] {
+            if constexpr (DutyPercent == 25)
+                return std::string_view{
+                    R"(f(t)=0.25+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.25\pi n)}{n}\cos(nt))"
+                };
+            else if constexpr (DutyPercent == 75)
+                return std::string_view{
+                    R"(f(t)=0.75+\dfrac{2}{\pi}\sum_{n=1}^{\infty}\dfrac{\sin(0.75\pi n)}{n}\cos(nt))"
+                };
+            else
+                return std::string_view{};
+        }();
 
         [[nodiscard]] static HarmonicTerm formula(const float i)
         {
