@@ -119,8 +119,8 @@ auto GUI::update_settings() -> void
     static constexpr auto number_of_harmonic_max = 100u;
     ImGui::Text("Number of Harmonic:");
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
-    ImGui::SliderScalar("##NumberOfHarmonic", ImGuiDataType_U32, &settings_.mutable_number_of_harmonic(),
-        &number_of_harmonic_min, &number_of_harmonic_max);
+    ImGui::SliderScalar("##NumberOfHarmonic", ImGuiDataType_U32, &settings_.mutable_number_of_harmonic(), &number_of_harmonic_min,
+        &number_of_harmonic_max);
     ImGui::PopItemWidth();
 
     ImGui::Text("Frequency:");

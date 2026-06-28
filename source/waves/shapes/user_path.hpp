@@ -13,8 +13,7 @@ namespace Waves
     struct UserPath
     {
         static constexpr auto name = "User Drawing";
-        static constexpr std::string_view latex = R"(f(t)=\sum_{n}\bigl{(}a_{n}\cos nt+b_{n}\sin nt\bigr{)})";
-
+        static constexpr auto latex = std::string_view{R"(f(t)=\sum_{n}\bigl{(}a_{n}\cos nt+b_{n}\sin nt\bigr{)})"};
         std::vector<HarmonicTerm> harmonics;
         float dc_value{};
 

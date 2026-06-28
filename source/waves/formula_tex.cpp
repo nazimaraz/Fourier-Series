@@ -18,9 +18,10 @@ using namespace Waves;
 namespace
 {
     template <std::size_t... Is>
-    [[nodiscard]] constexpr auto make_formula_table(std::index_sequence<Is...> /*index_sequence*/) -> auto
+    [[nodiscard]] constexpr auto make_formula_table(std::index_sequence<Is...> /*index_sequence*/)
+        -> std::array<std::string_view, wave_count>
     {
-        return std::array<std::string_view, wave_count>{std::variant_alternative_t<Is, WaveVariant>::latex...};
+        return {std::variant_alternative_t<Is, WaveVariant>::latex...};
     }
 
     constexpr auto formulas = make_formula_table(std::make_index_sequence<wave_count>{});

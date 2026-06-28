@@ -132,13 +132,17 @@ prettier and more maintainable: build a constant table of factory function
 pointers at compile time, one per alternative.
 
 ```cpp
-template <size_t... Is>
-constexpr auto make_factories(std::index_sequence<Is...>) {
-    return std::array<WaveVariant (*)(), sizeof...(Is)>{
-        +[]() -> WaveVariant {
-            return WaveVariant{std::in_place_index<Is>};
-        }...
-    };
+template <std::size_t I>
+[[nodiscard]] constexpr auto get_wave_variant() -> WaveVariant
+{
+    return WaveVariant{std::in_place_index<I>};
+}
+
+template <std::size_t... Is>
+[[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/)
+    -> std::array<WaveVariant (*)(), sizeof...(Is)>
+{
+    return {get_wave_variant<Is>...};
 }
 ```
 

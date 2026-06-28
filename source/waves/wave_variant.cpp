@@ -13,12 +13,17 @@ namespace Waves
 {
     namespace
     {
-        template <std::size_t... Is>
-        [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/) -> auto
+        template <std::size_t I>
+        [[nodiscard]] constexpr auto get_wave_variant() -> WaveVariant
         {
-            return std::array<WaveVariant (*)(), sizeof...(Is)>{+[]() -> WaveVariant {
-                return WaveVariant{std::in_place_index<Is>};
-            }...};
+            return WaveVariant{std::in_place_index<I>};
+        }
+
+        template <std::size_t... Is>
+        [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/)
+            -> std::array<WaveVariant (*)(), sizeof...(Is)>
+        {
+            return {get_wave_variant<Is>...};
         }
 
         template <WaveShape W>
@@ -44,13 +49,13 @@ namespace Waves
         }
     } // namespace
 
-    auto make_wave_at(const std::size_t index) -> WaveVariant
+    [[nodiscard]] auto make_wave_at(const std::size_t index) -> WaveVariant
     {
         static constexpr auto factories = make_factories(std::make_index_sequence<wave_count>{});
         return factories.at(index)();
     }
 
-    auto compute(const WaveVariant& wave, const ComputeParams& params) -> ComputeResult
+    [[nodiscard]] auto compute(const WaveVariant& wave, const ComputeParams& params) -> ComputeResult
     {
         return std::visit(
             [&](const auto& w) -> ComputeResult {

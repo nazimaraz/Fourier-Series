@@ -37,11 +37,10 @@ auto Waves::resample_uniform(const std::span<const Vector2> points, const std::s
     {
         const auto target = total * static_cast<float>(k) / static_cast<float>(num_samples);
         const auto upper = std::ranges::lower_bound(arc, target);
-        const auto j = std::clamp<std::size_t>(
-            upper == arc.begin() ? std::size_t{} : static_cast<std::size_t>(std::distance(arc.begin(), upper) - 1),
-            std::size_t{},
-            points.size() - 1u
-        );
+        const auto j =
+            std::clamp<std::size_t>(upper == arc.begin() ? std::size_t{}
+                                                         : static_cast<std::size_t>(std::distance(arc.begin(), upper) - 1),
+                std::size_t{}, points.size() - 1u);
 
         const auto seg = arc[j + 1] - arc[j];
         const auto t = seg == 0.f ? 0.f : (target - arc[j]) / seg;

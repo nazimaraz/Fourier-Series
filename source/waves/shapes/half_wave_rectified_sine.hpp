@@ -13,8 +13,9 @@ namespace Waves
     struct HalfWaveRectifiedSine
     {
         static constexpr auto name = "Half-Wave Rectified Sine";
-        static constexpr std::string_view latex =
-            R"(f(t)=\dfrac{1}{\pi}+\dfrac{1}{2}\sin(t)-\dfrac{2}{\pi}\sum_{n=2,4,6,\ldots}^{\infty}\dfrac{1}{n^{2}-1}\cos(nt))";
+        static constexpr auto latex = std::string_view{
+            R"(f(t)=\dfrac{1}{\pi}+\dfrac{1}{2}\sin(t)-\dfrac{2}{\pi}\sum_{n=2,4,6,\ldots}^{\infty}\dfrac{1}{n^{2}-1}\cos(nt))"
+        };
         [[nodiscard]] static auto formula(float i) -> HarmonicTerm;
 
         [[nodiscard]] static constexpr auto dc() -> float
