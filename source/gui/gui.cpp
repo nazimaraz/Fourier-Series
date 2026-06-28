@@ -6,6 +6,7 @@
 #include <imgui.h>
 #include <rlImGui.h>
 #include "gui.hpp"
+#include "config.hpp"
 #include "gui/drawing_input.hpp"
 #include "gui/settings.hpp"
 #include "renderers/chart_renderer.hpp"
@@ -20,20 +21,18 @@ GUI::~GUI() = default;
 
 void GUI::initialize()
 {
-    constexpr auto screen_width = 1600;
-    constexpr auto screen_height = 900;
-    InitWindow(screen_width, screen_height, "Fourier Series");
-    SetTargetFPS(120);
+    InitWindow(Config::Window::screen_width, Config::Window::screen_height, "Fourier Series");
+    SetTargetFPS(Config::Window::target_fps);
     rlImGuiSetup(true);
     settings_ = std::make_shared<UI::Settings>();
-    settings_->set_background_color(BLACK);
-    settings_->set_wave_capacity(1000);
-    settings_->set_path_capacity(4000);
-    settings_->set_number_of_harmonic(10);
-    settings_->set_frequency(0.1f);
-    settings_->set_radius(100.f);
-    settings_->set_x_scale(1.f);
-    settings_->set_y_scale(1.f);
+    settings_->set_background_color(Config::Defaults::background_color);
+    settings_->set_wave_capacity(Config::Defaults::wave_capacity);
+    settings_->set_path_capacity(Config::Defaults::path_capacity);
+    settings_->set_number_of_harmonic(Config::Defaults::harmonic_count);
+    settings_->set_frequency(Config::Defaults::frequency);
+    settings_->set_radius(Config::Defaults::radius);
+    settings_->set_x_scale(Config::Defaults::x_scale);
+    settings_->set_y_scale(Config::Defaults::y_scale);
     settings_->set_selected_wave_index(Waves::index_of<Waves::Square>);
     chart_renderer_ = std::make_unique<Renderers::ChartRenderer>(*settings_);
     wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(*settings_);

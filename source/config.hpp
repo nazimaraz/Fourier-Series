@@ -9,6 +9,25 @@
 
 namespace Config
 {
+    namespace Window
+    {
+        inline constexpr auto screen_width = 1600;
+        inline constexpr auto screen_height = 900;
+        inline constexpr auto target_fps = 120;
+    } // namespace Window
+
+    namespace Defaults
+    {
+        inline constexpr auto background_color = Color{0, 0, 0, 255};
+        inline constexpr auto wave_capacity = 1000;
+        inline constexpr auto path_capacity = 4000;
+        inline constexpr auto harmonic_count = 10u;
+        inline constexpr auto frequency = 0.1f;
+        inline constexpr auto radius = 100.f;
+        inline constexpr auto x_scale = 1.f;
+        inline constexpr auto y_scale = 1.f;
+    } // namespace Defaults
+
     namespace Chart
     {
         inline constexpr auto origin_x = 800.f;
@@ -29,7 +48,7 @@ namespace Config
         inline constexpr auto substeps_per_cycle = 1000.f;
         inline constexpr auto substeps_max = 64;
         inline constexpr auto wave_color = Color{.r = 255, .g = 60, .b = 60, .a = 255};
-        inline constexpr auto epicycle_color = WHITE;
+        inline constexpr auto epicycle_color = Color{255, 255, 255, 255};
         inline constexpr auto circle_color = Color{.r = 255, .g = 255, .b = 255, .a = 100};
         inline constexpr auto path_color = Color{.r = 255, .g = 140, .b = 140, .a = 200};
     } // namespace Wave
@@ -52,14 +71,18 @@ namespace Config
 
     namespace Formula
     {
+        [[nodiscard]] constexpr std::uint32_t to_argb(const Color color)
+        {
+            return (static_cast<std::uint32_t>(color.a) << 24u) | (static_cast<std::uint32_t>(color.r) << 16u) |
+                   (static_cast<std::uint32_t>(color.g) << 8u) | static_cast<std::uint32_t>(color.b);
+        }
+
         inline constexpr auto text_size = 26.f;
         inline constexpr auto dynamic_text_size = 22.f;
         inline constexpr auto margin_top = 14.f;
         inline constexpr auto panel_gap = 16.f;
-        // Vertical gap between the static (top) and dynamic (below) formulas.
         inline constexpr auto vertical_gap = 6.f;
-        // ARGB (TeXRender expects 0xAARRGGBB); light gray matching the chart/spectrum label color.
-        inline constexpr auto color = std::uint32_t{0xffbebebe};
-        inline constexpr auto dynamic_color = std::uint32_t{0xff9ad1ff};
+        inline constexpr auto color = to_argb({.r = 190, .g = 190, .b = 190, .a = 255});
+        inline constexpr auto dynamic_color = to_argb(Color{.r = 154, .g = 209, .b = 255, .a = 255});
     } // namespace Formula
 } // namespace Config
