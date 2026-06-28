@@ -18,7 +18,7 @@ using namespace Waves;
 namespace
 {
     template <std::size_t... Is>
-    [[nodiscard]] constexpr auto make_formula_table(std::index_sequence<Is...> /*index_sequence*/)
+    [[nodiscard]] constexpr auto make_formula_table(std::index_sequence<Is...> /*index_sequence*/) -> auto
     {
         return std::array<std::string_view, wave_count>{std::variant_alternative_t<Is, WaveVariant>::latex...};
     }
@@ -26,7 +26,7 @@ namespace
     constexpr auto formulas = make_formula_table(std::make_index_sequence<wave_count>{});
 } // namespace
 
-std::string_view Waves::formula_tex(const std::size_t wave_index)
+auto Waves::formula_tex(const std::size_t wave_index) -> std::string_view
 {
     if (wave_index >= wave_count)
         return {};
@@ -36,7 +36,7 @@ std::string_view Waves::formula_tex(const std::size_t wave_index)
 
 namespace
 {
-    [[nodiscard]] std::string format_number(const float value)
+    [[nodiscard]] auto format_number(const float value) -> std::string
     {
         auto stream = std::ostringstream{};
         stream << std::setprecision(3) << value;
@@ -44,7 +44,7 @@ namespace
     }
 
     // Replace every occurrence of `needle` in `haystack` with `replacement`.
-    void replace_all(std::string& haystack, const std::string_view needle, const std::string_view replacement)
+    auto replace_all(std::string& haystack, const std::string_view needle, const std::string_view replacement) -> void
     {
         if (needle.empty())
             return;
@@ -53,7 +53,7 @@ namespace
             haystack.replace(pos, needle.size(), replacement);
     }
 
-    [[nodiscard]] std::string rewrite_time_tokens(std::string formula, const std::string_view replacement)
+    [[nodiscard]] auto rewrite_time_tokens(std::string formula, const std::string_view replacement) -> std::string
     {
         replace_all(formula, R"(\ldots)", "\x01");
         replace_all(formula, R"(\cdots)", "\x02");
@@ -64,7 +64,7 @@ namespace
     }
 
     // Show the transformed input symbolically on the left and plug the numeric frequency into the series.
-    [[nodiscard]] std::string rewrite_time_variable(std::string formula, const float frequency)
+    [[nodiscard]] auto rewrite_time_variable(std::string formula, const float frequency) -> std::string
     {
         const auto equals_pos = formula.find('=');
         if (equals_pos == std::string::npos)
@@ -78,8 +78,8 @@ namespace
     }
 } // namespace
 
-std::string Waves::dynamic_formula_tex(const std::size_t wave_index, const unsigned int harmonic_count, const float radius,
-    const float frequency)
+auto Waves::dynamic_formula_tex(const std::size_t wave_index, const unsigned int harmonic_count, const float radius,
+    const float frequency) -> std::string
 {
     auto formula = std::string{formula_tex(wave_index)};
     if (formula.empty())

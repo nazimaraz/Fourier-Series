@@ -15,7 +15,7 @@ namespace Renderers
     {
     public:
         explicit SpectrumRenderer(UI::Settings& settings);
-        void draw() const;
+        auto draw() const -> void;
 
     private:
         UI::Settings& settings_;

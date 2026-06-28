@@ -71,7 +71,7 @@ namespace Config
 
     namespace Formula
     {
-        [[nodiscard]] constexpr std::uint32_t to_argb(const Color color)
+        [[nodiscard]] constexpr auto to_argb(const Color color) -> std::uint32_t
         {
             return (static_cast<std::uint32_t>(color.a) << 24u) | (static_cast<std::uint32_t>(color.r) << 16u) |
                    (static_cast<std::uint32_t>(color.g) << 8u) | static_cast<std::uint32_t>(color.b);

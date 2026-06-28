@@ -27,8 +27,8 @@ FormulaRenderer::FormulaRenderer(UI::Settings& settings)
     document_.emplace(std::string{TEXRENDER_RES_DIR}, std::move(surface));
 }
 
-void FormulaRenderer::rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex,
-    const float latex_text_size, const std::uint32_t argb_color) const
+auto FormulaRenderer::rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex,
+    const float latex_text_size, const std::uint32_t argb_color) const -> void
 {
     if (latex.empty())
     {
@@ -46,20 +46,20 @@ void FormulaRenderer::rebuild_handle(std::optional<TeXRender::RenderHandle>& han
     handle.emplace(std::move(rendered));
 }
 
-void FormulaRenderer::rebuild_static(const std::size_t wave_index)
+auto FormulaRenderer::rebuild_static(const std::size_t wave_index) -> void
 {
     const auto latex = Waves::formula_tex(wave_index);
     rebuild_handle(static_formula_, std::string{latex}, text_size, color);
 }
 
-void FormulaRenderer::rebuild_dynamic(const DynamicSignature& signature)
+auto FormulaRenderer::rebuild_dynamic(const DynamicSignature& signature) -> void
 {
     const auto latex =
         Waves::dynamic_formula_tex(signature.wave_index, signature.harmonic_count, signature.radius, signature.frequency);
     rebuild_handle(dynamic_formula_, latex, dynamic_text_size, dynamic_color);
 }
 
-void FormulaRenderer::draw(const float panel_right)
+auto FormulaRenderer::draw(const float panel_right) -> void
 {
     const auto wave_index = settings_.get_selected_wave_index();
     if (wave_index != last_wave_index_)

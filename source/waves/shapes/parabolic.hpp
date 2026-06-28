@@ -14,9 +14,9 @@ namespace Waves
         static constexpr std::string_view name = "Parabolic Wave";
         static constexpr std::string_view latex =
             R"(f(t)=\dfrac{32}{\pi^{3}}\sum_{n=1,3,5,\ldots}^{\infty}\dfrac{(-1)^{(n-1)/2}}{n^{3}}\cos(nt))";
-        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static auto formula(float i) -> HarmonicTerm;
 
-        [[nodiscard]] static constexpr float dc()
+        [[nodiscard]] static constexpr auto dc() -> float
         {
             return 0.f;
         }

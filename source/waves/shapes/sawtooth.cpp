@@ -7,7 +7,7 @@
 
 using namespace Waves;
 
-HarmonicTerm Sawtooth::formula(const float i)
+auto Sawtooth::formula(const float i) -> HarmonicTerm
 {
     const auto n = i + 1.f;
     const auto coefficient = 2.f / (math::pi_v<float> * n);

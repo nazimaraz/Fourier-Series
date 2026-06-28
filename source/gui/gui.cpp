@@ -19,7 +19,7 @@ GUI::GUI() = default;
 
 GUI::~GUI() = default;
 
-void GUI::initialize()
+auto GUI::initialize() -> void
 {
     InitWindow(Config::Window::screen_width, Config::Window::screen_height, "Fourier Series");
     SetTargetFPS(Config::Window::target_fps);
@@ -41,7 +41,7 @@ void GUI::initialize()
     drawing_input_ = std::make_unique<UI::DrawingInput>(*settings_);
 }
 
-void GUI::update()
+auto GUI::update() -> void
 {
     if (WindowShouldClose())
     {
@@ -54,18 +54,18 @@ void GUI::update()
     EndDrawing();
 }
 
-void GUI::stop()
+auto GUI::stop() -> void
 {
     CloseWindow();
     is_stopped_ = true;
 }
 
-bool GUI::is_stopped() const
+auto GUI::is_stopped() const -> bool
 {
     return is_stopped_;
 }
 
-void GUI::update_impl() const
+auto GUI::update_impl() const -> void
 {
     ClearBackground(settings_->get_background_color());
     rlImGuiBegin();
@@ -86,7 +86,7 @@ void GUI::update_impl() const
         settings_->set_phase(settings_->get_phase() + settings_->get_frequency() * GetFrameTime());
 }
 
-void GUI::update_settings() const
+auto GUI::update_settings() const -> void
 {
     settings_->set_fps(GetFPS());
     ImGui::Text("FPS: %d", settings_->get_fps());

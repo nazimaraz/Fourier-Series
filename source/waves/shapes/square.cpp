@@ -7,7 +7,7 @@
 
 using namespace Waves;
 
-HarmonicTerm Square::formula(const float i)
+auto Square::formula(const float i) -> HarmonicTerm
 {
     const auto n = i * 2.f + 1.f;
     const auto coefficient = 4.f / (math::pi_v<float> * n);

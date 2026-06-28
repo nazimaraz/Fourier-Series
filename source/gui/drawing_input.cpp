@@ -22,7 +22,7 @@ DrawingInput::DrawingInput(Settings& settings)
     : settings_{settings}
 {}
 
-void DrawingInput::handle() const
+auto DrawingInput::handle() const -> void
 {
     if (!std::holds_alternative<Waves::UserPath>(settings_.get_selected_wave()))
         return;
@@ -42,7 +42,7 @@ void DrawingInput::handle() const
         commit();
 }
 
-void DrawingInput::commit() const
+auto DrawingInput::commit() const -> void
 {
     settings_.stop_drawing();
     auto points = settings_.get_drawing_points();

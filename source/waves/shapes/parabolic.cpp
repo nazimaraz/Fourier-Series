@@ -7,7 +7,7 @@
 
 using namespace Waves;
 
-HarmonicTerm Parabolic::formula(const float i)
+auto Parabolic::formula(const float i) -> HarmonicTerm
 {
     const auto n = 2.f * i + 1.f;
     const auto sign = math::pow(-1.f, i);

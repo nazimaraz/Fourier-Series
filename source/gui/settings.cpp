@@ -15,22 +15,22 @@ Settings::Settings()
     reset_harmonic_mask();
 }
 
-bool Settings::is_harmonic_enabled(const std::size_t i) const
+auto Settings::is_harmonic_enabled(const std::size_t i) const -> bool
 {
     return harmonic_enabled_.at(i);
 }
 
-void Settings::toggle_harmonic(const std::size_t i)
+auto Settings::toggle_harmonic(const std::size_t i) -> void
 {
     harmonic_enabled_.at(i) = !harmonic_enabled_.at(i);
 }
 
-bool Settings::is_only_harmonic_enabled(const std::size_t i) const
+auto Settings::is_only_harmonic_enabled(const std::size_t i) const -> bool
 {
     return is_harmonic_enabled(i) && std::ranges::count(harmonic_enabled_, true) == 1;
 }
 
-void Settings::solo_harmonic(const std::size_t i)
+auto Settings::solo_harmonic(const std::size_t i) -> void
 {
     if (is_only_harmonic_enabled(i))
     {
@@ -42,67 +42,67 @@ void Settings::solo_harmonic(const std::size_t i)
     harmonic_enabled_.at(i) = true;
 }
 
-void Settings::reset_harmonic_mask()
+auto Settings::reset_harmonic_mask() -> void
 {
     harmonic_enabled_.fill(true);
 }
 
-const std::array<bool, Settings::max_harmonic_count>& Settings::get_harmonic_mask() const
+auto Settings::get_harmonic_mask() const -> const std::array<bool, Settings::max_harmonic_count>&
 {
     return harmonic_enabled_;
 }
 
-void Settings::set_fps(const int fps)
+auto Settings::set_fps(const int fps) -> void
 {
     fps_ = fps;
 }
 
-int Settings::get_fps() const
+auto Settings::get_fps() const -> int
 {
     return fps_;
 }
 
-void Settings::set_background_color(const Color color)
+auto Settings::set_background_color(const Color color) -> void
 {
     background_color_ = color;
 }
 
-Color Settings::get_background_color() const
+auto Settings::get_background_color() const -> Color
 {
     return background_color_;
 }
 
-void Settings::set_wave_capacity(const boost::circular_buffer<float>::capacity_type capacity)
+auto Settings::set_wave_capacity(const boost::circular_buffer<float>::capacity_type capacity) -> void
 {
     wave_.set_capacity(capacity);
 }
 
-boost::circular_buffer<float>& Settings::get_wave()
+auto Settings::get_wave() -> boost::circular_buffer<float>&
 {
     return wave_;
 }
 
-void Settings::set_path_capacity(const boost::circular_buffer<Vector2>::capacity_type capacity)
+auto Settings::set_path_capacity(const boost::circular_buffer<Vector2>::capacity_type capacity) -> void
 {
     path_.set_capacity(capacity);
 }
 
-boost::circular_buffer<Vector2>& Settings::get_path()
+auto Settings::get_path() -> boost::circular_buffer<Vector2>&
 {
     return path_;
 }
 
-void Settings::set_is_paused(const bool is_paused)
+auto Settings::set_is_paused(const bool is_paused) -> void
 {
     is_paused_ = is_paused;
 }
 
-bool Settings::get_is_paused() const
+auto Settings::get_is_paused() const -> bool
 {
     return is_paused_;
 }
 
-void Settings::set_selected_wave_index(const std::size_t index)
+auto Settings::set_selected_wave_index(const std::size_t index) -> void
 {
     if (selected_wave_.index() == index)
         return;
@@ -112,33 +112,33 @@ void Settings::set_selected_wave_index(const std::size_t index)
     is_drawing_ = false;
 }
 
-std::size_t Settings::get_selected_wave_index() const
+auto Settings::get_selected_wave_index() const -> std::size_t
 {
     return selected_wave_.index();
 }
 
-const Waves::WaveVariant& Settings::get_selected_wave() const
+auto Settings::get_selected_wave() const -> const Waves::WaveVariant&
 {
     return selected_wave_;
 }
 
-Waves::WaveVariant& Settings::get_selected_wave()
+auto Settings::get_selected_wave() -> Waves::WaveVariant&
 {
     return selected_wave_;
 }
 
-void Settings::start_drawing()
+auto Settings::start_drawing() -> void
 {
     drawing_points_.clear();
     is_drawing_ = true;
 }
 
-void Settings::stop_drawing()
+auto Settings::stop_drawing() -> void
 {
     is_drawing_ = false;
 }
 
-void Settings::add_drawing_point(const Vector2 p)
+auto Settings::add_drawing_point(const Vector2 p) -> void
 {
     if (!drawing_points_.empty())
     {
@@ -149,82 +149,82 @@ void Settings::add_drawing_point(const Vector2 p)
     drawing_points_.push_back(p);
 }
 
-void Settings::set_drawing_points(std::vector<Vector2> points)
+auto Settings::set_drawing_points(std::vector<Vector2> points) -> void
 {
     drawing_points_ = std::move(points);
 }
 
-void Settings::set_selected_wave(Waves::WaveVariant wave)
+auto Settings::set_selected_wave(Waves::WaveVariant wave) -> void
 {
     selected_wave_ = std::move(wave);
 }
 
-bool Settings::is_drawing() const
+auto Settings::is_drawing() const -> bool
 {
     return is_drawing_;
 }
 
-const std::vector<Vector2>& Settings::get_drawing_points() const
+auto Settings::get_drawing_points() const -> const std::vector<Vector2>&
 {
     return drawing_points_;
 }
 
-void Settings::set_number_of_harmonic(const unsigned int number)
+auto Settings::set_number_of_harmonic(const unsigned int number) -> void
 {
     number_of_harmonic_ = number;
 }
 
-unsigned int& Settings::get_number_of_harmonic()
+auto Settings::get_number_of_harmonic() -> unsigned int&
 {
     return number_of_harmonic_;
 }
 
-void Settings::set_frequency(const float frequency)
+auto Settings::set_frequency(const float frequency) -> void
 {
     frequency_ = frequency;
 }
 
-float& Settings::get_frequency()
+auto Settings::get_frequency() -> float&
 {
     return frequency_;
 }
 
-void Settings::set_radius(const float radius)
+auto Settings::set_radius(const float radius) -> void
 {
     radius_ = radius;
 }
 
-float& Settings::get_radius()
+auto Settings::get_radius() -> float&
 {
     return radius_;
 }
 
-void Settings::set_phase(const float phase)
+auto Settings::set_phase(const float phase) -> void
 {
     phase_ = phase;
 }
 
-float Settings::get_phase() const
+auto Settings::get_phase() const -> float
 {
     return phase_;
 }
 
-void Settings::set_x_scale(const float x_scale)
+auto Settings::set_x_scale(const float x_scale) -> void
 {
     x_scale_ = x_scale;
 }
 
-float& Settings::get_x_scale()
+auto Settings::get_x_scale() -> float&
 {
     return x_scale_;
 }
 
-void Settings::set_y_scale(const float y_scale)
+auto Settings::set_y_scale(const float y_scale) -> void
 {
     y_scale_ = y_scale;
 }
 
-float& Settings::get_y_scale()
+auto Settings::get_y_scale() -> float&
 {
     return y_scale_;
 }

@@ -8,7 +8,7 @@
 
 using namespace Waves;
 
-HarmonicTerm Semicircle::formula(const float i)
+auto Semicircle::formula(const float i) -> HarmonicTerm
 {
     const auto n = i + 1.f;
     const auto coefficient = math::pow(-1.f, n) * boost::math::cyl_bessel_j(1, n * math::pi_v<float>) / n;

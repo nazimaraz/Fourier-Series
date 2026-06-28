@@ -27,7 +27,7 @@ namespace Renderers
     {
     public:
         explicit FormulaRenderer(UI::Settings& settings);
-        void draw(float panel_right);
+        auto draw(float panel_right) -> void;
 
     private:
         struct DynamicSignature
@@ -37,17 +37,17 @@ namespace Renderers
             float radius{};
             float frequency{};
 
-            [[nodiscard]] friend bool operator==(const DynamicSignature& lhs, const DynamicSignature& rhs)
+            [[nodiscard]] friend auto operator==(const DynamicSignature& lhs, const DynamicSignature& rhs) -> bool
             {
                 return lhs.wave_index == rhs.wave_index && lhs.harmonic_count == rhs.harmonic_count && lhs.radius == rhs.radius &&
                        lhs.frequency == rhs.frequency;
             }
         };
 
-        void rebuild_static(std::size_t wave_index);
-        void rebuild_dynamic(const DynamicSignature& signature);
-        void rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, float latex_text_size,
-            std::uint32_t argb_color) const;
+        auto rebuild_static(std::size_t wave_index) -> void;
+        auto rebuild_dynamic(const DynamicSignature& signature) -> void;
+        auto rebuild_handle(std::optional<TeXRender::RenderHandle>& handle, const std::string& latex, float latex_text_size,
+            std::uint32_t argb_color) const -> void;
 
         UI::Settings& settings_;
         std::optional<TeXRender::LatexDocument> document_;

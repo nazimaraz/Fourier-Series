@@ -15,9 +15,9 @@ namespace Waves
         static constexpr std::string_view name = "Full-Wave Rectified Sine";
         static constexpr std::string_view latex =
             R"(f(t)=\dfrac{2}{\pi}-\dfrac{4}{\pi}\sum_{n=1}^{\infty}\dfrac{1}{4n^{2}-1}\cos(2nt))";
-        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static auto formula(float i) -> HarmonicTerm;
 
-        [[nodiscard]] static constexpr float dc()
+        [[nodiscard]] static constexpr auto dc() -> float
         {
             return 2.f / math::pi_v<float>;
         }

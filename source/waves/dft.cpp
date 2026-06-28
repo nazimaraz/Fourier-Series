@@ -14,7 +14,7 @@ using namespace Waves;
 
 namespace
 {
-    std::vector<Vector2> resample_uniform(const std::vector<Vector2>& points, const std::size_t num_samples)
+    auto resample_uniform(const std::vector<Vector2>& points, const std::size_t num_samples) -> std::vector<Vector2>
     {
         if (points.size() < 2)
             return {};
@@ -51,7 +51,7 @@ namespace
     }
 } // namespace
 
-DftResult Waves::compute_dft(const std::vector<Vector2>& points, const std::size_t max_harmonics)
+auto Waves::compute_dft(const std::vector<Vector2>& points, const std::size_t max_harmonics) -> DftResult
 {
     if (points.size() < 3)
         return {.harmonics = {}, .dc_value = 0.f};
@@ -97,7 +97,7 @@ DftResult Waves::compute_dft(const std::vector<Vector2>& points, const std::size
         coefficients.emplace_back(n, c);
     }
 
-    std::ranges::sort(coefficients, [](const auto& a, const auto& b) {
+    std::ranges::sort(coefficients, [](const auto& a, const auto& b) -> bool {
         return std::abs(a.second) > std::abs(b.second);
     });
     if (coefficients.size() > max_harmonics)

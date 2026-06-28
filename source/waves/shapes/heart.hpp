@@ -13,9 +13,9 @@ namespace Waves
     {
         static constexpr std::string_view name = "Heart";
         static constexpr std::string_view latex = R"(\bigl{(}x(t),y(t)\bigr{)}=\sum_{n}(a_{n}\cos nt+b_{n}\sin nt))";
-        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static auto formula(float i) -> HarmonicTerm;
 
-        [[nodiscard]] static constexpr float dc()
+        [[nodiscard]] static constexpr auto dc() -> float
         {
             return 0.f;
         }

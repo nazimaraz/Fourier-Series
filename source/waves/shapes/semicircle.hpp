@@ -15,9 +15,9 @@ namespace Waves
         static constexpr std::string_view name = "Semicircle Wave";
         static constexpr std::string_view latex =
             R"(f(t)=\dfrac{\pi}{4}+\sum_{n=1}^{\infty}\dfrac{(-1)^{n}}{n}J_{1}(n\pi)\cos(nt))";
-        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static auto formula(float i) -> HarmonicTerm;
 
-        [[nodiscard]] static constexpr float dc()
+        [[nodiscard]] static constexpr auto dc() -> float
         {
             return math::pi_v<float> / 4.f;
         }

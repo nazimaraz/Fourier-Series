@@ -20,7 +20,7 @@ WaveRenderer::WaveRenderer(UI::Settings& settings)
 
 WaveRenderer::~WaveRenderer() = default;
 
-void WaveRenderer::draw() const
+auto WaveRenderer::draw() const -> void
 {
     const auto& selected = settings_.get_selected_wave();
     const auto params = Waves::ComputeParams{
@@ -57,7 +57,7 @@ void WaveRenderer::draw() const
     last_phase_ = params.phase;
     initialized_ = true;
     auto translate = Vector2{Config::Wave::epicycle_origin_x, Config::Wave::epicycle_origin_y};
-    const auto math_to_screen = [&translate](const Vector2 p) {
+    const auto math_to_screen = [&translate](const Vector2 p) -> Vector2 {
         return Vector2{translate.x + p.x, translate.y - p.y};
     };
     if (path.size() > 1)

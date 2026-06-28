@@ -17,5 +17,5 @@ namespace Waves
         float dc_value;
     };
 
-    [[nodiscard]] DftResult compute_dft(const std::vector<Vector2>& points, std::size_t max_harmonics);
+    [[nodiscard]] auto compute_dft(const std::vector<Vector2>& points, std::size_t max_harmonics) -> DftResult;
 } // namespace Waves

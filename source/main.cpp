@@ -4,7 +4,7 @@
 
 #include "gui/gui.hpp"
 
-int main()
+auto main() -> int
 {
     auto gui = GUI{};
     gui.initialize();

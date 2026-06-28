@@ -20,7 +20,7 @@ SpectrumRenderer::SpectrumRenderer(UI::Settings& settings)
     : settings_{settings}
 {}
 
-void SpectrumRenderer::draw() const
+auto SpectrumRenderer::draw() const -> void
 {
     const auto& selected = settings_.get_selected_wave();
     const auto params = Waves::ComputeParams{

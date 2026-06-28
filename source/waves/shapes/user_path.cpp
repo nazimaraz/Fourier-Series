@@ -7,7 +7,7 @@
 
 using namespace Waves;
 
-HarmonicTerm UserPath::formula(const float i) const
+auto UserPath::formula(const float i) const -> HarmonicTerm
 {
     const auto idx = static_cast<std::size_t>(i);
     if (idx >= harmonics.size())
@@ -16,7 +16,7 @@ HarmonicTerm UserPath::formula(const float i) const
     return harmonics[idx];
 }
 
-float UserPath::dc() const
+auto UserPath::dc() const -> float
 {
     return dc_value;
 }

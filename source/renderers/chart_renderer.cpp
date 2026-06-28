@@ -15,7 +15,7 @@ using namespace Config::Chart;
 
 namespace
 {
-    [[nodiscard]] std::string format_label(const float value, const bool show_sign = false)
+    [[nodiscard]] auto format_label(const float value, const bool show_sign = false) -> std::string
     {
         auto stream = std::ostringstream{};
         if (show_sign)
@@ -30,7 +30,7 @@ ChartRenderer::ChartRenderer(UI::Settings& settings)
     : settings_{settings}
 {}
 
-void ChartRenderer::draw() const
+auto ChartRenderer::draw() const -> void
 {
     constexpr auto origin = Vector2{.x = origin_x, .y = origin_y};
     const auto screen_w = static_cast<float>(GetScreenWidth());

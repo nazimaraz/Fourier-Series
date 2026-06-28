@@ -15,7 +15,7 @@ namespace Waves
     {
         static_assert(DutyPercent > 0 && DutyPercent < 100, "duty cycle must lie in the open interval (0%, 100%)");
 
-        static constexpr auto name_storage = [] {
+        static constexpr auto name_storage = [] -> std::array<char, 16> {
             constexpr std::string_view prefix = "Pulse (";
             auto result = std::array<char, 16>{};
             auto i = std::size_t{};
@@ -46,7 +46,7 @@ namespace Waves
                 return {};
         }();
 
-        [[nodiscard]] static HarmonicTerm formula(const float i)
+        [[nodiscard]] static auto formula(const float i) -> HarmonicTerm
         {
             constexpr auto duty = static_cast<float>(DutyPercent) / 100.f;
             const auto n = i + 1.f;
@@ -55,7 +55,7 @@ namespace Waves
             return {.n = n, .coefficient = coefficient, .phase = phase};
         }
 
-        [[nodiscard]] static constexpr float dc()
+        [[nodiscard]] static constexpr auto dc() -> float
         {
             return static_cast<float>(DutyPercent) / 100.f;
         }

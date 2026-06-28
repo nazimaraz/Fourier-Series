@@ -12,10 +12,10 @@ namespace UI
     {
     public:
         explicit DrawingInput(Settings& settings);
-        void handle() const;
+        auto handle() const -> void;
 
     private:
-        void commit() const;
+        auto commit() const -> void;
 
         Settings& settings_;
     };

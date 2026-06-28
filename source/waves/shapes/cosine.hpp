@@ -13,9 +13,9 @@ namespace Waves
     {
         static constexpr std::string_view name = "Cosine";
         static constexpr std::string_view latex = R"(f(t)=\cos(t))";
-        [[nodiscard]] static HarmonicTerm formula(float i);
+        [[nodiscard]] static auto formula(float i) -> HarmonicTerm;
 
-        [[nodiscard]] static constexpr float dc()
+        [[nodiscard]] static constexpr auto dc() -> float
         {
             return 0.f;
         }

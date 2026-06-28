@@ -7,7 +7,7 @@
 
 using namespace Waves;
 
-HarmonicTerm HalfWaveRectifiedSine::formula(const float i)
+auto HalfWaveRectifiedSine::formula(const float i) -> HarmonicTerm
 {
     if (i == 0.f)
         return {.n = 1.f, .coefficient = 0.5f, .phase = 0.f};

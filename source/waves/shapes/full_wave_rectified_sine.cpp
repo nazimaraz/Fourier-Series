@@ -7,7 +7,7 @@
 
 using namespace Waves;
 
-HarmonicTerm FullWaveRectifiedSine::formula(const float i)
+auto FullWaveRectifiedSine::formula(const float i) -> HarmonicTerm
 {
     const auto k = i + 1.f;
     const auto n = 2.f * k;

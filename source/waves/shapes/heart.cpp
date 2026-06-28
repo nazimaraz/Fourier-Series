@@ -10,7 +10,7 @@
 
 using namespace Waves;
 
-HarmonicTerm Heart::formula(const float i)
+auto Heart::formula(const float i) -> HarmonicTerm
 {
     constexpr auto terms = std::array{
         HarmonicTerm{.n = -1.f, .coefficient = 1.00f, .phase = +math::half_pi_v<float>},

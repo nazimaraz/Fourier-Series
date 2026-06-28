@@ -20,11 +20,11 @@ namespace Renderers
         explicit WaveRenderer(UI::Settings& settings);
         WaveRenderer(const WaveRenderer&) = delete;
         WaveRenderer(WaveRenderer&&) = delete;
-        WaveRenderer& operator=(const WaveRenderer&) = delete;
-        WaveRenderer& operator=(WaveRenderer&&) = delete;
+        auto operator=(const WaveRenderer&) -> WaveRenderer& = delete;
+        auto operator=(WaveRenderer&&) -> WaveRenderer& = delete;
         ~WaveRenderer();
 
-        void draw() const;
+        auto draw() const -> void;
 
     private:
         UI::Settings& settings_;

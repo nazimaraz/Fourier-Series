@@ -7,7 +7,7 @@
 
 using namespace Waves;
 
-HarmonicTerm Cosine::formula(const float i)
+auto Cosine::formula(const float i) -> HarmonicTerm
 {
     if (i == 0.f)
         return {.n = 1.f, .coefficient = 1.f, .phase = math::pi_v<float> / 2.f};

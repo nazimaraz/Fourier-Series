@@ -14,7 +14,7 @@ namespace Waves
     namespace detail
     {
         template <std::size_t... Is>
-        [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/)
+        [[nodiscard]] constexpr auto make_factories(std::index_sequence<Is...> /*index_sequence*/) -> auto
         {
             return std::array<WaveVariant (*)(), sizeof...(Is)>{+[]() -> WaveVariant {
                 return WaveVariant{std::in_place_index<Is>};
@@ -22,7 +22,7 @@ namespace Waves
         }
 
         template <WaveShape W>
-        [[nodiscard]] ComputeResult compute_for(const W& wave, const ComputeParams& params)
+        [[nodiscard]] auto compute_for(const W& wave, const ComputeParams& params) -> ComputeResult
         {
             ComputeResult result;
             result.steps.reserve(params.harmonic_count);
@@ -44,16 +44,16 @@ namespace Waves
         }
     } // namespace detail
 
-    WaveVariant make_wave_at(const std::size_t index)
+    auto make_wave_at(const std::size_t index) -> WaveVariant
     {
         static constexpr auto factories = detail::make_factories(std::make_index_sequence<wave_count>{});
         return factories.at(index)();
     }
 
-    ComputeResult compute(const WaveVariant& wave, const ComputeParams& params)
+    auto compute(const WaveVariant& wave, const ComputeParams& params) -> ComputeResult
     {
         return std::visit(
-            [&](const auto& w) {
+            [&](const auto& w) -> ComputeResult {
                 return detail::compute_for(w, params);
             },
             wave

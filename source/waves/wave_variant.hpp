@@ -28,15 +28,15 @@ namespace Waves
     namespace detail
     {
         template <std::size_t... Is>
-        [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...> index_sequence);
+        [[nodiscard]] constexpr auto make_name_table(std::index_sequence<Is...> index_sequence) -> auto;
         template <std::size_t... Is>
-        [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...> index_sequence);
+        [[nodiscard]] constexpr auto make_cstr_name_table(std::index_sequence<Is...> index_sequence) -> auto;
         template <typename T>
-        [[nodiscard]] constexpr std::size_t index_of_impl();
+        [[nodiscard]] constexpr auto index_of_impl() -> std::size_t;
     } // namespace detail
 
-    [[nodiscard]] WaveVariant make_wave_at(std::size_t index);
-    [[nodiscard]] ComputeResult compute(const WaveVariant& wave, const ComputeParams& params);
+    [[nodiscard]] auto make_wave_at(std::size_t index) -> WaveVariant;
+    [[nodiscard]] auto compute(const WaveVariant& wave, const ComputeParams& params) -> ComputeResult;
 
     template <typename T>
     inline constexpr auto index_of = detail::index_of_impl<T>();

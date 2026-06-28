@@ -18,7 +18,7 @@ namespace Waves
         std::vector<HarmonicTerm> harmonics;
         float dc_value{};
 
-        [[nodiscard]] HarmonicTerm formula(float i) const;
-        [[nodiscard]] float dc() const;
+        [[nodiscard]] auto formula(float i) const -> HarmonicTerm;
+        [[nodiscard]] auto dc() const -> float;
     };
 } // namespace Waves
