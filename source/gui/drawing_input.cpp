@@ -72,7 +72,7 @@ auto DrawingInput::commit() const -> void
     if (max_dist > 0.f)
         settings_.set_radius(max_dist);
 
-    auto [harmonics, dc_value] = Waves::compute_dft(points, Settings::max_harmonic_count);
+    auto [harmonics, dc_value] = Waves::compute_dft(points, Config::Defaults::max_harmonic_count);
     settings_.set_drawing_points(std::move(points));
     settings_.set_selected_wave(Waves::UserPath{.harmonics = std::move(harmonics), .dc_value = dc_value});
 }

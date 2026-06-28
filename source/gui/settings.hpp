@@ -9,6 +9,7 @@
 #include <vector>
 #include <boost/circular_buffer.hpp>
 #include <raylib.h>
+#include "config.hpp"
 #include "waves/wave_variant.hpp"
 
 namespace UI
@@ -16,8 +17,6 @@ namespace UI
     class Settings
     {
     public:
-        static constexpr std::size_t max_harmonic_count = 100;
-
         Settings();
         auto set_fps(int fps) -> void;
         [[nodiscard]] auto get_fps() const -> int;
@@ -62,7 +61,7 @@ namespace UI
         auto toggle_harmonic(std::size_t i) -> void;
         auto solo_harmonic(std::size_t i) -> void;
         auto reset_harmonic_mask() -> void;
-        [[nodiscard]] auto get_harmonic_mask() const -> const std::array<bool, max_harmonic_count>&;
+        [[nodiscard]] auto get_harmonic_mask() const -> const std::array<bool, Config::Defaults::max_harmonic_count>&;
 
     private:
         int fps_{};
@@ -79,7 +78,7 @@ namespace UI
         float phase_{};
         float x_scale_{};
         float y_scale_{};
-        std::array<bool, max_harmonic_count> harmonic_enabled_{};
+        std::array<bool, Config::Defaults::max_harmonic_count> harmonic_enabled_{};
     };
 
 } // namespace UI

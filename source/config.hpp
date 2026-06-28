@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <raylib.h>
 
@@ -21,6 +22,7 @@ namespace Config
         inline constexpr auto background_color = Color{0, 0, 0, 255};
         inline constexpr auto wave_capacity = 1000;
         inline constexpr auto path_capacity = 4000;
+        inline constexpr auto max_harmonic_count = std::size_t{100};
         inline constexpr auto harmonic_count = 10u;
         inline constexpr auto frequency = 0.1f;
         inline constexpr auto radius = 100.f;

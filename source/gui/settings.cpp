@@ -47,7 +47,7 @@ auto Settings::reset_harmonic_mask() -> void
     harmonic_enabled_.fill(true);
 }
 
-auto Settings::get_harmonic_mask() const -> const std::array<bool, Settings::max_harmonic_count>&
+auto Settings::get_harmonic_mask() const -> const std::array<bool, Config::Defaults::max_harmonic_count>&
 {
     return harmonic_enabled_;
 }
