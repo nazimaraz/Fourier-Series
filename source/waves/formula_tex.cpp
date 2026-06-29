@@ -90,8 +90,14 @@ auto Waves::dynamic_formula_tex(const std::size_t wave_index, const unsigned int
     formula = rewrite_time_variable(formula, frequency);
     if (std::fabs(radius - 1.f) > 1e-3f)
     {
-        const auto rhs = std::string_view{formula}.substr(formula.find('=') + 1);
-        formula.replace(formula.find('=') + 1, rhs.size(), std::string{format_number(radius)} + R"(\cdot)" + std::string{rhs});
+        const auto equals_pos = formula.find('=');
+        if (equals_pos == std::string::npos)
+            return formula;
+
+        const auto rhs_start = equals_pos + 1;
+        const auto rhs = std::string_view{formula}.substr(rhs_start);
+        const auto scaled_rhs = format_number(radius) + "\\cdot\\left[" + std::string{rhs} + "\\right]";
+        formula.replace(rhs_start, rhs.size(), scaled_rhs);
     }
 
     return formula;

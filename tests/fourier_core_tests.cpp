@@ -1,11 +1,13 @@
 #include <print>
 #include "math/math.hpp"
 #include "waves/dft.hpp"
+#include "waves/formula_tex.hpp"
 #include "waves/shapes/cosine.hpp"
 #include "waves/shapes/pulse.hpp"
 #include "waves/shapes/sawtooth.hpp"
 #include "waves/shapes/square.hpp"
 #include "waves/shapes/triangle.hpp"
+#include "waves/wave_variant.hpp"
 
 namespace
 {
@@ -71,6 +73,17 @@ namespace
         }
     }
 
+    auto test_dynamic_formula_tex_scales_whole_rhs() -> void
+    {
+        const auto additive = Waves::dynamic_formula_tex(Waves::index_of<Waves::Pulse25>, 10u, 100.f, 0.1f);
+        require(additive.contains(R"(=100\cdot\left[0.25+)"), "radius scaling groups additive formula rhs");
+        require(additive.ends_with(R"(\right])"), "radius scaling closes additive formula grouping");
+
+        const auto product = Waves::dynamic_formula_tex(Waves::index_of<Waves::Square>, 10u, 100.f, 0.1f);
+        require(product.contains(R"(=100\cdot\left[\dfrac{4}{\pi})"), "radius scaling groups product formula rhs");
+        require(product.ends_with(R"(\right])"), "radius scaling closes product formula grouping");
+    }
+
     auto test_resample_uniform() -> void
     {
         const auto square = std::vector<Vector2>{
@@ -110,6 +123,7 @@ namespace
 auto main() -> int
 {
     test_wave_formulas();
+    test_dynamic_formula_tex_scales_whole_rhs();
     test_resample_uniform();
     test_compute_dft_circle();
     return 0;
