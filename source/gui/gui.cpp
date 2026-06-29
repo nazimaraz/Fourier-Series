@@ -10,7 +10,6 @@
 #include "gui/drawing_input.hpp"
 #include "renderers/chart_renderer.hpp"
 #include "renderers/formula_renderer.hpp"
-#include "renderers/spectrum_renderer.hpp"
 #include "renderers/wave_renderer.hpp"
 #include "waves/wave_variant.hpp"
 
@@ -34,7 +33,6 @@ auto GUI::initialize() -> void
     settings_.set_selected_wave_index(Waves::index_of<Waves::Square>);
     chart_renderer_ = std::make_unique<Renderers::ChartRenderer>(settings_);
     wave_renderer_ = std::make_unique<Renderers::WaveRenderer>(settings_);
-    spectrum_renderer_ = std::make_unique<Renderers::SpectrumRenderer>(settings_);
     formula_renderer_ = std::make_unique<Renderers::FormulaRenderer>(settings_);
     drawing_input_ = std::make_unique<UI::DrawingInput>(settings_);
 }
@@ -78,7 +76,6 @@ auto GUI::update_impl() -> void
     drawing_input_->handle();
     chart_renderer_->draw();
     wave_renderer_->draw();
-    spectrum_renderer_->draw();
     formula_renderer_->draw(panel_right);
     if (!settings_.get_is_paused())
         settings_.set_phase(settings_.get_phase() + settings_.frequency() * GetFrameTime());

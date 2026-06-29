@@ -55,22 +55,6 @@ namespace Config
         inline constexpr auto path_color = Color{.r = 255, .g = 140, .b = 140, .a = 200};
     } // namespace Wave
 
-    namespace Spectrum
-    {
-        inline constexpr auto panel_height = 150.f;
-        inline constexpr auto panel_bottom_margin = 30.f;
-        inline constexpr auto panel_right_margin = 10.f;
-        inline constexpr auto title_strip = 18.f;
-        inline constexpr auto bar_gap = 2.f;
-        inline constexpr auto enabled_color = Color{.r = 80, .g = 220, .b = 220, .a = 255};
-        inline constexpr auto disabled_color = Color{.r = 60, .g = 80, .b = 80, .a = 200};
-        inline constexpr auto frame_color = Color{.r = 140, .g = 140, .b = 140, .a = 200};
-        inline constexpr auto label_color = Color{.r = 200, .g = 200, .b = 200, .a = 255};
-        inline constexpr auto title_color = Color{.r = 150, .g = 150, .b = 150, .a = 230};
-        inline constexpr auto title_font = 12;
-        inline constexpr auto hint_font = 10;
-    } // namespace Spectrum
-
     namespace Formula
     {
         [[nodiscard]] constexpr auto to_argb(const Color color) -> std::uint32_t

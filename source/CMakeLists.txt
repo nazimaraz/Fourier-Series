@@ -20,7 +20,6 @@ set(fourier_app_sources
         gui/settings.cpp
         renderers/chart_renderer.cpp
         renderers/formula_renderer.cpp
-        renderers/spectrum_renderer.cpp
         renderers/wave_renderer.cpp
 )
 add_library(fourier_core ${fourier_core_sources})
