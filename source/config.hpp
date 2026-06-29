@@ -19,7 +19,7 @@ namespace Config
 
     namespace Defaults
     {
-        inline constexpr auto background_color = Color{0, 0, 0, 255};
+        inline constexpr auto background_color = Color{.r = 11, .g = 13, .b = 16, .a = 255};
         inline constexpr auto wave_capacity = 1000;
         inline constexpr auto path_capacity = 4000;
         inline constexpr auto max_harmonic_count = std::size_t{100};
@@ -37,9 +37,9 @@ namespace Config
         inline constexpr auto chart_left = 200.f;
         inline constexpr auto grid_step_px = 80.f;
         inline constexpr auto tick_len = 4.f;
-        inline constexpr auto axis_color = Color{.r = 140, .g = 140, .b = 140, .a = 200};
-        inline constexpr auto grid_color = Color{.r = 55, .g = 55, .b = 55, .a = 130};
-        inline constexpr auto label_color = Color{.r = 190, .g = 190, .b = 190, .a = 255};
+        inline constexpr auto axis_color = Color{.r = 105, .g = 116, .b = 130, .a = 210};
+        inline constexpr auto grid_color = Color{.r = 35, .g = 42, .b = 49, .a = 145};
+        inline constexpr auto label_color = Color{.r = 174, .g = 185, .b = 197, .a = 255};
         inline constexpr auto label_font = 11;
     } // namespace Chart
 
@@ -49,10 +49,10 @@ namespace Config
         inline constexpr auto epicycle_origin_y = 450.f;
         inline constexpr auto substeps_per_cycle = 1000.f;
         inline constexpr auto substeps_max = 64;
-        inline constexpr auto wave_color = Color{.r = 255, .g = 60, .b = 60, .a = 255};
-        inline constexpr auto epicycle_color = Color{255, 255, 255, 255};
-        inline constexpr auto circle_color = Color{.r = 255, .g = 255, .b = 255, .a = 100};
-        inline constexpr auto path_color = Color{.r = 255, .g = 140, .b = 140, .a = 200};
+        inline constexpr auto wave_color = Color{.r = 255, .g = 90, .b = 95, .a = 255};
+        inline constexpr auto epicycle_color = Color{.r = 232, .g = 238, .b = 245, .a = 245};
+        inline constexpr auto circle_color = Color{.r = 183, .g = 195, .b = 208, .a = 95};
+        inline constexpr auto path_color = Color{.r = 255, .g = 154, .b = 138, .a = 205};
     } // namespace Wave
 
     namespace Formula
@@ -68,7 +68,7 @@ namespace Config
         inline constexpr auto margin_top = 14.f;
         inline constexpr auto panel_gap = 16.f;
         inline constexpr auto vertical_gap = 6.f;
-        inline constexpr auto color = to_argb({.r = 190, .g = 190, .b = 190, .a = 255});
-        inline constexpr auto dynamic_color = to_argb(Color{.r = 154, .g = 209, .b = 255, .a = 255});
+        inline constexpr auto color = to_argb({.r = 220, .g = 227, .b = 234, .a = 255});
+        inline constexpr auto dynamic_color = to_argb(Color{.r = 143, .g = 211, .b = 255, .a = 255});
     } // namespace Formula
 } // namespace Config
