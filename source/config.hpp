@@ -30,11 +30,17 @@ namespace Config
         inline constexpr auto y_scale = 1.f;
     } // namespace Defaults
 
+    namespace Layout
+    {
+        inline constexpr auto settings_panel_width = 280.f;
+        inline constexpr auto canvas_divider = Color{.r = 55, .g = 64, .b = 74, .a = 210};
+    } // namespace Layout
+
     namespace Chart
     {
         inline constexpr auto origin_x = 800.f;
         inline constexpr auto origin_y = 450.f;
-        inline constexpr auto chart_left = 200.f;
+        inline constexpr auto chart_left = Layout::settings_panel_width;
         inline constexpr auto grid_step_px = 80.f;
         inline constexpr auto tick_len = 4.f;
         inline constexpr auto axis_color = Color{.r = 105, .g = 116, .b = 130, .a = 210};

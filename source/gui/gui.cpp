@@ -19,8 +19,6 @@ GUI::~GUI() = default;
 
 namespace
 {
-    constexpr auto settings_panel_width = 280.f;
-
     [[nodiscard]] auto ui_color(const int r, const int g, const int b, const int a = 255) -> ImVec4
     {
         return {static_cast<float>(r) / 255.f, static_cast<float>(g) / 255.f, static_cast<float>(b) / 255.f,
@@ -133,18 +131,19 @@ auto GUI::update_impl() -> void
     rlImGuiBegin();
     const auto screen_height = static_cast<float>(GetScreenHeight());
     ImGui::SetNextWindowPos({0.f, 0.f}, ImGuiCond_Always);
-    ImGui::SetNextWindowSize({settings_panel_width, screen_height}, ImGuiCond_Always);
+    ImGui::SetNextWindowSize({Config::Layout::settings_panel_width, screen_height}, ImGuiCond_Always);
     ImGui::Begin("Settings", nullptr,
         ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings |
             ImGuiWindowFlags_NoTitleBar);
     update_settings();
     const auto panel_right = ImGui::GetWindowPos().x + ImGui::GetWindowWidth();
     ImGui::End();
-    rlImGuiEnd();
     drawing_input_->handle();
     chart_renderer_->draw();
     wave_renderer_->draw();
     formula_renderer_->draw(panel_right);
+    DrawLineV({panel_right, 0.f}, {panel_right, screen_height}, Config::Layout::canvas_divider);
+    rlImGuiEnd();
     if (!settings_.get_is_paused())
         settings_.set_phase(settings_.get_phase() + settings_.frequency() * GetFrameTime());
 }
@@ -177,11 +176,14 @@ auto GUI::update_settings() -> void
     }
 
     ImGui::SameLine();
+    const auto can_clear = !settings_.wave().empty() || !settings_.path().empty();
+    ImGui::BeginDisabled(!can_clear);
     if (ImGui::Button("Clear", {button_width, 0.f}))
     {
         settings_.wave().clear();
         settings_.path().clear();
     }
+    ImGui::EndDisabled();
 
     ImGui::Text("Frequency");
     push_full_item_width();
