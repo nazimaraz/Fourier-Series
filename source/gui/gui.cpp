@@ -2,7 +2,9 @@
 // Created by Nazım Can on 25.10.2025.
 //
 
+#include <array>
 #include <cstddef>
+#include <cstdio>
 #include <imgui.h>
 #include <rlImGui.h>
 #include "gui.hpp"
@@ -80,6 +82,39 @@ namespace
     auto push_full_item_width() -> void
     {
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+    }
+
+    auto draw_control_label(const char* label, const char* value) -> void
+    {
+        const auto cursor_x = ImGui::GetCursorPosX();
+        const auto available_width = ImGui::GetContentRegionAvail().x;
+        const auto value_width = ImGui::CalcTextSize(value).x;
+        ImGui::TextUnformatted(label);
+        ImGui::SameLine();
+        ImGui::SetCursorPosX(cursor_x + available_width - value_width);
+        ImGui::TextDisabled("%s", value);
+    }
+
+    auto draw_float_slider(const char* label, const char* id, float& value, const float min, const float max, const char* format)
+        -> void
+    {
+        auto value_text = std::array<char, 32>{};
+        std::snprintf(value_text.data(), value_text.size(), format, value);
+        draw_control_label(label, value_text.data());
+        push_full_item_width();
+        ImGui::SliderFloat(id, &value, min, max, format);
+        ImGui::PopItemWidth();
+    }
+
+    auto draw_uint_slider(const char* label, const char* id, unsigned int& value, const unsigned int min, const unsigned int max)
+        -> void
+    {
+        auto value_text = std::array<char, 32>{};
+        std::snprintf(value_text.data(), value_text.size(), "%u", value);
+        draw_control_label(label, value_text.data());
+        push_full_item_width();
+        ImGui::SliderScalar(id, ImGuiDataType_U32, &value, &min, &max, "%u");
+        ImGui::PopItemWidth();
     }
 
     auto reset_visualization(UI::Settings& settings) -> void
@@ -205,10 +240,7 @@ auto GUI::update_settings() -> void
     if (ImGui::Button("Reset", {ImGui::GetContentRegionAvail().x, 0.f}))
         reset_visualization(settings_);
 
-    ImGui::Text("Frequency");
-    push_full_item_width();
-    ImGui::SliderFloat("##Frequency", &settings_.mutable_frequency(), 0.f, 2.f, "%.2f");
-    ImGui::PopItemWidth();
+    draw_float_slider("Frequency", "##Frequency", settings_.mutable_frequency(), 0.f, 2.f, "%.2f");
 
     draw_section_header("Wave");
     {
@@ -221,27 +253,10 @@ auto GUI::update_settings() -> void
         ImGui::PopItemWidth();
     }
 
-    static constexpr auto number_of_harmonic_min = 1u;
-    static constexpr auto number_of_harmonic_max = 100u;
-    ImGui::Text("Harmonics");
-    push_full_item_width();
-    ImGui::SliderScalar("##NumberOfHarmonic", ImGuiDataType_U32, &settings_.mutable_number_of_harmonic(), &number_of_harmonic_min,
-        &number_of_harmonic_max, "%u");
-    ImGui::PopItemWidth();
-
-    ImGui::Text("Radius");
-    push_full_item_width();
-    ImGui::SliderFloat("##Radius", &settings_.mutable_radius(), 0.1f, 200.f, "%.1f");
-    ImGui::PopItemWidth();
+    draw_uint_slider("Harmonics", "##NumberOfHarmonic", settings_.mutable_number_of_harmonic(), 1u, 100u);
+    draw_float_slider("Radius", "##Radius", settings_.mutable_radius(), 0.1f, 200.f, "%.1f");
 
     draw_section_header("Signal Scale");
-    ImGui::Text("X");
-    push_full_item_width();
-    ImGui::SliderFloat("##XScale", &settings_.mutable_x_scale(), 0.1f, 5.f, "%.2f");
-    ImGui::PopItemWidth();
-
-    ImGui::Text("Y");
-    push_full_item_width();
-    ImGui::SliderFloat("##YScale", &settings_.mutable_y_scale(), 0.1f, 5.f, "%.2f");
-    ImGui::PopItemWidth();
+    draw_float_slider("X", "##XScale", settings_.mutable_x_scale(), 0.1f, 5.f, "%.2f");
+    draw_float_slider("Y", "##YScale", settings_.mutable_y_scale(), 0.1f, 5.f, "%.2f");
 }
