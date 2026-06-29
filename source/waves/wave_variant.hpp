@@ -8,6 +8,7 @@
 #include <variant>
 #include "compute_params.hpp"
 #include "compute_result.hpp"
+#include "shapes/ataturk_signature.hpp"
 #include "shapes/cosine.hpp"
 #include "shapes/full_wave_rectified_sine.hpp"
 #include "shapes/half_wave_rectified_sine.hpp"
@@ -23,7 +24,7 @@
 namespace Waves
 {
     using WaveVariant = std::variant<Sawtooth, Square, Triangle, Semicircle, HalfWaveRectifiedSine, FullWaveRectifiedSine,
-        Parabolic, Cosine, Pulse25, Pulse75, Heart, UserPath>;
+        Parabolic, Cosine, Pulse25, Pulse75, Heart, AtaturkSignature, UserPath>;
 
     namespace detail
     {

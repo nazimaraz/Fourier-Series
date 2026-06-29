@@ -76,9 +76,8 @@ auto WaveRenderer::draw() const -> void
     for (const auto& step : result.steps)
     {
         DrawCircleLinesV(math_to_screen(step.center), step.radius, Config::Wave::circle_color);
-        DrawLineEx(
-            math_to_screen(step.center), math_to_screen(step.tip), Config::Wave::epicycle_thickness, Config::Wave::epicycle_color
-        );
+        DrawLineEx(math_to_screen(step.center), math_to_screen(step.tip), Config::Wave::epicycle_thickness,
+            Config::Wave::epicycle_color);
     }
 
     if (path.size() > 1)

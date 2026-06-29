@@ -23,8 +23,10 @@ namespace
 {
     [[nodiscard]] auto ui_color(const int r, const int g, const int b, const int a = 255) -> ImVec4
     {
-        return {static_cast<float>(r) / 255.f, static_cast<float>(g) / 255.f, static_cast<float>(b) / 255.f,
-            static_cast<float>(a) / 255.f};
+        return {
+            static_cast<float>(r) / 255.f, static_cast<float>(g) / 255.f, static_cast<float>(b) / 255.f,
+            static_cast<float>(a) / 255.f
+        };
     }
 
     auto apply_imgui_theme() -> void

@@ -2,6 +2,7 @@ set(fourier_core_sources
         waves/dft.cpp
         waves/formula_tex.cpp
         waves/wave_variant.cpp
+        waves/shapes/ataturk_signature.cpp
         waves/shapes/cosine.cpp
         waves/shapes/full_wave_rectified_sine.cpp
         waves/shapes/half_wave_rectified_sine.cpp
