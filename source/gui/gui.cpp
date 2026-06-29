@@ -69,14 +69,31 @@ namespace
 
     auto draw_section_header(const char* label) -> void
     {
-        ImGui::Spacing();
+        ImGui::Dummy({0.f, 6.f});
         ImGui::TextColored(ui_color(143, 211, 255), "%s", label);
-        ImGui::Separator();
+        const auto start = ImGui::GetCursorScreenPos();
+        const auto width = ImGui::GetContentRegionAvail().x;
+        ImGui::GetWindowDrawList()->AddLine(start, {start.x + width, start.y}, ImGui::GetColorU32(ui_color(55, 64, 74)), 1.f);
+        ImGui::Dummy({0.f, 5.f});
     }
 
     auto push_full_item_width() -> void
     {
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+    }
+
+    auto reset_visualization(UI::Settings& settings) -> void
+    {
+        settings.wave().clear();
+        settings.path().clear();
+        settings.set_phase(0.f);
+        settings.set_number_of_harmonic(Config::Defaults::harmonic_count);
+        settings.set_frequency(Config::Defaults::frequency);
+        settings.set_radius(Config::Defaults::radius);
+        settings.set_x_scale(Config::Defaults::x_scale);
+        settings.set_y_scale(Config::Defaults::y_scale);
+        settings.reset_harmonic_mask();
+        settings.set_selected_wave_index(Waves::index_of<Waves::Square>);
     }
 } // namespace
 
@@ -184,6 +201,9 @@ auto GUI::update_settings() -> void
         settings_.path().clear();
     }
     ImGui::EndDisabled();
+
+    if (ImGui::Button("Reset", {ImGui::GetContentRegionAvail().x, 0.f}))
+        reset_visualization(settings_);
 
     ImGui::Text("Frequency");
     push_full_item_width();
