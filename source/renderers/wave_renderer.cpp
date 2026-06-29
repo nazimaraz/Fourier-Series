@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <ranges>
+#include <span>
 #include <raylib.h>
 #include "wave_renderer.hpp"
 #include "config.hpp"
@@ -13,6 +14,18 @@
 #include "waves/wave_variant.hpp"
 
 using namespace Renderers;
+
+namespace
+{
+    auto draw_polyline(const std::span<const Vector2> points, const Color color, const float thickness) -> void
+    {
+        if (points.size() < 2)
+            return;
+
+        for (auto i = std::size_t{1}; i < points.size(); ++i)
+            DrawLineEx(points[i - 1], points[i], thickness, color);
+    }
+} // namespace
 
 WaveRenderer::WaveRenderer(UI::Settings& settings)
     : settings_{settings}
@@ -60,6 +73,14 @@ auto WaveRenderer::draw() const -> void
     const auto math_to_screen = [&translate](const Vector2 p) -> Vector2 {
         return Vector2{translate.x + p.x, translate.y - p.y};
     };
+    for (const auto& step : result.steps)
+    {
+        DrawCircleLinesV(math_to_screen(step.center), step.radius, Config::Wave::circle_color);
+        DrawLineEx(
+            math_to_screen(step.center), math_to_screen(step.tip), Config::Wave::epicycle_thickness, Config::Wave::epicycle_color
+        );
+    }
+
     if (path.size() > 1)
     {
         points_buffer_.clear();
@@ -67,7 +88,7 @@ auto WaveRenderer::draw() const -> void
         for (const auto& p : path)
             points_buffer_.push_back(math_to_screen(p));
 
-        DrawLineStrip(points_buffer_.data(), static_cast<int>(points_buffer_.size()), Config::Wave::path_color);
+        draw_polyline(points_buffer_, Config::Wave::path_color, Config::Wave::path_thickness);
     }
 
     if (const auto& drawing = settings_.get_drawing_points(); drawing.size() > 1)
@@ -77,14 +98,7 @@ auto WaveRenderer::draw() const -> void
         for (const auto& p : drawing)
             points_buffer_.push_back(math_to_screen(p));
 
-        constexpr auto draw_color = Color{.r = 200, .g = 200, .b = 200, .a = 180};
-        DrawLineStrip(points_buffer_.data(), static_cast<int>(points_buffer_.size()), draw_color);
-    }
-
-    for (const auto& step : result.steps)
-    {
-        DrawCircleLinesV(math_to_screen(step.center), step.radius, Config::Wave::circle_color);
-        DrawLineV(math_to_screen(step.center), math_to_screen(step.tip), Config::Wave::epicycle_color);
+        draw_polyline(points_buffer_, Config::Wave::drawing_color, Config::Wave::drawing_thickness);
     }
 
     const auto x_scale = settings_.x_scale();
@@ -93,11 +107,11 @@ auto WaveRenderer::draw() const -> void
     constexpr auto epicycle_offset = Config::Chart::origin_x - Config::Wave::epicycle_origin_x;
     const auto epicycle_tip_on_screen = Vector2Subtract(math_to_screen(result.tip), {epicycle_offset, 0.f});
     const auto wave_start_on_screen = math_to_screen({0.f, wave.front() * y_scale});
-    DrawLineV(epicycle_tip_on_screen, wave_start_on_screen, Config::Wave::wave_color);
+    DrawLineEx(epicycle_tip_on_screen, wave_start_on_screen, Config::Wave::connector_thickness, Config::Wave::connector_color);
     points_buffer_.clear();
     points_buffer_.reserve(wave.size());
     for (const auto i : std::views::iota(std::size_t{0}, wave.size()))
         points_buffer_.push_back(math_to_screen({static_cast<float>(i) * x_scale, wave.at(i) * y_scale}));
 
-    DrawLineStrip(points_buffer_.data(), static_cast<int>(points_buffer_.size()), Config::Wave::wave_color);
+    draw_polyline(points_buffer_, Config::Wave::wave_color, Config::Wave::wave_thickness);
 }

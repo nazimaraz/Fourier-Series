@@ -55,10 +55,17 @@ namespace Config
         inline constexpr auto epicycle_origin_y = 450.f;
         inline constexpr auto substeps_per_cycle = 1000.f;
         inline constexpr auto substeps_max = 64;
-        inline constexpr auto wave_color = Color{.r = 255, .g = 90, .b = 95, .a = 255};
-        inline constexpr auto epicycle_color = Color{.r = 232, .g = 238, .b = 245, .a = 245};
-        inline constexpr auto circle_color = Color{.r = 183, .g = 195, .b = 208, .a = 95};
-        inline constexpr auto path_color = Color{.r = 255, .g = 154, .b = 138, .a = 205};
+        inline constexpr auto wave_color = Color{.r = 72, .g = 221, .b = 186, .a = 255};
+        inline constexpr auto connector_color = Color{.r = 143, .g = 211, .b = 255, .a = 150};
+        inline constexpr auto epicycle_color = Color{.r = 221, .g = 230, .b = 240, .a = 185};
+        inline constexpr auto circle_color = Color{.r = 104, .g = 130, .b = 153, .a = 58};
+        inline constexpr auto path_color = Color{.r = 255, .g = 126, .b = 103, .a = 185};
+        inline constexpr auto drawing_color = Color{.r = 232, .g = 238, .b = 245, .a = 165};
+        inline constexpr auto wave_thickness = 2.25f;
+        inline constexpr auto path_thickness = 1.75f;
+        inline constexpr auto epicycle_thickness = 1.35f;
+        inline constexpr auto connector_thickness = 1.5f;
+        inline constexpr auto drawing_thickness = 2.f;
     } // namespace Wave
 
     namespace Formula
