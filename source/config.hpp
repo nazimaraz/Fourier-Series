@@ -67,7 +67,11 @@ namespace Config
         inline constexpr auto dynamic_text_size = 22.f;
         inline constexpr auto margin_top = 14.f;
         inline constexpr auto panel_gap = 16.f;
+        inline constexpr auto panel_padding = 12.f;
+        inline constexpr auto panel_radius = 0.06f;
         inline constexpr auto vertical_gap = 6.f;
+        inline constexpr auto panel_background = Color{.r = 20, .g = 24, .b = 29, .a = 220};
+        inline constexpr auto panel_border = Color{.r = 55, .g = 64, .b = 74, .a = 190};
         inline constexpr auto color = to_argb({.r = 220, .g = 227, .b = 234, .a = 255});
         inline constexpr auto dynamic_color = to_argb(Color{.r = 143, .g = 211, .b = 255, .a = 255});
     } // namespace Formula

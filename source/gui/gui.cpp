@@ -19,6 +19,8 @@ GUI::~GUI() = default;
 
 namespace
 {
+    constexpr auto settings_panel_width = 280.f;
+
     [[nodiscard]] auto ui_color(const int r, const int g, const int b, const int a = 255) -> ImVec4
     {
         return {static_cast<float>(r) / 255.f, static_cast<float>(g) / 255.f, static_cast<float>(b) / 255.f,
@@ -58,6 +60,13 @@ namespace
         colors[ImGuiCol_CheckMark] = ui_color(54, 209, 196);
         colors[ImGuiCol_SliderGrab] = ui_color(54, 209, 196);
         colors[ImGuiCol_SliderGrabActive] = ui_color(143, 211, 255);
+    }
+
+    auto push_button_colors(const ImVec4 color, const ImVec4 hovered, const ImVec4 active) -> void
+    {
+        ImGui::PushStyleColor(ImGuiCol_Button, color);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hovered);
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, active);
     }
 
     auto draw_section_header(const char* label) -> void
@@ -122,12 +131,14 @@ auto GUI::update_impl() -> void
 {
     ClearBackground(settings_.get_background_color());
     rlImGuiBegin();
-    ImGui::SetNextWindowSizeConstraints({200.f, static_cast<float>(GetScreenHeight())},
-        {static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())});
-    ImGui::SetNextWindowPos({0.f, 0.f});
-    ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+    const auto screen_height = static_cast<float>(GetScreenHeight());
+    ImGui::SetNextWindowPos({0.f, 0.f}, ImGuiCond_Always);
+    ImGui::SetNextWindowSize({settings_panel_width, screen_height}, ImGuiCond_Always);
+    ImGui::Begin("Settings", nullptr,
+        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings |
+            ImGuiWindowFlags_NoTitleBar);
     update_settings();
-    const auto panel_right = ImGui::GetWindowWidth();
+    const auto panel_right = ImGui::GetWindowPos().x + ImGui::GetWindowWidth();
     ImGui::End();
     rlImGuiEnd();
     drawing_input_->handle();
@@ -144,13 +155,20 @@ auto GUI::update_settings() -> void
 
     ImGui::TextColored(ui_color(220, 227, 234), "Fourier Series");
     ImGui::TextDisabled("FPS %d", settings_.get_fps());
+    ImGui::SameLine();
+    if (settings_.get_is_paused())
+        ImGui::TextColored(ui_color(255, 209, 102), "Paused");
+    else
+        ImGui::TextColored(ui_color(54, 209, 196), "Running");
 
     draw_section_header("Playback");
     const auto button_width = (ImGui::GetContentRegionAvail().x - ImGui::GetStyle().ItemSpacing.x) * 0.5f;
     if (settings_.get_is_paused())
     {
+        push_button_colors(ui_color(32, 124, 118), ui_color(42, 148, 140), ui_color(50, 172, 162));
         if (ImGui::Button("Continue", {button_width, 0.f}))
             settings_.set_is_paused(false);
+        ImGui::PopStyleColor(3);
     }
     else
     {

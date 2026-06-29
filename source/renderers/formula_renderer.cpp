@@ -6,6 +6,8 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <algorithm>
+#include <raylib.h>
 #include <texrender/raylib_surface.hpp>
 #include <texrender/render_handle.hpp>
 #include "formula_renderer.hpp"
@@ -81,13 +83,30 @@ auto FormulaRenderer::draw(const float panel_right) -> void
         last_dynamic_ = signature;
     }
 
+    if (!static_formula_ && !dynamic_formula_)
+        return;
+
     const auto left_x = panel_right + panel_gap;
+    const auto static_w = static_formula_ ? static_cast<float>(static_formula_->width()) : 0.f;
+    const auto static_h = static_formula_ ? static_cast<float>(static_formula_->height()) : 0.f;
+    const auto dynamic_w = dynamic_formula_ ? static_cast<float>(dynamic_formula_->width()) : 0.f;
+    const auto dynamic_h = dynamic_formula_ ? static_cast<float>(dynamic_formula_->height()) : 0.f;
+    const auto content_width = std::max(static_w, dynamic_w);
+    const auto content_height = static_h + (static_formula_ && dynamic_formula_ ? vertical_gap : 0.f) + dynamic_h;
+    const auto panel = Rectangle{
+        .x = left_x - panel_padding,
+        .y = margin_top - panel_padding,
+        .width = content_width + 2.f * panel_padding,
+        .height = content_height + 2.f * panel_padding,
+    };
+    DrawRectangleRounded(panel, panel_radius, 8, panel_background);
+    DrawRectangleRoundedLinesEx(panel, panel_radius, 8, 1.f, panel_border);
+
     if (static_formula_)
         static_formula_->draw(static_cast<int>(left_x), static_cast<int>(margin_top));
 
     if (dynamic_formula_)
     {
-        const auto static_h = static_formula_ ? static_cast<float>(static_formula_->height()) : 0.f;
         const auto y = margin_top + static_h + vertical_gap;
         dynamic_formula_->draw(static_cast<int>(left_x), static_cast<int>(y));
     }
