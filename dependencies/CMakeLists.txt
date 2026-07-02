@@ -1,6 +1,12 @@
 add_subdirectory(imgui)
 add_subdirectory(rlImGui)
 add_subdirectory(raylib)
+if (MSVC)
+    target_compile_options(raylib PRIVATE /w)
+else ()
+    target_compile_options(raylib PRIVATE -w)
+endif ()
+
 set(TEXRENDER_BACKEND "raylib" CACHE STRING "Rendering backend to build (headless, svg, raylib, sdl2)")
 add_subdirectory(TeXRender)
 find_package(Boost REQUIRED CONFIG)
