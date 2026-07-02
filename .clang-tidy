@@ -38,7 +38,8 @@ Checks: >
   -*-include-cleaner,
   -*-avoid-pragma-once,
   -*-non-private-member-variables-in-classes,
-  -*-exception-escape
+  -*-exception-escape,
+  -*-pro-type-vararg
 
 CheckOptions:
   misc-include-cleaner.UnusedIncludes: true

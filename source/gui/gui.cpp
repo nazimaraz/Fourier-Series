@@ -101,7 +101,10 @@ namespace
         -> void
     {
         auto value_text = std::array<char, 32>{};
-        std::snprintf(value_text.data(), value_text.size(), format, value);
+        if (const auto written = std::snprintf(value_text.data(), value_text.size(), format, value);
+            written < 0 || static_cast<std::size_t>(written) >= value_text.size())
+            value_text.back() = '\0';
+
         draw_control_label(label, value_text.data());
         push_full_item_width();
         ImGui::SliderFloat(id, &value, min, max, format);
@@ -112,7 +115,10 @@ namespace
         -> void
     {
         auto value_text = std::array<char, 32>{};
-        std::snprintf(value_text.data(), value_text.size(), "%u", value);
+        if (const auto written = std::snprintf(value_text.data(), value_text.size(), "%u", value);
+            written < 0 || static_cast<std::size_t>(written) >= value_text.size())
+            value_text.back() = '\0';
+
         draw_control_label(label, value_text.data());
         push_full_item_width();
         ImGui::SliderScalar(id, ImGuiDataType_U32, &value, &min, &max, "%u");
@@ -256,9 +262,8 @@ auto GUI::update_settings() -> void
     }
 
     draw_uint_slider("Harmonics", "##NumberOfHarmonic", settings_.mutable_number_of_harmonic(), 1u,
-        static_cast<unsigned int>(Config::Defaults::max_harmonic_count));
+        Config::Defaults::max_harmonic_count);
     draw_float_slider("Radius", "##Radius", settings_.mutable_radius(), 0.1f, 200.f, "%.1f");
-
     draw_section_header("Signal Scale");
     draw_float_slider("X", "##XScale", settings_.mutable_x_scale(), 0.1f, 5.f, "%.2f");
     draw_float_slider("Y", "##YScale", settings_.mutable_y_scale(), 0.1f, 5.f, "%.2f");
