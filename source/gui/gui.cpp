@@ -31,37 +31,39 @@ namespace
 
     auto apply_imgui_theme() -> void
     {
+        namespace Theme = Config::Theme;
+
         auto& style = ImGui::GetStyle();
-        style.WindowPadding = {14.f, 14.f};
-        style.FramePadding = {10.f, 6.f};
-        style.ItemSpacing = {10.f, 8.f};
-        style.ItemInnerSpacing = {8.f, 6.f};
-        style.WindowRounding = 0.f;
-        style.FrameRounding = 5.f;
-        style.GrabRounding = 5.f;
-        style.ScrollbarRounding = 5.f;
-        style.WindowBorderSize = 0.f;
-        style.FrameBorderSize = 1.f;
+        style.WindowPadding = Theme::window_padding;
+        style.FramePadding = Theme::frame_padding;
+        style.ItemSpacing = Theme::item_spacing;
+        style.ItemInnerSpacing = Theme::item_inner_spacing;
+        style.WindowRounding = Theme::window_rounding;
+        style.FrameRounding = Theme::frame_rounding;
+        style.GrabRounding = Theme::grab_rounding;
+        style.ScrollbarRounding = Theme::scrollbar_rounding;
+        style.WindowBorderSize = Theme::window_border_size;
+        style.FrameBorderSize = Theme::frame_border_size;
 
         auto& colors = style.Colors;
-        colors[ImGuiCol_Text] = ui_color(220, 227, 234);
-        colors[ImGuiCol_TextDisabled] = ui_color(139, 150, 163);
-        colors[ImGuiCol_WindowBg] = ui_color(20, 24, 29, 245);
-        colors[ImGuiCol_Border] = ui_color(55, 64, 74);
-        colors[ImGuiCol_FrameBg] = ui_color(28, 34, 40);
-        colors[ImGuiCol_FrameBgHovered] = ui_color(36, 43, 51);
-        colors[ImGuiCol_FrameBgActive] = ui_color(43, 51, 60);
-        colors[ImGuiCol_TitleBg] = ui_color(20, 24, 29);
-        colors[ImGuiCol_TitleBgActive] = ui_color(20, 24, 29);
-        colors[ImGuiCol_Button] = ui_color(38, 46, 54);
-        colors[ImGuiCol_ButtonHovered] = ui_color(48, 58, 68);
-        colors[ImGuiCol_ButtonActive] = ui_color(55, 67, 78);
-        colors[ImGuiCol_Header] = ui_color(35, 45, 52);
-        colors[ImGuiCol_HeaderHovered] = ui_color(46, 60, 68);
-        colors[ImGuiCol_HeaderActive] = ui_color(52, 70, 78);
-        colors[ImGuiCol_CheckMark] = ui_color(54, 209, 196);
-        colors[ImGuiCol_SliderGrab] = ui_color(54, 209, 196);
-        colors[ImGuiCol_SliderGrabActive] = ui_color(143, 211, 255);
+        colors[ImGuiCol_Text] = Theme::text_color;
+        colors[ImGuiCol_TextDisabled] = Theme::text_disabled_color;
+        colors[ImGuiCol_WindowBg] = Theme::window_background_color;
+        colors[ImGuiCol_Border] = Theme::border_color;
+        colors[ImGuiCol_FrameBg] = Theme::frame_background_color;
+        colors[ImGuiCol_FrameBgHovered] = Theme::frame_background_hovered_color;
+        colors[ImGuiCol_FrameBgActive] = Theme::frame_background_active_color;
+        colors[ImGuiCol_TitleBg] = Theme::title_background_color;
+        colors[ImGuiCol_TitleBgActive] = Theme::title_background_active_color;
+        colors[ImGuiCol_Button] = Theme::button_color;
+        colors[ImGuiCol_ButtonHovered] = Theme::button_hovered_color;
+        colors[ImGuiCol_ButtonActive] = Theme::button_active_color;
+        colors[ImGuiCol_Header] = Theme::header_color;
+        colors[ImGuiCol_HeaderHovered] = Theme::header_hovered_color;
+        colors[ImGuiCol_HeaderActive] = Theme::header_active_color;
+        colors[ImGuiCol_CheckMark] = Theme::check_mark_color;
+        colors[ImGuiCol_SliderGrab] = Theme::slider_grab_color;
+        colors[ImGuiCol_SliderGrabActive] = Theme::slider_grab_active_color;
     }
 
     auto push_button_colors(const ImVec4 color, const ImVec4 hovered, const ImVec4 active) -> void

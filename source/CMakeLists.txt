@@ -28,6 +28,7 @@ target_compile_features(fourier_core PUBLIC cxx_std_23)
 target_include_directories(fourier_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(fourier_core PUBLIC
         Boost::boost
+        imgui
         raylib
 )
 CompileOptions(fourier_core)

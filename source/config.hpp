@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <imgui.h>
 #include <raylib.h>
 
 namespace Config
@@ -35,6 +36,47 @@ namespace Config
         inline constexpr auto settings_panel_width = 280.f;
         inline constexpr auto canvas_divider = Color{.r = 55, .g = 64, .b = 74, .a = 210};
     } // namespace Layout
+
+    namespace Theme
+    {
+        [[nodiscard]] constexpr auto rgba(const int r, const int g, const int b, const int a = 255) -> ImVec4
+        {
+            return {
+                static_cast<float>(r) / 255.f, static_cast<float>(g) / 255.f, static_cast<float>(b) / 255.f,
+                static_cast<float>(a) / 255.f
+            };
+        }
+
+        inline constexpr auto window_padding = ImVec2{14.f, 14.f};
+        inline constexpr auto frame_padding = ImVec2{10.f, 6.f};
+        inline constexpr auto item_spacing = ImVec2{10.f, 8.f};
+        inline constexpr auto item_inner_spacing = ImVec2{8.f, 6.f};
+        inline constexpr auto window_rounding = 0.f;
+        inline constexpr auto frame_rounding = 5.f;
+        inline constexpr auto grab_rounding = 5.f;
+        inline constexpr auto scrollbar_rounding = 5.f;
+        inline constexpr auto window_border_size = 0.f;
+        inline constexpr auto frame_border_size = 1.f;
+
+        inline constexpr auto text_color = rgba(220, 227, 234);
+        inline constexpr auto text_disabled_color = rgba(139, 150, 163);
+        inline constexpr auto window_background_color = rgba(20, 24, 29, 245);
+        inline constexpr auto border_color = rgba(55, 64, 74);
+        inline constexpr auto frame_background_color = rgba(28, 34, 40);
+        inline constexpr auto frame_background_hovered_color = rgba(36, 43, 51);
+        inline constexpr auto frame_background_active_color = rgba(43, 51, 60);
+        inline constexpr auto title_background_color = rgba(20, 24, 29);
+        inline constexpr auto title_background_active_color = rgba(20, 24, 29);
+        inline constexpr auto button_color = rgba(38, 46, 54);
+        inline constexpr auto button_hovered_color = rgba(48, 58, 68);
+        inline constexpr auto button_active_color = rgba(55, 67, 78);
+        inline constexpr auto header_color = rgba(35, 45, 52);
+        inline constexpr auto header_hovered_color = rgba(46, 60, 68);
+        inline constexpr auto header_active_color = rgba(52, 70, 78);
+        inline constexpr auto check_mark_color = rgba(54, 209, 196);
+        inline constexpr auto slider_grab_color = rgba(54, 209, 196);
+        inline constexpr auto slider_grab_active_color = rgba(143, 211, 255);
+    } // namespace Theme
 
     namespace Chart
     {
