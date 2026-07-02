@@ -255,7 +255,8 @@ auto GUI::update_settings() -> void
         ImGui::PopItemWidth();
     }
 
-    draw_uint_slider("Harmonics", "##NumberOfHarmonic", settings_.mutable_number_of_harmonic(), 1u, 100u);
+    draw_uint_slider("Harmonics", "##NumberOfHarmonic", settings_.mutable_number_of_harmonic(), 1u,
+        static_cast<unsigned int>(Config::Defaults::max_harmonic_count));
     draw_float_slider("Radius", "##Radius", settings_.mutable_radius(), 0.1f, 200.f, "%.1f");
 
     draw_section_header("Signal Scale");
